@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dagens pass</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#3f8a63">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dagens pass">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f3f1ee; --fg:#1c1b19; --muted:#6b6862; --card:#fff; --line:#dcd8d1; --accent:#1c1b19; --accent-fg:#f3f1ee;
+  --work:#c8321f; --rest:#1f6f8b; --prep:#8a6a00; --done:#2e7d4f;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#171614;--fg:#f1eee9;--muted:#9a958c;--card:#222018;--line:#38352e;--accent:#f1eee9;--accent-fg:#171614}
+}
+:root[data-theme="dark"]{--bg:#171614;--fg:#f1eee9;--muted:#9a958c;--card:#222018;--line:#38352e;--accent:#f1eee9;--accent-fg:#171614}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--fg);
+  font-family:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  transition:background .35s;
+  -webkit-tap-highlight-color:transparent;
+}
+body.work{background:var(--work);color:#fff}
+body.rest{background:var(--rest);color:#fff}
+body.prep{background:var(--prep);color:#fff}
+body.done{background:var(--done);color:#fff}
+main{height:100%;display:flex;flex-direction:column;padding:20px;max-width:520px;margin:0 auto;overflow-y:auto}
+h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:2rem;margin:8px 0 20px}
+.hidden{display:none!important}
+
+/* Inställningar */
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:1.6rem;line-height:1;cursor:pointer}
+.step button:active{background:var(--line)}
+.val{min-width:84px;text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:2rem}
+.total{color:var(--muted);text-align:center;margin:8px 0 auto}
+.go{margin-top:20px;width:100%;height:64px;border:0;border-radius:16px;background:var(--accent);color:var(--accent-fg);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.6rem;cursor:pointer}
+
+body.warm{background:#6a4c93;color:#fff}
+body.cool{background:#55606e;color:#fff}
+.today{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:8px}
+.th{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.5rem;text-transform:capitalize}
+.tm{color:var(--muted);font-size:.95rem;margin:2px 0 10px}
+#t-list{columns:2;margin:0;padding-left:20px;line-height:1.6}
+h2.sub{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:1.4rem;margin:22px 0 10px}
+#fig{display:none;width:100%;flex:1 1 0;min-height:0;stroke:currentColor;fill:none;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.hasfig #fig{display:block}
+#fig.dim{opacity:.55}
+.hasfig .time{flex:0 0 auto;font-size:clamp(4.5rem,22vw,7.5rem);padding:4px 0 12px}
+.skip{margin-bottom:12px}
+.ctrl.skip button{height:48px;font-size:1.25rem}
+.gh{opacity:.45;stroke-width:4;stroke-dasharray:.1 9}
+#f-tor{stroke-width:10}
+#f-hd{fill:currentColor}
+.hasfig #fig{min-height:90px}
+.tip{display:none;margin:0 6px 4px;min-height:4em;font-size:.98rem;line-height:1.35}
+.hasfig .tip{display:block}
+.awake{font-size:.8rem;opacity:.75;margin:6px 0 0;min-height:1.2em}
+.reps{display:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.3rem;margin:2px 0 4px;min-height:1.4em}
+.hasfig .reps{display:block}
+.hasfig .tip{min-height:3.4em;font-size:.92rem}
+.tickbtn{align-self:center;background:transparent;color:inherit;border:1px solid rgba(255,255,255,.5);border-radius:20px;padding:6px 14px;font:inherit;font-size:.85rem;margin-top:6px;cursor:pointer}
+#f-lab{fill:currentColor;stroke:none;font:700 10px 'Barlow Condensed','Arial Narrow',sans-serif;letter-spacing:.03em}
+#t-list{columns:1;padding-left:0}
+.grp{font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.exr{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:6px 12px 6px 8px;margin-bottom:6px;font:inherit;cursor:pointer}
+.exr:active{background:var(--line)}
+.exr svg{flex:0 0 68px;width:68px;height:41px;stroke:currentColor;fill:none;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+.exr b{display:block;font-weight:600}
+.exr small{color:var(--muted)}
+.exr .go2{margin-left:auto;color:var(--muted);font-size:1.5rem}
+.gen{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:8px 0 0}
+.gen b{font-weight:600}
+.gen small{display:block;color:var(--muted)}
+.gen .val{min-width:64px;font-size:1.7rem}
+.rst{background:none;border:0;color:var(--muted);text-decoration:underline;font:inherit;font-size:.85rem;padding:6px 0 0;cursor:pointer}
+.exth{background:none;border:0;padding:0;color:inherit;cursor:pointer;flex:0 0 68px}
+.exc{flex:1;min-width:0}
+.exn{background:none;border:0;padding:0;color:inherit;font:inherit;font-weight:600;text-align:left;cursor:pointer}
+.exs{display:flex;align-items:center;gap:6px;margin-top:4px}
+.exs button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:1.2rem;line-height:1;cursor:pointer}
+.exs button:active{background:var(--line)}
+.ev{min-width:46px;text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.25rem}
+.ev.custom{text-decoration:underline}
+.exi{color:var(--muted);margin-left:4px}
+:root{--warm-bg:#fcefd8;--warm-ac:#e8a94d;--warm-fg:#8a5712;--main-bg:#e2f0e3;--main-ac:#6dbb7f;--main-fg:#2b6a3a;--cool-bg:#e3e8f8;--cool-ac:#8c9be0;--cool-fg:#3a4a92;--rowbg:rgba(255,255,255,.65);--g1:#fbf6ee;--g2:#eaf1ef}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--warm-bg:#3a3022;--warm-ac:#d79a42;--warm-fg:#f0c37a;--main-bg:#223529;--main-ac:#5aa56d;--main-fg:#9fd6ab;--cool-bg:#262b42;--cool-ac:#7d8ddb;--cool-fg:#b3bff5;--rowbg:rgba(255,255,255,.07);--g1:#1c1a17;--g2:#161c1c}}
+body{background:linear-gradient(170deg,var(--g1),var(--g2)) fixed}
+body.warm{background:#a56a14}
+body.cool{background:#4a5aa6}
+h1{font-size:2.4rem;margin:6px 0 2px}
+.today{background:none;border:0;padding:0;margin:0}
+.th{font-family:'Barlow',system-ui,sans-serif;font-weight:600;font-size:1.05rem;color:var(--muted)}
+.tm{margin:2px 0 0}
+.bar{display:flex;gap:3px;height:10px;margin:14px 0 6px}
+.bar i{border-radius:6px}
+.bar .warm,.leg .warm::before{background:var(--warm-ac)}
+.bar .main,.leg .main::before{background:var(--main-ac)}
+.bar .cool,.leg .cool::before{background:var(--cool-ac)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-bottom:4px}
+.leg span::before{content:'';display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.go{background:linear-gradient(135deg,#3f8a63,#3a7f8f);color:#fff;height:68px;border-radius:20px;box-shadow:0 6px 18px rgba(58,127,143,.28)}
+.gen{background:var(--card);border:0;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin:16px 0 0}
+.hint{color:var(--muted);font-size:.85rem;text-align:center;margin:16px 0 0}
+.blk{--bb:var(--card);--ba:var(--line);--bf:var(--fg);background:var(--bb);border-left:6px solid var(--ba);border-radius:20px;padding:12px 12px 6px 10px;margin:12px 0}
+.blk.warm{--bb:var(--warm-bg);--ba:var(--warm-ac);--bf:var(--warm-fg)}
+.blk.main{--bb:var(--main-bg);--ba:var(--main-ac);--bf:var(--main-fg)}
+.blk.cool{--bb:var(--cool-bg);--ba:var(--cool-ac);--bf:var(--cool-fg)}
+.bh{display:flex;align-items:baseline;justify-content:space-between;color:var(--bf);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.5rem;padding:0 4px 8px}
+.bh small{font-family:'Barlow',system-ui,sans-serif;font-weight:600;font-size:.85rem}
+.blk .exr{background:var(--rowbg);border-color:transparent}
+.blk .exr:active{background:var(--bb)}
+.blk .exth svg{color:var(--bf)}
+.blk .exs button{border-color:var(--ba);color:var(--bf)}
+.blk .ev{color:var(--bf)}
+.blk .exi{color:var(--bf);opacity:.8}
+.gen+.gen{margin-top:8px}
+.rs{margin-top:2px}
+.exl{min-width:36px;opacity:.85}
+.blk .exl{color:var(--bf)}
+.seg{display:flex;gap:6px;background:var(--card);padding:4px;border-radius:16px;margin-top:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.seg button{flex:1;height:44px;border:0;border-radius:12px;background:transparent;color:var(--fg);font:inherit;font-weight:600;font-size:1rem;cursor:pointer}
+.seg button.on{color:#fff}
+.seg button[data-l="0"].on{background:#3f8f64}
+.seg button[data-l="1"].on{background:#b97a14}
+.seg button[data-l="2"].on{background:#c04a3b}
+.ldinfo{color:var(--muted);font-size:.9rem;margin:6px 2px 0;min-height:1.3em}
+body.rbreak{background:#2a7f6f;color:#fff}
+.confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:5}
+.confetti i{position:absolute;top:-16px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
+.pepp{display:none;text-align:center;font-size:1.3rem;font-weight:600;line-height:1.3;margin:0 10px 18px}
+body.done .pepp{display:block;animation:fadein .9s 1.4s both}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.nextbox{display:none;margin:6px 8px 0;padding:8px 14px;border-radius:16px;background:rgba(255,255,255,.2)}
+.nextbox small{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.nextbox b{display:block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:2rem;line-height:1.1}
+.hasfig #fig.dim{opacity:.85}
+/* Timer */
+#run{flex:1;display:flex;flex-direction:column;text-align:center}
+.phase{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:clamp(1.9rem,9vw,2.9rem);margin-top:14px;line-height:1.1;padding:0 8px}
+.round{opacity:.85;font-size:1.15rem;margin-top:4px}
+.time{flex:1;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:clamp(7rem,38vw,13rem);line-height:1;font-variant-numeric:tabular-nums}
+.ctrl{display:flex;gap:12px;margin-bottom:8px}
+.ctrl button{flex:1;height:64px;border-radius:16px;border:2px solid rgba(255,255,255,.7);background:transparent;color:#fff;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.5rem;cursor:pointer}
+.ctrl button.main{background:#fff;color:#1c1b19;border-color:#fff}
+button:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+@media (prefers-reduced-motion:reduce){body{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <section id="setup">
+    <h1>Dagens pass</h1>
+    <div class="today"><div class="th" id="t-title"></div><div class="tm" id="t-meta"></div>
+    <div class="bar" id="bar"></div>
+    <div class="leg"><span class="warm">Uppvärmning</span><span class="main">Träning</span><span class="cool">Nedvarvning</span></div>
+    <div class="seg" id="seg" role="group" aria-label="Belastning"><button type="button" data-l="0">Lätt</button><button type="button" data-l="1">Medel</button><button type="button" data-l="2">Hårt</button></div>
+    <div class="ldinfo" id="ld-sub"></div>
+    <button class="go" id="start-today">Starta dagens pass</button>
+    <div class="gen"><div><b>Tid per övning</b><small id="g-sub"></small></div><div class="step"><button id="g-m" aria-label="Kortare tid för alla">−</button><span class="val" id="g-v"></span><button id="g-p" aria-label="Längre tid för alla">+</button></div></div>
+    <div class="gen"><div><b>Vilotid</b><small id="g2-sub"></small></div><div class="step"><button id="g2-m" aria-label="Kortare vila för alla">−</button><span class="val" id="g2-v"></span><button id="g2-p" aria-label="Längre vila för alla">+</button></div></div>
+    <div class="gen"><div><b>Paus mellan varv</b><small>Längre vila mellan varven</small></div><div class="step"><button id="g3-m" aria-label="Kortare paus mellan varv">−</button><span class="val" id="g3-v"></span><button id="g3-p" aria-label="Längre paus mellan varv">+</button></div></div>
+    <button class="rst" id="g-r" type="button">Återställ till standard</button><p class="hint">Tryck på en övning för att börja där</p><div id="t-list"></div></div>
+  </section>
+
+  <section id="run" class="hidden" aria-live="off">
+    <div id="confetti" class="confetti" aria-hidden="true"></div>
+    <div class="phase" id="phase"></div>
+    <div class="round" id="round"></div>
+    <div class="nextbox" id="nextbox"><small id="nx-l"></small><b id="nx-n"></b></div>
+    <svg id="fig" viewBox="0 0 200 120" aria-hidden="true"><line x1="10" y1="109" x2="190" y2="109" opacity=".4" stroke-width="3"/><path id="gh1" class="gh"/><path id="gh2" class="gh"/><polyline id="f-arm2" opacity=".5"/><polyline id="f-l2" opacity=".55"/><polyline id="f-l1"/><path id="f-tor"/><polyline id="f-arm"/><circle id="f-hd" r="8"/><text id="f-lab" x="8" y="14"></text></svg>
+    <div class="reps" id="reps"></div>
+    <p class="tip" id="tip"></p>
+    <div class="time" id="time" role="timer">0:00</div>
+    <p class="pepp" id="pepp"></p>
+    <div class="ctrl skip" id="skip">
+      <button id="prev" aria-label="Föregående övning">‹ Föregående</button>
+      <button id="next" aria-label="Nästa övning">Nästa ›</button>
+    </div>
+    <div class="ctrl">
+      <button id="pause" class="main">Pausa</button>
+      <button id="stop">Avsluta</button>
+    </div>
+    <p class="awake" id="awake"></p>
+    <button class="tickbtn" id="tickbtn" type="button"></button>
+  </section>
+</main>
+
+<script>
+(function(){
+  var cfg={work:30,rest:15,rounds:8};
+  try{var s=JSON.parse(localStorage.getItem('intervall-cfg'));if(s&&s.work&&s.rest&&s.rounds)cfg=s}catch(e){}
+  var $=function(i){return document.getElementById(i)};
+  var segs=[],idx=0,remMs=0,endAt=0,running=false,timerId=null,lastBeep=-1,ac=null,lock=null;
+
+  function fmt(sec){var m=Math.floor(sec/60),s=sec%60;return m+':'+(s<10?'0':'')+s}
+  function fmtLong(sec){var m=Math.floor(sec/60),s=sec%60;return m?m+' min'+(s?' '+s+' s':''):s+' s'}
+
+  function beep(freq,dur){
+    if(!ac)return;
+    try{
+      var o=ac.createOscillator(),g=ac.createGain();
+      o.type='sine';o.frequency.value=freq;
+      g.gain.setValueAtTime(.0001,ac.currentTime);
+      g.gain.exponentialRampToValueAtTime(.5,ac.currentTime+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+dur);
+      o.connect(g);g.connect(ac.destination);
+      o.start();o.stop(ac.currentTime+dur+.02);
+    }catch(e){}
+    if(navigator.vibrate)try{navigator.vibrate(dur>.3?250:60)}catch(e){}
+  }
+
+  var WARM=['Armcirklar','Höftcirklar','Marsch med höga knän','Katt och ko'],COOL=['Sträck framsida lår','Barnets ställning'];
+  var POOL=[
+    [['Knäböj','Utfall bakåt'],['Sumo-knäböj med paus','Utfall framåt'],['Hoppknäböj','Hoppande utfall']],
+    [['Armhävningar på knä','Breda armhävningar på knä'],['Armhävningar','Breda armhävningar'],['Diamantarmhävningar','Långsamma armhävningar']],
+    [['Glutebrygga','Good morning'],['Glutebrygga med marsch','Glutebrygga med paus'],['Enbens glutebrygga','Enbens rumänsk marklyft']],
+    [['Superman','Omvänd snöängel'],['Superman med paus','Omvänd snöängel med paus'],['Y-T-W liggande','Superman med pulsar']],
+    [['Planka','Fågelhunden'],['Sidoplanka','Cykelcrunch'],['Planka med axelklapp','Benhöjningar liggande']],
+    [['Jumping jacks','Höga knän'],['Bergsklättrare','Skridskohopp'],['Burpees','Snabba bergsklättrare']]
+  ];
+  [[['Knäböj med armlyft','Långsam knäböj'],['Knäböj med paus','Gående utfall'],['Hoppknäböj med paus','Utfall med knälyft']],
+   [['Smala armhävningar på knä','Långsamma armhävningar på knä'],['Armhävningar med paus','Smala armhävningar'],['Armhävningar med lång paus','Explosiva armhävningar']],
+   [['Glutebrygga med knän isär','Långsam good morning'],['Glutebrygga på tå','Good morning med paus'],['Enbens glutebrygga med paus','Enbens good morning']],
+   [['Simning','Bakre armlyft'],['Superman med armar vid sidan','Liggande W-lyft'],['Superman med långa pauser','Superman-roddar']],
+   [['Planka på knä','Dead bug'],['Fågelhunden med paus','Liggande knälyft'],['Lång planka','Sidoplanka med höftlyft']],
+   [['Hälsparkar','Sidosteg'],['Korsande bergsklättrare','Höga knän med snabba armar'],['Halvburpees','Plankhopp']]
+  ].forEach(function(s,i){s.forEach(function(a,l){POOL[i][l]=POOL[i][l].concat(a)})});
+  var CP=[['Sträck framsida lår','Utfallssträck','Djup hukande ställning'],['Barnets ställning','Lugn katt och ko','Hängande framåtfällning'],['Sidosträck','Sträck armarna upp','Nackstretch']];
+  var WP=[['Armcirklar','Höftcirklar','Lugn framåtfällning'],['Marsch med höga knän','Lätta jumping jacks','Jogg på stället','Sidosteg med armsvingar'],['Lugna knäböj','Lugna utfall','Lätta glutebryggor'],['Katt och ko','Lätt fågelhund']];
+  function today(){
+    var n=new Date(),dn=Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5);
+    var w=Math.max(0,Math.floor((dn-Math.floor(Date.UTC(2026,9,19)/864e5))/7));
+    var ld=cfg.load||0,lv=ld,work=Math.min(50,[30,40,45][ld]+5*Math.min(2,Math.floor(w/2)));
+    WARM=WP.map(function(a,i){return a[(dn+i)%a.length]});
+    COOL=CP.map(function(a,i){return a[(dn+i)%a.length]});
+    return {w:w,lv:lv,work:work,rest:60-work,ex:POOL.map(function(p,i){var o=p[lv];return o[(dn+i)%o.length]})};
+  }
+  function thumb(x){
+    var ty=MAP[x],fr=ty&&FR[ty];
+    if(!fr)return '<svg viewBox="0 0 200 120"></svg>';
+    var p=ex(fr[Math.min(1,fr.length-1)]),m=p[19]>.5,pt=function(a){return a.join(' ')};
+    return '<svg viewBox="0 0 200 120" aria-hidden="true"><line x1="10" y1="109" x2="190" y2="109" opacity=".35" stroke-width="5"/><path d="'+tpath(p)+'" stroke-width="12"/><polyline points="'+pt([p[2],p[3],p[6],p[7],p[8],p[9]])+'"/>'+(m?'<polyline points="'+pt([p[2],p[3],2*p[2]-p[6],p[7],2*p[2]-p[8],p[9]])+'"/>':'')+'<polyline points="'+pt([p[4],p[5],p[10],p[11],p[12],p[13]])+'"/><polyline points="'+pt([p[4],p[5],p[14],p[15],p[16],p[17]])+'" opacity=".55"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="currentColor"/></svg>';
+  }
+  function renderToday(){
+    var T=today();
+    $('t-title').textContent=new Date().toLocaleDateString('sv-SE',{weekday:'long',day:'numeric',month:'long'});
+    $('t-meta').textContent='15 min · vecka '+(T.w+1)+' · nivå '+(T.lv+1)+' · '+T.work+' s arbete, '+T.rest+' s vila, 2 varv';
+    buildToday();
+    var tot=segs.reduce(function(a,s){return a+(s.t==='prep'?0:s.d)},0);
+    $('t-meta').textContent='Totalt '+fmtLong(tot)+' · '+['Lätt','Medel','Hårt'][cfg.load||0]+' · vecka '+(T.w+1);
+    $('g-v').textContent=cfg.gen?cfg.gen+' s':'Auto';
+    document.querySelectorAll('#seg button').forEach(function(b){b.classList.toggle('on',Number(b.dataset.l)===(cfg.load||0))});
+    $('ld-sub').textContent=['Lättaste varianterna','Medelsvåra varianter','Svåraste varianterna'][cfg.load||0]+' · '+T.work+' s arbete, '+T.rest+' s vila';
+    $('g2-v').textContent=cfg.rgen!=null?cfg.rgen+' s':'Auto';
+    $('g3-v').textContent=(cfg.rb||60)+' s';
+    $('g2-sub').textContent=cfg.rgen!=null?'Gäller alla övningar':'Standard för belastningen ('+T.rest+' s)';
+    $('g-sub').textContent=cfg.gen?'Gäller alla övningar':'Standard för belastningen';
+    var box=$('t-list');box.innerHTML='';
+    var cur=null;
+    var grp=function(n,t,c){cur=document.createElement('section');cur.className='blk '+c;var h=document.createElement('div');h.className='bh';var a=document.createElement('span'),m=document.createElement('small');a.textContent=n;m.textContent=t;h.appendChild(a);h.appendChild(m);cur.appendChild(h);box.appendChild(cur)};
+    var row=function(t,x,info){
+      var i=segs.findIndex(function(s){return s.t===t&&s.n===x});
+      var b=document.createElement('div');b.className='exr';
+      b.innerHTML='<button type="button" class="exth">'+thumb(x)+'</button><div class="exc"><button type="button" class="exn"></button><div class="exs"><button type="button" class="m" aria-label="Kortare tid">−</button><span class="ev"></span><button type="button" class="p" aria-label="Längre tid">+</button><small class="exi"></small></div>'+(info==='rest'?'<div class="exs rs"><small class="exl">Vila</small><button type="button" class="rm" aria-label="Kortare vila">−</button><span class="ev rv"></span><button type="button" class="rp" aria-label="Längre vila">+</button></div>':'')+'</div>';
+      var sg=segs[i],ev=b.querySelector('.ev');
+      b.querySelector('.exn').textContent=x;
+      ev.textContent=sg.d+' s';
+      if(cfg.ov[x])ev.classList.add('custom');
+      b.querySelector('.exi').textContent=info==='rest'?'':info;
+      if(info==='rest'){
+        var rd0=rst(x,T.rest),rv=b.querySelector('.rv');
+        rv.textContent=rd0+' s';
+        if(cfg.rov[x]!==undefined)rv.classList.add('custom');
+        var chr=function(d){cfg.rov[x]=Math.min(120,Math.max(0,rd0+d));saveCfg();renderToday()};
+        b.querySelector('.rm').addEventListener('click',function(){chr(-5)});
+        b.querySelector('.rp').addEventListener('click',function(){chr(5)});
+      }
+      var go=function(){start('today',i)};
+      b.querySelector('.exn').addEventListener('click',go);
+      b.querySelector('.exth').addEventListener('click',go);
+      var chg=function(d){cfg.ov[x]=Math.min(120,Math.max(10,sg.d+d));saveCfg();renderToday()};
+      b.querySelector('.m').addEventListener('click',function(){chg(-5)});
+      b.querySelector('.p').addEventListener('click',function(){chg(5)});
+      
+      (cur||box).appendChild(b);
+    };
+    var sum=function(t){return segs.reduce(function(a,s){return a+((s.t===t||(t==='work'&&(s.t==='rest'||s.t==='rbreak')))?s.d:0)},0)};
+    var bar=$('bar');bar.innerHTML='';
+    [['warm','warm'],['work','main'],['cool','cool']].forEach(function(a){var d=document.createElement('i');d.className=a[1];d.style.flex=sum(a[0]);bar.appendChild(d)});
+    grp('Uppvärmning',fmtLong(sum('warm')),'warm');WARM.forEach(function(x){row('warm',x,'')});
+    grp('Träning','2 varv · '+fmtLong(sum('work')),'main');T.ex.forEach(function(x){row('work',x,'rest')});
+    grp('Nedvarvning',fmtLong(sum('cool')),'cool');COOL.forEach(function(x){row('cool',x,'')});
+  }
+  var ST=[100,16,100,32,100,60,100,46,100,58,100,83,100,106],PU=[158,54,140,62,84,78,140,83,142,104,60,92,32,104],CAT=[134,52,118,60,78,62,118,82,118,104,78,86,60,104];
+  var FR={
+    squat:[ST,[96,40,92,56,78,82,106,54,120,56,104,80,100,106]],
+    lunge:[ST,[96,36,96,52,96,80,100,66,98,78,120,80,122,106,86,98,66,104]],
+    push:[PU,[158,90,140,96,84,100,126,90,142,104,60,103,32,106]],
+    bridge:[[42,98,58,102,88,102,74,103,90,103,104,84,120,104],[38,98,56,102,80,82,72,103,86,103,104,80,112,104]],
+    hinge:[ST,[128,52,114,56,86,64,116,70,116,82,90,85,92,106]],
+    superman:[[158,98,142,102,112,102,156,103,170,103,88,103,64,103],[158,84,142,92,112,102,156,88,170,86,88,100,64,94]],
+    plank:[[156,80,140,84,100,92,140,102,158,102,72,98,44,104],[156,79,140,83,100,90,140,102,158,102,72,97,44,104]],
+    bird:[CAT,[134,50,118,60,78,62,140,58,162,56,54,64,30,66]],
+    legraise:[[40,98,56,102,86,102,46,94,40,96,110,102,134,102],[40,98,56,102,86,102,46,94,40,96,86,78,86,54]],
+    climber:[PU,PU.concat([112,84,96,102])],
+    jack:[ST,[100,12,100,28,100,56,106,14,110,2,88,80,80,104,112,80,120,104]],
+    highknee:[ST,[100,16,100,32,100,60,110,50,122,46,122,58,118,82,100,83,100,106]],
+    burpee:[ST,[116,54,106,62,84,84,114,84,124,104,104,84,100,106],PU],
+    armcircle:[[100,16,100,32,100,60,100,18,100,4,100,83,100,106],[100,16,100,32,100,60,114,32,128,32,100,83,100,106],[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,16,100,32,100,60,86,32,72,32,100,83,100,106]],
+    hipcircle:[[106,16,104,32,90,60,110,46,96,58,100,83,100,106],[94,16,96,32,110,60,90,46,104,58,100,83,100,106]],
+    cat:[[132,74,118,60,78,56,118,82,118,104,78,82,60,104],[134,54,118,68,78,68,118,86,118,104,78,88,60,104]],
+    quad:[ST,[100,16,100,32,100,60,92,50,84,66,102,84,82,68,100,83,100,106]],
+    child:[CAT,[106,98,90,92,52,86,120,100,150,102,74,100,50,104]]
+  };
+  var LOOP={armcircle:1},DUR={armcircle:500,highknee:450,jack:550,climber:400,hipcircle:800};
+  var TY={
+    squat:['Knäböj','Sumo-knäböj med paus','Hoppknäböj'],
+    lunge:['Utfall bakåt','Utfall framåt','Hoppande utfall'],
+    push:['Armhävningar på knä','Breda armhävningar på knä','Armhävningar','Breda armhävningar','Diamantarmhävningar','Långsamma armhävningar'],
+    bridge:['Glutebrygga','Glutebrygga med marsch','Glutebrygga med paus','Enbens glutebrygga'],
+    hinge:['Good morning','Enbens rumänsk marklyft'],
+    superman:['Superman','Omvänd snöängel','Superman med paus','Omvänd snöängel med paus','Y-T-W liggande','Superman med pulsar'],
+    plank:['Planka','Sidoplanka','Planka med axelklapp'],
+    bird:['Fågelhunden'],
+    legraise:['Cykelcrunch','Benhöjningar liggande'],
+    climber:['Bergsklättrare','Snabba bergsklättrare'],
+    jack:['Jumping jacks','Skridskohopp'],
+    highknee:['Höga knän','Marsch med höga knän'],
+    burpee:['Burpees'],armcircle:['Armcirklar'],hipcircle:['Höftcirklar'],cat:['Katt och ko'],
+    quad:['Sträck framsida lår'],child:['Barnets ställning']
+  },MAP={};
+  FR.pushk=[[150,56,132,64,104,84,132,85,134,104,82,102,60,88],[150,86,132,92,104,98,118,90,134,104,82,102,60,90]];
+  FR.bridge1=[FR.bridge[0],[38,98,56,102,80,82,72,103,86,103,104,80,112,104,102,64,124,50]];
+  FR.hinge1=[ST,[128,52,114,56,86,64,116,70,116,82,90,85,92,106,60,62,34,60]];
+  FR.bike=[[44,88,58,94,88,102,48,86,54,90,104,82,122,96,112,100,136,102],[44,88,58,94,88,102,48,86,54,90,112,100,136,102,104,82,122,96]];
+  TY.pushk=['Armhävningar på knä','Breda armhävningar på knä'];
+  TY.bridge1=['Enbens glutebrygga'];
+  TY.hinge1=['Enbens rumänsk marklyft'];
+  TY.bike=['Cykelcrunch'];
+  FR.cat=[[130,80,118,66,78,66,118,86,118,104,78,88,60,104,78,88,60,104,14],[136,46,118,62,78,60,118,84,118,104,78,84,60,104,78,84,60,104,-12]];
+  FR.superman=[[158,98,142,102,112,102,156,103,170,103,88,103,64,103],[158,84,142,92,112,102,156,88,170,86,88,100,64,94,88,100,64,94,-6]];
+  FR.child=[CAT,[106,98,90,92,52,86,120,100,150,102,74,100,50,104,74,100,50,104,8]];
+  FR.jack=[[100,16,100,32,100,60,112,46,114,58,96,83,96,106,104,83,104,106,0,1],[100,16,100,32,100,60,122,22,116,4,88,82,76,106,112,82,124,106,0,1]];
+  FR.hipcircle=[[94,16,98,32,108,60,116,48,108,58,92,83,88,106,112,83,112,106,0,1],[106,16,102,32,92,60,116,48,108,58,92,83,88,106,112,83,112,106,0,1]];
+  FR.skate=[[84,18,86,34,90,60,96,48,106,54,88,84,84,106,104,86,116,96],[116,18,114,34,110,60,104,48,94,54,112,84,116,106,96,86,84,96]];
+  FR.sidep=[[156,86,140,92,100,102,140,102,152,104,72,103,44,105],[156,76,140,82,100,86,140,102,152,104,72,96,44,104]];
+  TY.sidep=['Sidoplanka'];TY.skate=['Skridskohopp'];
+  [['squat',['Knäböj med armlyft','Långsam knäböj','Knäböj med paus','Hoppknäböj med paus']],
+   ['lunge',['Gående utfall','Utfall med knälyft']],
+   ['pushk',['Smala armhävningar på knä','Långsamma armhävningar på knä']],
+   ['push',['Armhävningar med paus','Smala armhävningar','Armhävningar med lång paus','Explosiva armhävningar']],
+   ['bridge',['Glutebrygga med knän isär','Glutebrygga på tå']],
+   ['hinge',['Långsam good morning','Good morning med paus']],
+   ['bridge1',['Enbens glutebrygga med paus']],
+   ['hinge1',['Enbens good morning']],
+   ['superman',['Simning','Bakre armlyft','Superman med armar vid sidan','Liggande W-lyft','Superman med långa pauser','Superman-roddar']],
+   ['plank',['Planka på knä','Lång planka']],
+   ['bird',['Fågelhunden med paus']],
+   ['legraise',['Dead bug','Liggande knälyft']],
+   ['sidep',['Sidoplanka med höftlyft']],
+   ['highknee',['Hälsparkar','Höga knän med snabba armar']],
+   ['skate',['Sidosteg']],
+   ['climber',['Korsande bergsklättrare','Plankhopp']],
+   ['burpee',['Halvburpees']],
+   ['jack',['Lätta jumping jacks']],['squat',['Lugna knäböj']],['lunge',['Lugna utfall']],['highknee',['Jogg på stället']],
+   ['skate',['Sidosteg med armsvingar']],['hinge',['Lugn framåtfällning']],['bridge',['Lätta glutebryggor']],['bird',['Lätt fågelhund']],
+   ['lunge',['Utfallssträck']],['squat',['Djup hukande ställning']],['cat',['Lugn katt och ko']],['hinge',['Hängande framåtfällning']]
+  ].forEach(function(a){TY[a[0]]=TY[a[0]].concat(a[1])});
+  TY.heelkick=['Hälsparkar'];
+  FR.heelkick=[[100,16,100,32,100,60,108,48,116,44,104,82,84,64,100,83,100,106],[100,16,100,32,100,60,106,46,108,58,100,83,100,106,100,83,100,106],[100,16,100,32,100,60,108,48,116,44,100,83,100,106,104,82,84,64]];
+  TY.sidebend=['Sidosträck'];TY.reach=['Sträck armarna upp'];TY.neck=['Nackstretch'];
+  FR.sidebend=[[100,16,100,32,100,60,106,46,108,58,96,83,96,106,104,83,104,106,0,0],[114,20,106,34,98,60,112,20,100,6,94,83,94,106,104,83,104,106,0,0]];
+  FR.neck=[[92,20,100,32,100,60,106,46,108,58,96,83,96,106,104,83,104,106,0,1],[108,20,100,32,100,60,106,46,108,58,96,83,96,106,104,83,104,106,0,1]];
+  FR.reach=[[100,16,100,32,100,60,106,46,108,58,96,83,96,106,104,83,104,106,0,1],[100,12,100,28,100,56,112,16,108,2,96,83,96,106,104,83,104,106,0,1]];
+  var TIPS={
+    'Armcirklar':'Stora, långsamma cirklar. Byt riktning halvvägs.',
+    'Höftcirklar':'Händer på höfterna, rita stora cirklar. Byt håll halvvägs.',
+    'Marsch med höga knän':'Lyft knäna till höftnivå, rak rygg, svänga med armarna.',
+    'Katt och ko':'Runda ryggen på utandning, svanka på inandning. Rör dig långsamt.',
+    'Sträck framsida lår':'Dra hälen mot rumpan, knäna ihop. Byt ben halvvägs. Håll i något vid behov.',
+    'Barnets ställning':'Sitt bak mot hälarna, sträck armarna framåt och andas djupt.',
+    'Knäböj':'Fötter axelbrett, rumpan bakåt och ner, tyngd på hälarna. Lättare: bara halvvägs ner.',
+    'Utfall bakåt':'Kliv bak, sänk knät mot golvet, främre knät över foten. Växla ben.',
+    'Sumo-knäböj med paus':'Bred stans, tår utåt. Pausa 2 s längst ner och tryck ut knäna.',
+    'Utfall framåt':'Långt steg, sänk rakt ner, tryck tillbaka med främre foten. Växla ben.',
+    'Hoppknäböj':'Ner i knäböj och hoppa explosivt, landa mjukt. Lättare: vanlig knäböj.',
+    'Hoppande utfall':'Byt ben i luften och landa mjukt. Lättare: vanliga utfall.',
+    'Armhävningar på knä':'Rak linje från knä till huvud, armbågar snett bakåt, bröstet nära golvet.',
+    'Breda armhävningar på knä':'Händerna lite bredare än axlarna, kroppen rak, sänk bröstet mot golvet.',
+    'Armhävningar':'Kroppen rak som en planka, armbågar snett bakåt. Lättare: på knä.',
+    'Breda armhävningar':'Händerna bredare än axlarna, spänd mage. Lättare: på knä.',
+    'Diamantarmhävningar':'Händerna nära varandra under bröstet, armbågarna längs sidorna. Lättare: på knä.',
+    'Långsamma armhävningar':'Tre sekunder ner, direkt upp. Håll kroppen rak. Lättare: på knä.',
+    'Glutebrygga':'Fötter nära rumpan, pressa upp höfterna och kläm rumpan i toppen.',
+    'Good morning':'Händer bakom huvudet, böj framåt från höften med rak rygg och lätt böjda knän.',
+    'Glutebrygga med marsch':'Höfterna uppe, lyft ett knä i taget utan att höfterna sjunker.',
+    'Glutebrygga med paus':'Pressa upp och håll 2 sekunder i toppen innan du sänker.',
+    'Enbens glutebrygga':'Ett ben i luften, pressa upp med det andra. Lättare: båda fötterna i golvet.',
+    'Enbens rumänsk marklyft':'Luta framåt från höften, bakre benet i linje med ryggen. Håll i något vid behov.',
+    'Superman':'Ligg på mage, lyft armar och ben samtidigt, blicken mot golvet.',
+    'Omvänd snöängel':'Ligg på mage, för raka armar från sidorna till över huvudet och tillbaka.',
+    'Superman med paus':'Lyft armar och ben och håll 2 sekunder i toppen.',
+    'Omvänd snöängel med paus':'Raka armar, pausa 1 s längst bak och kläm ihop skulderbladen.',
+    'Y-T-W liggande':'Lyft armarna som bokstäverna Y, T och W i tur och ordning. Små och kontrollerade rörelser.',
+    'Superman med pulsar':'Lyft armar och ben och gör små pulser uppåt. Andas lugnt.',
+    'Planka':'Underarmar under axlarna, kroppen rak, spänd mage och rumpa. Lättare: på knä.',
+    'Fågelhunden':'Sträck motsatt arm och ben, håll ryggen rak. Pausa en sekund. Växla sida.',
+    'Sidoplanka':'Underarm under axeln, höfterna uppe, kroppen rak. Byt sida halvvägs. Lättare: på knä.',
+    'Cykelcrunch':'Armbåge mot motsatt knä, rör dig långsamt. Dra inte i nacken.',
+    'Planka med axelklapp':'Från hög planka, klappa motsatt axel. Brett fötterna för bättre balans.',
+    'Benhöjningar liggande':'Ryggen mot golvet, sänk raka ben långsamt. Böj knäna om ryggen lyfter.',
+    'Jumping jacks':'Hoppa ut med armar och ben, landa mjukt. Lättare: kliv ut i stället för att hoppa.',
+    'Höga knän':'Spring på stället och lyft knäna till höften, armarna i takt. Lättare: marsch.',
+    'Bergsklättrare':'Hög planka, dra knäna mot bröstet växelvis. Höfterna låga.',
+    'Skridskohopp':'Hoppa från sida till sida, landa mjukt på ett ben. Lättare: kliv i stället.',
+    'Burpees':'Ner i planka, upp och hoppa. Lättare: kliv i stället för att hoppa.',
+    'Snabba bergsklättrare':'Hög planka, byt ben snabbt. Håll höfterna låga och magen spänd.'
+  };
+  for(var k in TY)TY[k].forEach(function(n){MAP[n]=k});
+  function ex(f){var q=f.length<18?f.concat(f.slice(10,14)):f.slice();while(q.length<20)q.push(0);return q}
+  function draw(p){
+    function pl(id,a){$(id).setAttribute('points',a.join(' '))}
+    $('f-tor').setAttribute('d',tpath(p));
+    var mr=p[19]>.5;
+    pl('f-arm2',mr?[p[2],p[3],2*p[2]-p[6],p[7],2*p[2]-p[8],p[9]]:[p[2]-5,p[3],p[6]-5,p[7],p[8]-5,p[9]]);
+    $('f-arm2').setAttribute('opacity',mr?1:.5);$('f-l2').setAttribute('opacity',mr?1:.55);
+    pl('f-arm',[p[2],p[3],p[6],p[7],p[8],p[9]]);
+    pl('f-l1',[p[4],p[5],p[10],p[11],p[12],p[13]]);
+    pl('f-l2',[p[4],p[5],p[14],p[15],p[16],p[17]]);
+    $('f-hd').setAttribute('cx',p[0]);$('f-hd').setAttribute('cy',p[1]);
+  }
+  function tpath(p){var vx=p[4]-p[2],vy=p[5]-p[3],l=Math.sqrt(vx*vx+vy*vy)||1,b=p[18]*2;return 'M'+p[2]+' '+p[3]+'Q'+((p[2]+p[4])/2+(-vy/l)*b)+' '+((p[3]+p[5])/2+(vx/l)*b)+' '+p[4]+' '+p[5]}
+  function pth(p){var s=function(i){return p[i]+' '+p[i+1]};return tpath(p)+'M'+s(2)+'L'+s(6)+'L'+s(8)+'M'+s(4)+'L'+s(10)+'L'+s(12)+'M'+s(4)+'L'+s(14)+'L'+s(16)}
+  var TEMPO={squat:[1400,200,1200,200],lunge:[1300,200,1100,200],push:[1500,200,1000,300],pushk:[1500,200,1000,300],bridge:[1000,400,1000,400],bridge1:[1000,400,1000,400],hinge:[1500,300,1200,300],hinge1:[1500,500,1500,300],superman:[1000,300,1000,500],plank:[2000,0,2000,0],bird:[1200,1000,1200,300],legraise:[1500,300,1500,300],bike:[900,0,900,0],climber:[450,0,450,0],jack:[450,0,450,0],highknee:[350,0,350,0],burpee:[1500,300,1500,400],hipcircle:[1000,0,1000,0],cat:[2000,300,2000,300],quad:[2500,1000,2500,1000],child:[3000,3000,3000,1000]};
+  var TEMPOX={'Långsamma armhävningar':[3000,300,1000,300],'Glutebrygga med paus':[1000,2000,1000,400],'Superman med paus':[1000,2000,1000,500],'Omvänd snöängel med paus':[1000,1000,1000,500],'Sumo-knäböj med paus':[1400,2000,1200,200],'Superman med pulsar':[350,0,350,0],'Snabba bergsklättrare':[300,0,300,0],'Marsch med höga knän':[500,0,500,0],'Hoppknäböj':[900,100,700,400],'Hoppande utfall':[900,100,800,300]};
+  var HOLD={plank:'Håll – andas lugnt',cat:'Andas ut när ryggen rundas',quad:'Håll – andas lugnt',child:'Håll – andas djupt'};
+  var tickOn=!!cfg.tick;
+  cfg.ov=cfg.ov||{};cfg.rov=cfg.rov||{};
+  function rbk(d){cfg.rb=Math.min(180,Math.max(10,(cfg.rb||60)+d));saveCfg();renderToday()}
+  $('g3-m').addEventListener('click',function(){rbk(-10)});
+  $('g3-p').addEventListener('click',function(){rbk(10)});
+  function confetti(){
+    var c=$('confetti');c.innerHTML='';
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var cols=['#ffd166','#ef476f','#06d6a0','#118ab2','#ffffff'];
+    for(var k=0;k<36;k++){var e=document.createElement('i');e.style.left=(Math.random()*100)+'%';e.style.background=cols[k%5];e.style.animationDelay=(Math.random()*.8)+'s';e.style.animationDuration=(2+Math.random()*1.5)+'s';c.appendChild(e)}
+    setTimeout(function(){c.innerHTML=''},4500);
+  }
+  document.querySelectorAll('#seg button').forEach(function(b){b.addEventListener('click',function(){cfg.load=Number(b.dataset.l);saveCfg();renderToday()})});
+  function rst(x,def){var v=cfg.rov[x];return v!==undefined?v:(cfg.rgen!=null?cfg.rgen:def)}
+  function rgen(d){var b=cfg.rgen!=null?cfg.rgen:today().rest;cfg.rgen=Math.min(120,Math.max(0,b+d));cfg.rov={};saveCfg();renderToday()}
+  $('g2-m').addEventListener('click',function(){rgen(-5)});
+  $('g2-p').addEventListener('click',function(){rgen(5)});
+  function saveCfg(){try{localStorage.setItem('intervall-cfg',JSON.stringify(cfg))}catch(e){}}
+  function dur(x,def){return cfg.ov[x]||cfg.gen||def}
+  function gen(d){var b=cfg.gen||today().work;cfg.gen=Math.min(120,Math.max(10,b+d));cfg.ov={};saveCfg();renderToday()}
+  $('g-m').addEventListener('click',function(){gen(-5)});
+  $('g-p').addEventListener('click',function(){gen(5)});
+  $('g-r').addEventListener('click',function(){cfg.gen=null;cfg.ov={};cfg.rgen=null;cfg.rov={};cfg.rb=60;saveCfg();renderToday()});
+  TEMPO.skate=[600,0,600,0];TEMPO.sidep=[1200,1500,1200,300];delete HOLD.cat;
+  TEMPO.heelkick=[700,0,700,0];TEMPO.sidebend=[2500,2500,2500,500];TEMPO.reach=[3000,2000,3000,500];TEMPO.neck=[3000,1500,3000,1500];
+  Object.assign(TEMPOX,{'Utfallssträck':[2000,3000,2000,500],'Djup hukande ställning':[3000,4000,3000,500],'Lugn katt och ko':[3000,500,3000,500],'Hängande framåtfällning':[3000,3000,3000,500]});
+  Object.assign(TIPS,{
+    'Utfallssträck':'Kliv fram i ett djupt utfall, sänk höften framåt och håll. Byt ben halvvägs.',
+    'Djup hukande ställning':'Sitt djupt med hälarna i golvet och bröstet uppe. Håll och andas lugnt.',
+    'Lugn katt och ko':'Runda och svanka ryggen mycket långsamt. Andas med rörelsen.',
+    'Hängande framåtfällning':'Fäll framåt, låt armar och huvud hänga och slappna av i nacken. Lätt böjda knän.',
+    'Sidosträck':'Ena armen över huvudet, luta långsamt åt sidan och håll. Växla sida halvvägs.',
+    'Sträck armarna upp':'Sträck armarna mot taket, väx dig lång och andas in. Sänk långsamt.',
+    'Nackstretch':'Luta örat mot axeln och håll. Slappna av i axlarna. Byt sida halvvägs.'
+  });
+  Object.assign(TEMPOX,{'Lätta jumping jacks':[600,0,600,0],'Lugna knäböj':[2000,200,1500,200],'Lugna utfall':[1800,200,1500,200],'Jogg på stället':[450,0,450,0],'Sidosteg med armsvingar':[1000,0,1000,0],'Lugn framåtfällning':[2000,300,1800,300],'Lätta glutebryggor':[1400,300,1400,300],'Lätt fågelhund':[1800,500,1800,300]});
+  Object.assign(TIPS,{
+    'Lugn framåtfällning':'Fäll framåt från höften med rak rygg och lätt böjda knän. Res dig långsamt.',
+    'Lätta jumping jacks':'Hoppa ut och in i lugn takt och landa mjukt. Lättare: kliv ut i stället för att hoppa.',
+    'Jogg på stället':'Lätt jogg med små steg och avslappnade axlar.',
+    'Sidosteg med armsvingar':'Kliv från sida till sida och svänga armarna med. Böj lätt i knäna.',
+    'Lugna knäböj':'Fötter axelbrett, rumpan bakåt och ner i lugn takt. Tyngd på hälarna.',
+    'Lugna utfall':'Kliv bak, sänk knät mot golvet och tryck tillbaka. Växla ben.',
+    'Lätta glutebryggor':'Pressa upp höfterna långsamt och sänk dem lugnt. Kläm rumpan i toppen.',
+    'Lätt fågelhund':'Sträck motsatt arm och ben i lugn takt. Håll ryggen rak. Växla sida.'
+  });
+  Object.assign(TEMPOX,{'Långsam knäböj':[3000,300,1500,300],'Knäböj med paus':[1400,2000,1200,200],'Hoppknäböj med paus':[900,1500,700,400],'Långsamma armhävningar på knä':[3000,300,1000,300],'Armhävningar med paus':[1500,1500,1000,300],'Armhävningar med lång paus':[1500,3000,1000,300],'Explosiva armhävningar':[900,100,500,400],'Långsam good morning':[3000,300,2000,300],'Good morning med paus':[1500,2000,1200,300],'Enbens glutebrygga med paus':[1000,2000,1000,400],'Superman med långa pauser':[1000,4000,1000,500],'Simning':[350,0,350,0],'Dead bug':[2000,300,2000,300],'Fågelhunden med paus':[1200,3000,1200,300],'Sidosteg':[900,0,900,0],'Höga knän med snabba armar':[300,0,300,0],'Plankhopp':[350,0,350,0]});
+  Object.assign(TIPS,{
+    'Knäböj med armlyft':'Lyft armarna över huvudet när du går ner och sänk dem när du reser dig.',
+    'Långsam knäböj':'Tre sekunder ner, direkt upp. Håll hälarna i golvet.',
+    'Knäböj med paus':'Pausa 2 sekunder längst ner med bröstet uppe och res dig med kraft.',
+    'Gående utfall':'Kliv fram i ett utfall och ta nästa steg direkt. Håll bålen upprätt.',
+    'Hoppknäböj med paus':'Pausa 1 sekund längst ner, hoppa explosivt och landa mjukt. Lättare: vanlig knäböj.',
+    'Utfall med knälyft':'Kliv bak i utfall, tryck upp och lyft knäet framför dig. Växla ben.',
+    'Smala armhävningar på knä':'Händerna under axlarna, armbågarna nära kroppen, rak linje från knä till huvud.',
+    'Långsamma armhävningar på knä':'Tre sekunder ner, direkt upp. Håll kroppen rak.',
+    'Armhävningar med paus':'Pausa 2 sekunder med bröstet nära golvet. Lättare: på knä.',
+    'Smala armhävningar':'Händerna under axlarna och armbågarna nära kroppen. Lättare: på knä.',
+    'Armhävningar med lång paus':'Pausa 3 sekunder med bröstet strax över golvet. Lättare: på knä.',
+    'Explosiva armhävningar':'Pressa upp snabbt och sänk kontrollerat. Lättare: vanliga armhävningar.',
+    'Glutebrygga med knän isär':'Pressa knäna utåt under hela lyftet och kläm rumpan i toppen.',
+    'Långsam good morning':'Tre sekunder ner med rak rygg, res dig med rumpan. Lätt böjda knän.',
+    'Glutebrygga på tå':'Stå på tårna, pressa upp höfterna högt och kläm rumpan.',
+    'Good morning med paus':'Pausa 2 sekunder när du är nere. Ryggen rak, blicken mot golvet.',
+    'Enbens glutebrygga med paus':'Pausa 2 sekunder i toppen och håll höfterna i nivå. Lättare: båda fötterna i golvet.',
+    'Enbens good morning':'Stå på ett ben, fäll framåt och sträck det andra benet bakåt. Håll i något vid behov.',
+    'Simning':'Ligg på mage och sparka med raka ben i snabb takt. Lyft armarna lite.',
+    'Bakre armlyft':'Ligg på mage med armarna längs sidorna, lyft bröst och armar och kläm skulderbladen.',
+    'Superman med armar vid sidan':'Lyft bröst och ben med armarna längs sidorna, blicken mot golvet.',
+    'Liggande W-lyft':'Armbågar böjda som ett W, lyft bröstet och kläm ihop skulderbladen.',
+    'Superman med långa pauser':'Lyft armar och ben och håll 4 sekunder. Andas lugnt.',
+    'Superman-roddar':'Lyft bröstet och rodda armbågarna bakåt mot höfterna, kläm skulderbladen.',
+    'Planka på knä':'Underarmar under axlarna, rak linje från knä till huvud, spänd mage.',
+    'Dead bug':'Ryggen mot golvet, sänk motsatt arm och ben långsamt. Pressa ländryggen mot golvet.',
+    'Fågelhunden med paus':'Sträck motsatt arm och ben och håll 3 sekunder. Växla sida.',
+    'Liggande knälyft':'Ryggen mot golvet, dra knäna mot bröstet och sänk långsamt.',
+    'Lång planka':'Håll kroppen rak och andas lugnt. Spänn rumpa och mage hela tiden.',
+    'Sidoplanka med höftlyft':'Sänk höften nästan till golvet och lyft den igen. Byt sida halvvägs.',
+    'Hälsparkar':'Jogga på stället och sparka hälarna mot rumpan. Lätt i stegen.',
+    'Sidosteg':'Kliv från sida till sida med böjda knän och armsvingar.',
+    'Korsande bergsklättrare':'Hög planka, dra knäet mot motsatt armbåge. Höfterna låga.',
+    'Höga knän med snabba armar':'Lyft knäna till höften och pumpa armarna snabbt. Lättare: marsch.',
+    'Halvburpees':'Ner i planka och direkt upp utan hopp. Rak rygg i plankan.',
+    'Plankhopp':'Hög planka, hoppa med fötterna växelvis i snabb takt. Höfterna låga.'
+  });
+  TIPS['Katt och ko']='Svanka: magen mot golvet och blicken framåt. Runda: hakan mot bröstet. Andas med rörelsen.';
+  var LAB={squat:['Sänk','Res dig'],lunge:['Sänk','Tryck upp'],push:['Sänk','Pressa upp'],pushk:['Sänk','Pressa upp'],bridge:['Lyft höfterna','Sänk'],bridge1:['Lyft höfterna','Sänk'],hinge:['Fäll framåt','Res dig'],hinge1:['Fäll framåt','Res dig'],superman:['Lyft','Sänk'],plank:['Håll kroppen rak','Håll kroppen rak'],sidep:['Lyft höften','Sänk'],bird:['Sträck ut','Tillbaka'],legraise:['Lyft benen','Sänk benen'],bike:['Växla ben','Växla ben'],climber:['Dra knät','Byt ben'],jack:['Hoppa ut','Hoppa ihop'],skate:['Hoppa åt sidan','Och tillbaka'],highknee:['Knä upp','Ner'],burpee:['Ner i planka','Hoppa upp'],armcircle:['Cirkla'],hipcircle:['Höfter åt sidan','Åt andra sidan'],cat:['Svanka','Runda ryggen'],quad:['Hälen mot rumpan','Släpp'],child:['Sitt bak mot hälarna','Tillbaka']};
+  LAB.heelkick=['Häl mot rumpa','Byt ben'];LAB.sidebend=['Luta åt sidan','Tillbaka'];LAB.reach=['Sträck upp','Sänk långsamt'];LAB.neck=['Huvudet åt sidan','Åt andra sidan'];
+  function tk(f){
+    if(!ac||!tickOn)return;
+    try{var o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+.07);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+.09)}catch(e){}
+  }
+  function tkBtn(){$('tickbtn').textContent='Taktljud: '+(tickOn?'på':'av')}
+  $('tickbtn').addEventListener('click',function(){
+    tickOn=!tickOn;cfg.tick=tickOn;
+    try{localStorage.setItem('intervall-cfg',JSON.stringify(cfg))}catch(e){}
+    tkBtn();
+    if(tickOn){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){}tk(780)}
+  });
+  tkBtn();
+  var raf=0;
+  function stopFig(){cancelAnimationFrame(raf)}
+  function showFig(sg){
+    stopFig();
+    var ty=sg.ill&&MAP[sg.ill],fr=ty&&FR[ty];
+    var nb=sg.ill&&sg.dim;
+    $('nextbox').style.display=nb?'block':'none';
+    if(nb){$('nx-l').textContent=sg.t==='prep'?'Börjar med':'Nästa övning';$('nx-n').textContent=sg.ill}
+    $('tip').textContent=(sg.ill&&TIPS[sg.ill])||'';
+    $('run').classList.toggle('hasfig',!!fr);
+    if(!fr)return;
+    $('fig').classList.toggle('dim',!!sg.dim);
+    $('gh1').setAttribute('d',LOOP[ty]?'':pth(ex(fr[0])));
+    $('gh2').setAttribute('d',LOOP[ty]?'':pth(ex(fr[fr.length-1])));
+    var n=fr.length,lp=!!LOOP[ty],D=DUR[ty]||900,t0=performance.now(),last=t0,el=0,tp=TEMPOX[sg.ill]||TEMPO[ty]||[1000,200,1000,200],cyc=tp[0]+tp[1]+tp[2]+tp[3],ph=-1,hold=HOLD[ty],prev=!!sg.dim,lb=LAB[ty];
+    $('f-lab').textContent='';
+    $('reps').textContent=prev?'Så här gör du – titta på figuren':(hold||'');
+    (function f(now){
+      raf=requestAnimationFrame(f);now=performance.now();if(running)el+=Math.max(0,now-last);last=now;
+      var d=el/D,pos,np=-1;
+      if(lp){pos=d%n;np=Math.floor(pos)===0?0:-1}
+      else{
+        var t=el%cyc,s;
+        if(t<tp[0]){np=0;s=t/tp[0]}
+        else if(t<tp[0]+tp[1]){np=1;s=1}
+        else if(t<tp[0]+tp[1]+tp[2]){np=2;s=1-(t-tp[0]-tp[1])/tp[2]}
+        else{np=3;s=0}
+        pos=Math.max(0,s*(n-1));
+      }
+      if(np!==ph){
+        ph=np;
+        if(running&&!prev&&(np===0||np===2))tk(np?780:520);
+        if(!prev&&lb){
+          var L=null;
+          if(np===0)L=lb[0];else if(np===2)L=lb[1];
+          else if((np===1&&tp[1]>=800)||(np===3&&tp[3]>=800))L='Håll';
+          if(L!==null&&L!==undefined)$('f-lab').textContent=L;
+        }
+      }
+      if(!prev&&!hold&&running){var rl=lp?D*n:cyc;$('reps').textContent='Rep '+(Math.floor(el/rl)+1)+' · ca '+(Math.round(rl/100)/10).toString().replace('.',',')+' s per rep'}
+      var i=Math.max(0,Math.min(Math.floor(pos),n-1)),j=lp?(i+1)%n:Math.min(i+1,n-1);
+      var u=(1-Math.cos(Math.PI*(pos-i)))/2,a=ex(fr[i]),b=ex(fr[j]);
+      draw(a.map(function(v,q){return v+(b[q]-v)*u}));
+    })(t0);
+  }
+  function buildToday(){
+    var T=today();
+    segs=[{t:'prep',d:5,n:'Gör dig redo',sub:'Uppvärmning först',ill:WARM[0],dim:true}];
+    WARM.forEach(function(x,i){segs.push({t:'warm',d:dur(x,30),n:x,sub:'Uppvärmning '+(i+1)+' av 4',ill:x})});
+    for(var r=1;r<=2;r++)T.ex.forEach(function(x,i){
+      var nx=i<5?T.ex[i+1]:(r===1?T.ex[0]:COOL[0]);
+      segs.push({t:'work',d:dur(x,T.work),n:x,sub:'Varv '+r+' av 2 · övning '+(i+1)+' av 6',ill:x});
+      var rd=rst(x,T.rest);if(i===5&&r<2){var left=2-r;segs.push({t:'rbreak',d:cfg.rb||60,n:'Bra jobbat!',sub:(left===1?'Ett varv kvar – kom igen!':left+' varv kvar – kom igen!'),ill:T.ex[0],dim:true})}else if(rd>0)segs.push({t:'rest',d:rd,n:'Vila',sub:'Varv '+r+' av 2 · '+(i+1)+' av 6 klara',ill:nx,dim:true});
+    });
+    COOL.forEach(function(x,i){segs.push({t:'cool',d:dur(x,20),n:x,sub:'Nedvarvning '+(i+1)+' av 3',ill:x})});
+    segs.push({t:'done',d:0,n:'Klart!',sub:'Passet är klart – bra jobbat!'});
+  }
+  function build(mode){
+    buildToday();
+  }
+  var names={prep:'Gör dig redo',work:'Kör!',rest:'Vila',done:'Klart!'};
+
+  function enter(i,silent){
+    idx=i;var sg=segs[i];
+    document.body.className=sg.t;
+    $('phase').textContent=sg.n||names[sg.t];showFig(sg);$('skip').classList.toggle('hidden',sg.t==='done');if(sg.t==='rbreak'||sg.t==='done')confetti();
+    $('round').textContent=sg.sub||(sg.t==='prep'?'Första varvet startar snart':sg.t==='done'?cfg.rounds+' varv avklarade':'Varv '+sg.r+' av '+cfg.rounds);
+    lastBeep=-1;
+    if(sg.t==='done'){
+      running=false;clearInterval(timerId);releaseLock();
+      $('time').textContent='✓';
+      var PM=['Starkt jobbat! Du gjorde det igen – kroppen tackar dig.','Du kom, du körde, du klarade det. Bra gjort!','Ett riktigt bra pass. Ta en klunk vatten och var stolt!','Varje pass räknas, och idag klarade du det. Grymt!','Imorgon blir det ännu lättare att komma igång. Du är på rätt väg!'];
+      $('pepp').textContent=PM[Math.floor(Math.random()*PM.length)];
+      $('pause').textContent='Tillbaka';
+      beep(660,.15);setTimeout(function(){beep(880,.15)},200);setTimeout(function(){beep(1100,.4)},400);
+      return;
+    }
+    remMs=sg.d*1000;endAt=Date.now()+remMs;
+    $('time').textContent=fmt(sg.d);
+    if(!silent){if(sg.t==='work')beep(1000,.5);else if(sg.t==='rest')beep(520,.4);else if(sg.t==='warm'||sg.t==='cool')beep(700,.3);else if(sg.t==='rbreak'){beep(660,.15);setTimeout(function(){beep(880,.15)},180);setTimeout(function(){beep(1100,.35)},360)}}
+  }
+
+  function tick(){
+    if(!running)return;
+    var rem=endAt-Date.now();
+    if(rem<=0){enter(idx+1);return}
+    var sec=Math.ceil(rem/1000);
+    $('time').textContent=fmt(sec);
+    if(sec<=3&&sec!==lastBeep){lastBeep=sec;beep(760,.12)}
+  }
+
+  function getLock(){
+    want=true;wl();
+  }
+  var want=false,vid=null,vt=null;
+  function setAwake(s){
+    var m={wl:'Skärmen hålls tänd',fb:'Skärmen hålls tänd (reservläge)',none:'Kunde inte hålla skärmen tänd. Ställ in längre skärmlås på telefonen.',off:''};
+    $('awake').textContent=m[s]||'';
+  }
+  function fbStop(){
+    clearInterval(vt);
+    if(vid){try{vid.pause();vid.srcObject=null;vid.remove()}catch(e){}vid=null}
+  }
+  function fbStart(){
+    if(vid)return;
+    try{
+      var c=document.createElement('canvas'),g,f=0,v=document.createElement('video');
+      c.width=c.height=16;g=c.getContext('2d');
+      v.setAttribute('playsinline','');v.muted=true;
+      v.style.cssText='position:fixed;left:0;top:0;width:2px;height:2px;opacity:.02;pointer-events:none';
+      v.srcObject=c.captureStream(5);
+      document.body.appendChild(v);vid=v;
+      vt=setInterval(function(){f=1-f;g.fillStyle=f?'#000':'#111';g.fillRect(0,0,16,16)},200);
+      v.play().then(function(){if(want&&!lock)setAwake('fb')}).catch(function(){setAwake('none')});
+    }catch(e){setAwake('none')}
+  }
+  function wl(){
+    if(!want||lock)return;
+    try{
+      if(navigator.wakeLock){
+        navigator.wakeLock.request('screen').then(function(l){
+          if(!want){l.release();return}
+          lock=l;fbStop();setAwake('wl');
+          l.addEventListener('release',function(){lock=null;if(want&&!document.hidden)wl()});
+        }).catch(function(){fbStart()});
+        return;
+      }
+    }catch(e){}
+    fbStart();
+  }
+  function releaseLock(){want=false;try{if(lock){lock.release();lock=null}}catch(e){}fbStop();setAwake('off')}
+
+  function start(mode,from){
+    try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(e){ac=null}
+    build(mode);
+    $('setup').classList.add('hidden');$('run').classList.remove('hidden');
+    $('pause').textContent='Pausa';
+    running=true;
+    if(from>0){
+      segs.splice(from,0,{t:'prep',d:5,n:'Gör dig redo',sub:'Börjar med '+segs[from].n,ill:segs[from].n,dim:true});
+      enter(from,true);
+    }else enter(0,true);
+    clearInterval(timerId);timerId=setInterval(tick,100);
+    getLock();
+  }
+  function toggle(){
+    if(segs[idx]&&segs[idx].t==='done'){stop();return}
+    if(running){
+      running=false;remMs=endAt-Date.now();
+      $('pause').textContent='Fortsätt';
+    }else{
+      running=true;endAt=Date.now()+remMs;
+      $('pause').textContent='Pausa';getLock();
+    }
+  }
+  function stop(){
+    running=false;clearInterval(timerId);releaseLock();
+    document.body.className='';stopFig();
+    $('run').classList.add('hidden');$('setup').classList.remove('hidden');
+  }
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&want)wl()});
+  $('start-today').addEventListener('click',function(){start('today')});
+  renderToday();
+  function jump(dir){
+    var ex=function(i){return segs[i].t!=='rest'&&segs[i].t!=='prep'&&segs[i].t!=='rbreak'};
+    var i=idx+dir;
+    while(i>=0&&i<segs.length&&!ex(i)&&segs[i].t!=='done')i+=dir;
+    if(i<0||i>=segs.length)i=idx;
+    enter(i,!running);
+  }
+  $('prev').addEventListener('click',function(){jump(-1)});
+  $('next').addEventListener('click',function(){jump(1)});
+  $('pause').addEventListener('click',toggle);
+  $('stop').addEventListener('click',stop);
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
