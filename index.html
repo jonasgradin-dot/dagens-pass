@@ -586,6 +586,15 @@ body.done .pepp{font-size:1.1rem;margin-bottom:10px}
 @keyframes handtap{0%,100%{transform:translate(0,0)}50%{transform:translate(-4px,-9px)}}
 html.touring .bubble{z-index:2100}
 @media (prefers-reduced-motion:reduce){.tour-hand{animation:none}}
+.tour-c{z-index:5}
+.tour-c.compact{padding:10px 14px 6px}
+.tour-c.compact .tour-by,.tour-c.compact .tour-dots{display:none}
+.tour-c.compact h2{font-size:1.15rem;margin-bottom:4px}
+.tour-c.compact p{font-size:.88rem;line-height:1.3;margin-bottom:8px}
+.tour-c.compact .tour-b button{height:40px;font-size:.95rem}
+.tour-c.compact .tour-x{margin-top:2px;padding:3px 10px}
+.tour-c.compact .tour-mock{display:none}
+@media (max-height:720px){.tour-c{padding:12px 14px 6px}.tour-c h2{font-size:1.2rem}.tour-c p{font-size:.9rem;line-height:1.3;margin-bottom:8px}.tour-b button{height:42px}.tour-dots{margin-bottom:5px}.tour-by{margin-bottom:4px}.tour-hand{transform-origin:24px 3px;scale:.8}}
 </style>
 </head>
 <body>
@@ -1098,7 +1107,7 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
   cfg.ov=cfg.ov||{};cfg.rov=cfg.rov||{};
   var SPORTL={"run": [[["Utfall bakåt", "Knäböj"], ["Gående utfall", "Utfall framåt"], ["Enbens rumänsk marklyft", "Hoppande utfall"]], [["Tåhävningar", "Glutebrygga"], ["Glutebrygga med marsch", "Glutebrygga med paus"], ["Enbens glutebrygga", "Enbens glutebrygga med paus"]], [["Sidoplanka", "Sidosteg"], ["Sidoplanka med höftlyft", "Sidoutfall"], ["Skridskohopp", "Sidoplanka med höftlyft"]], [["Dead bug", "Planka"], ["Fågelhunden", "Fågelhunden med paus"], ["Planka med axelklapp", "Lång planka"]], [["Höga knän", "Hälsparkar"], ["Hälsparkar", "Hoppknäböj"], ["Hoppande utfall", "Hoppknäböj med paus"]], [["Jumping jacks", "Höga knän"], ["Bergsklättrare", "Korsande bergsklättrare"], ["Burpees", "Snabba bergsklättrare"]]], "foot": [[["Knäböj", "Utfall bakåt"], ["Utfall med knälyft", "Gående utfall"], ["Hoppknäböj", "Hoppknäböj med paus"]], [["Glutebrygga", "Glutebrygga med marsch"], ["Enbens glutebrygga", "Glutebrygga med paus"], ["Enbens rumänsk marklyft", "Enbens glutebrygga med paus"]], [["Sidosteg", "Sidoutfall"], ["Sidoutfall", "Skridskohopp"], ["Skridskohopp", "Hoppande utfall"]], [["Planka", "Dead bug"], ["Sidoplanka med höftlyft", "Cykelcrunch"], ["Planka med axelklapp", "Lång planka"]], [["Höga knän", "Hälsparkar"], ["Bergsklättrare", "Korsande bergsklättrare"], ["Snabba bergsklättrare", "Höga knän med snabba armar"]], [["Jumping jacks", "Sidosteg"], ["Halvburpees", "Skridskohopp"], ["Burpees", "Plankhopp"]]], "ski": [[["Utfall bakåt", "Knäböj"], ["Knäböj med paus", "Utfall framåt"], ["Hoppknäböj", "Skidhopp"]], [["Dubbelstakning", "Roddar med band"], ["Dubbelstakning med band", "Roddar med band"], ["Dubbelstakning med band", "Superman-roddar"]], [["Superman", "Omvänd snöängel"], ["Superman med paus", "Omvänd snöängel med paus"], ["Superman-roddar", "Y-T-W liggande"]], [["Armhävningar på knä", "Smala armhävningar på knä"], ["Armhävningar", "Smala armhävningar"], ["Diamantarmhävningar", "Explosiva armhävningar"]], [["Dead bug", "Planka på knä"], ["Sidoplanka", "Planka"], ["Sidoplanka med höftlyft", "Lång planka"]], [["Glutebrygga", "Good morning"], ["Glutebrygga med marsch", "Bergsklättrare"], ["Enbens rumänsk marklyft", "Enbens glutebrygga"]]], "cf": [[["Goblet-knäböj", "Knäböj med hantlar"], ["Utfall med hantlar", "Sumo-knäböj med kettlebell"], ["Thruster med hantlar", "Thruster med kettlebell"]], [["Marklyft med kettlebell", "Glutebrygga med hantel"], ["Kettlebell-sving", "Rumänsk marklyft med hantlar"], ["Hantelsving", "Kettlebell-clean"]], [["Halvburpees", "Jumping jacks"], ["Burpees", "Plankhopp"], ["Burpees med hantlar", "Burpees över kettlebell"]], [["Armhävningar på knä", "Hantelpress på golv"], ["Armhävningar", "Axelpress med hantlar"], ["Explosiva armhävningar", "Armhävning på hantlar"]], [["Hantelrodd", "Kettlebell-rodd"], ["Enarmsrodd med kettlebell", "Hantelrodd"], ["Kettlebell-rodd", "Superman-roddar"]], [["Planka", "Dead bug"], ["Planka med axelklapp", "Fågelhund med hantel"], ["Bergsklättrare", "Planka med kettlebell"]]], "pad": [[["Utfall framåt", "Knäböj"], ["Sidoutfall", "Utfall med knälyft"], ["Hoppknäböj", "Skridskohopp"]], [["Sidosteg", "Sidosteg med band"], ["Sidosteg med band", "Skridskohopp med band"], ["Skridskohopp med band", "Skridskohopp"]], [["Knäböj med paus", "Knäböj med armlyft"], ["Knäböj med paus", "Sumo-knäböj med paus"], ["Hoppknäböj med paus", "Utfall med knälyft"]], [["Planka", "Fågelhunden"], ["Sidolyft med band", "Sidoplanka"], ["Fågelhunden med paus", "Planka med axelklapp"]], [["Dead bug", "Liggande knälyft"], ["Cykelcrunch", "Benhöjningar liggande"], ["Sidoplanka med höftlyft", "Lång planka"]], [["Höga knän", "Hälsparkar"], ["Bergsklättrare", "Korsande bergsklättrare"], ["Halvburpees", "Plankhopp"]]]};
   var SPORT={"run": [["Utfall bakåt", "Gående utfall", "Enbens rumänsk marklyft"], ["Tåhävningar", "Enbens glutebrygga", "Glutebrygga med marsch"], ["Sidoplanka", "Sidoplanka med höftlyft", "Sidosteg med band"], ["Dead bug", "Fågelhunden", "Planka"], ["Höga knän", "Hälsparkar", "Hoppande utfall"], ["Bergsklättrare", "Skridskohopp", "Jumping jacks"]], "foot": [["Hoppknäböj", "Utfall med knälyft", "Sidoutfall"], ["Enbens rumänsk marklyft", "Enbens glutebrygga", "Glutebrygga med paus"], ["Skridskohopp", "Sidosteg", "Hoppande utfall"], ["Planka med axelklapp", "Sidoplanka med höftlyft", "Cykelcrunch"], ["Höga knän", "Bergsklättrare", "Snabba bergsklättrare"], ["Burpees", "Halvburpees", "Plankhopp"]], "ski": [["Utfall bakåt", "Hoppknäböj", "Skidhopp"], ["Dubbelstakning", "Dubbelstakning med band", "Roddar med band"], ["Superman-roddar", "Omvänd snöängel", "Fågelhunden"], ["Diamantarmhävningar", "Armhävningar", "Smala armhävningar"], ["Sidoplanka", "Dead bug", "Planka"], ["Enbens rumänsk marklyft", "Bergsklättrare", "Glutebrygga med marsch"]], "cf": [["Thruster med hantlar", "Thruster med kettlebell", "Hoppknäböj"], ["Kettlebell-sving", "Hantelsving", "Kettlebell-clean"], ["Burpees", "Burpees med hantlar", "Halvburpees"], ["Armhävningar", "Explosiva armhävningar", "Armhävning på hantlar"], ["Hantelrodd", "Kettlebell-rodd", "Superman-roddar"], ["Planka med axelklapp", "Bergsklättrare", "Höga knän"]], "pad": [["Sidoutfall", "Utfall framåt", "Skridskohopp"], ["Sidosteg", "Skridskohopp med band", "Sidosteg med band"], ["Hoppknäböj", "Knäböj med paus", "Utfall med knälyft"], ["Planka med axelklapp", "Sidolyft med band", "Fågelhunden"], ["Cykelcrunch", "Sidoplanka med höftlyft", "Dead bug"], ["Höga knän", "Bergsklättrare", "Hälsparkar"]]},SPN={run:'Löpning',foot:'Fotboll',ski:'Längdskidåkning',cf:'Crossfit',pad:'Padel'};
-  var EQN={body:'Egen kropp',band:'Gummiband',db:'Hantlar',kb:'Kettlebell'},SLN=['Ben','Tryck','Baksida','Rygg','Mage','Helkropp'],PKF='all';
+  var EQN={body:'Egen kropp',band:'Gummiband',db:'Hantlar',kb:'Kettlebell'},SLN=['Ben','Bröst och axlar','Baksida','Rygg','Mage','Helkropp'],PKF='all';
   var SET_OPEN=false;
   $('bt-set').addEventListener('click',function(){SET_OPEN=!SET_OPEN;$('nerd').classList.toggle('open',SET_OPEN);$('bt-set').classList.toggle('open',SET_OPEN);$('bt-set').setAttribute('aria-expanded',SET_OPEN?'true':'false')});
   function loadFav(f){cfg.custom=f.ex.slice();cfg.cvarv=f.v||2;cfg.sport=null;MODE='custom';saveCfg();renderToday()}
@@ -1145,7 +1154,7 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
   function hideTip(){bub.style.display='none'}
   var TIPT=[
    ['#w-go','Öppnar startsidan där du väljer och startar dagens pass. Mattan väntar!'],
-   ['#start-today','Startar passet direkt: uppvärmning, träning och nedvarvning. Ingen återvändo, bara kul!'],
+   ['#start-today','Startar passet direkt: uppvärmning, träning och nedvarvning. Ingen återvändo, nu kôr vi!'],
    ['#seg [data-l="0"]','Lätt: enklare övningsvarianter och kortare arbetstid. Perfekt när kroppen vill men knäna tvekar.'],
    ['#seg [data-l="1"]','Medel: lagom utmaning med vanliga varianter. Som gröt nummer två, precis lagom.'],
    ['#seg [data-l="2"]','Hårt: svårare varianter och längre arbetstid. Modigt! Glöm inte att andas.'],
@@ -1172,12 +1181,12 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
    ['#g4-m','Färre varv: du kör igenom övningarna färre gånger. Perfekt när tiden är knapp.'],
    ['#g4-p','Fler varv: du kör igenom övningarna fler gånger. Stolthet på köpet!'],
    ['#g-r','Återställer alla tider till Auto. Appen tar över ratten igen.'],
-   ['#pg-focus [data-pf="full"]','Hela kroppen: ben, tryck, rygg, bål och puls i varje pass. Ingen muskel blir bortglömd.'],
-   ['#pg-focus [data-pf="arms"]','Armar: tryck och drag för biceps, triceps och axlar. Redo för matkassarna!'],
+   ['#pg-focus [data-pf="full"]','Hela kroppen: ben, bröst, axlar, rygg, bål och puls i varje pass. Ingen muskel blir bortglömd.'],
+   ['#pg-focus [data-pf="arms"]','Armar: press- och dragövningar för biceps, triceps och axlar. Redo för matkassarna!'],
    ['#pg-focus [data-pf="upper"]','Överkropp: bröst, axlar, rygg och bål. Skjortan sitter snart lite snyggare.'],
    ['#pg-focus [data-pf="legs"]','Ben: knäböj, utfall, rumpa och baksida lår. Trapporna darrar redan.'],
    ['#pg-s-m','Färre pass per vecka. Lite lugnare tempo är helt okej.'],
-   ['#pg-s-p','Fler pass per vecka. Ambitiöst, och kroppen hänger med!'],
+   ['#pg-s-p','Fler pass per vecka. Ambitiöst, ä du me? Kroppen hänger med!'],
    ['#pg-ov-btn','Visar vad varje vecka i programmet innehåller. Lite som en trailer.'],
    ['#pg-m','Färre veckor i programmet. Kortare väg till målet.'],
    ['#pg-p','Fler veckor i programmet. Långsiktigt, som all bra vänskap.'],
@@ -1208,8 +1217,8 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
    ['.vid','Öppnar en videosökning som visar övningen. Bra om du vill se hur det ska se ut.'],
    ['#prev','Hoppa till föregående övning. Ångrat dig? Det gör inget.'],
    ['#next','Hoppa till nästa övning. Fuska inte för ofta, jag ser dig!'],
-   ['#pause','Pausa eller fortsätt timern. Ta en klunk vatten, det är tillåtet.'],
-   ['#stop','Avsluta passet och gå tillbaka. Det är okej, imorgon är en ny dag.'],
+   ['#pause','Pausa eller fortsätt timern. Ta en klunk vatten, dä ä tillåtet.'],
+   ['#stop','Avsluta passet och gå tillbaka. Dä ä lugnt, imorgon är en ny dag.'],
    ['#tickbtn','Slå av eller på taktljudet. Tick tack, eller tyst, du bestämmer.']
   ];
   function tipFor(b){if(b.dataset&&b.dataset.tip)return b.dataset.tip;for(var i=0;i<TIPT.length;i++){var t=TIPT[i];try{if(b.matches(t[0]))return typeof t[1]==='function'?t[1](b):t[1]}catch(e){}}return ''}
@@ -1267,7 +1276,7 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
   document.querySelectorAll('#pk-f button').forEach(function(b){b.addEventListener('click',function(){PKF=b.dataset.f;renderPicker()})});
   document.querySelectorAll('#mseg button').forEach(function(b){b.addEventListener('click',function(){MODE=b.dataset.m;resetT();saveCfg();renderToday()})});
   $('rerun').addEventListener('click',function(){MODE=MODE==='yest'?'today':'yest';renderToday()});
-  var HELLO=['Du behöver inte vara bäst, bara börja. Soffan klarar sig utan dig en stund.','Femton minuter är allt som krävs. Det är kortare än de flesta serieavsnitt!','Kroppen blir som du tränar den. Idag lär vi den vara stark, och den är en snabb elev.','Varje pass är en röst för den du vill bli. Idag röstar du med knäböj.','Det svåraste är att komma igång, och det har du redan gjort. Resten är bara svett!','Idag är en bra dag för ett bra pass. Ursäkterna får vänta utanför.','Små steg varje dag blir stora förändringar. Och lite träningsvärk, som är kroppens sätt att säga tack.','Ditt framtida jag skickar ett tackkort för det du gör idag.','Känns det tungt? Bra, då är det nu det räknas. Jag tror på dig, och på dina knän.','Ta ett djupt andetag och bestäm dig. Resten är bara repetitioner, och de räknar sig själva.','Du är starkare än du tror. Dags att överraska dig själv.','Ingen dag är för kort för ett pass. Du hinner mer än att scrolla på femton minuter.','Energi skapas av rörelse. Kom igen, vi tar dagen tillsammans, jag står kvar och hejar.','Starkt av dig att dyka upp, varje gång. Din gympamatta har saknat dig.'];
+  var HELLO=['Du behöver inte vara bäst, bara börja. Soffan klarar sig utan dig en stund.','Ä du me? Femton minuter är allt som krävs, kortare än de flesta serieavsnitt!','Kroppen blir som du tränar den. Idag lär vi den vara stark, och den är en snabb elev.','Varje pass är en röst för den du vill bli. Idag röstar du med knäböj.','Det svåraste är att komma igång, och det har du redan gjort. Resten är bara svett!','Idag är en gôtt dag för ett bra pass. Ursäkterna får vänta utanför.','Små steg varje dag blir stora förändringar. Och lite träningsvärk, som är kroppens sätt att säga tack.','Ditt framtida jag skickar ett tackkort för det du gör idag.','Känns det tungt? Bra, då är det nu det räknas. Jag tror på dig, och på dina knän.','Ta ett djupt andetag och bestäm dig. Resten är bara repetitioner, och de räknar sig själva.','Du är starkare än du tror. Dags att överraska dig själv.','Ingen dag är för kort för ett pass. Du hinner mer än att scrolla på femton minuter.','Energi skapas av rörelse. Nu kôr vi, vi tar dagen tillsammans och jag står kvar och hejar.','Starkt av dig att dyka upp, varje gång. Din gympamatta har saknat dig.'];
   var QUOTES=[
     ['Du missar 100 % av de skott du inte tar.','Wayne Gretzky'],
     ['Resan på tusen mil börjar med ett enda steg.','Lao Tzu'],
@@ -1374,9 +1383,9 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       sub=pk(['Femton minuter idag, ett lite starkare du imorgon. <b>Soffan klarar sig!</b>','Det svåra är att börja, och det gör du just nu. <b>Resten är bara svett.</b>','Ett litet pass idag, en starkare du imorgon. Ingen behöver se hur det går till.','Kroppen är redo när du är det. <b>Den har väntat på det här!</b>'],1);
     }else{
       var ms=[10,25,50,100,200,365].indexOf(tot)>=0&&L[t];
-      h=ms?'Milstolpe! '+tot+' pass avklarade':wk>=4?pk(['Vilken vecka! '+wk+' pass hittills','Du är på topp – '+wk+' pass! Soffan oroar sig',wk+' pass redan – du är i gasen!','Veckans mästare: '+wk+' pass']):wk===3?pk(['Tre pass! Gympamattan skickar kramar','Tre pass! Du är i ett riktigt flow','Hattrick! Dags för en banan']):wk===2?pk(['Två pass – starkt jobbat!','Två pass – kroppen anar ett mönster','Dubbelt upp – kör vidare!']):wk===1?pk(['Ett pass – benen minns redan!','Veckans första pass är klart – snyggt!','Bollen rullar – och den är rund!']):pk(['Ny vecka – matta, vatten, kör!','Veckan är ung – ta första passet idag','Fräscha tag! Mattan väntar på dig','Idag sätter du tonen för veckan']);
+      h=ms?'Milstolpe! '+tot+' pass avklarade':wk>=4?pk(['Vilken vecka! '+wk+' pass hittills','Du är på topp – '+wk+' pass! Soffan oroar sig',wk+' pass redan – du är i gasen!','Veckans mästare: '+wk+' pass']):wk===3?pk(['Tre pass! Gôtt, ä du me?','Tre pass! Du är i ett riktigt flow','Hattrick! Dags för en banan']):wk===2?pk(['Två pass – starkt jobbat!','Två pass – kroppen anar ett mönster','Dubbelt upp – kör vidare!']):wk===1?pk(['Ett pass – gôtt jobbat!','Veckans första pass är klart – snyggt!','Bollen rullar – och den är rund!']):pk(['Ny vecka – matta, vatten, nu kôr vi!','Veckan är ung – ta första passet idag','Fräscha tag! Mattan väntar på dig','Idag sätter du tonen för veckan']);
       var tm=fmtLong(Math.round(sec/60)*60),p=[];
-      if(st>=2)p.push(pk(['<b>'+st+' dagar i rad</b> – håll i den, soffan har gett upp!','<b>'+st+' dagar i sträck</b> – du är oslagbar!','Streak: <b>'+st+' dagar i rad</b>. Till och med kalendern är imponerad!'],1));
+      if(st>=2)p.push(pk(['<b>'+st+' dagar i rad</b> – håll i den, soffan har gett upp!','<b>'+st+' dagar i sträck</b> – kors i taket, du är oslagbar!','Streak: <b>'+st+' dagar i rad</b>. Till och med kalendern är imponerad!'],1));
       p.push(pk(['Totalt <b>'+tot+' pass</b> och <b>'+tm+'</b> träning sedan du började. Inte illa!','Hittills: <b>'+tot+' pass</b> och <b>'+tm+'</b> i rörelse, utan att flytta soffan.','<b>'+tot+' pass</b> och <b>'+tm+'</b> träning på kontot – bra jobbat!'],2));
       if(m30>1)p.push(pk(['Senaste 30 dagarna: <b>'+m30+' pass</b>. Du bygger styrka, en knäböj i taget!','<b>'+m30+' pass</b> på 30 dagar – formen byggs steg för steg.','Under 30 dagar har du kört <b>'+m30+' pass</b>. Dina muskler skickar hälsningar!'],3));
       else p.push(pk(['Varje pass räknas. Kroppen tackar dig, på sitt eget sätt!','Små steg blir stora förändringar. Även i trapporna!','Det är jämnheten som gör skillnaden, inte hjältemodet.'],3));
@@ -1389,9 +1398,9 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     $('ws-week').innerHTML=w;
   }
   var MKR='<div class="mk mk-run"><div class="mk-ph">Kör!</div><div class="mk-tm">0:30</div><div class="mk-ct"><span>\u2039 Föregående</span><span>Nästa \u203a</span></div><div class="mk-tp">Pekar du på en knapp visas en tipsruta ovanför den</div></div>';
-  var MKD='<div class="mk mk-done"><div class="mk-r"><i>\u2713</i><b>Uppvärmning</b></div><div class="mk-r"><i>\u2713</i><b>Varv 1</b></div><div class="mk-r"><i>\u2713</i><b>Varv 2</b></div><div class="mk-r"><i>\u2713</i><b>Nedvarvning</b></div><div class="mk-ch"><span>Ben</span><span>Tryck</span><span>Mage</span></div></div>';
+  var MKD='<div class="mk mk-done"><div class="mk-r"><i>\u2713</i><b>Uppvärmning</b></div><div class="mk-r"><i>\u2713</i><b>Varv 1</b></div><div class="mk-r"><i>\u2713</i><b>Varv 2</b></div><div class="mk-r"><i>\u2713</i><b>Nedvarvning</b></div><div class="mk-ch"><span>Ben</span><span>Bröst & axlar</span><span>Mage</span></div></div>';
   var TOUR=[
-    {t:'Välkommen!',p:'Jag är Coachhjälpen och visar dig de vanligaste funktionerna, utan flåsande kommentarer. Det tar ungefär en minut och du kan avbryta när som helst. Du hittar mig igen under Inställningar.',v:'w'},
+    {t:'Välkommen!',p:'Tjäna! Jag är Coachhjälpen och visar dig de vanligaste funktionerna, utan flåsande kommentarer. Det tar ungefär en minut och du kan avbryta när som helst. Du hittar mig igen under Inställningar.',v:'w'},
     {t:'Kom igång',p:'Den här knappen tar dig vidare till startsidan, där du väljer och startar ditt pass. Tryck gärna, den bits inte.',v:'w',sel:['#w-go']},
     {t:'Starta dagens pass',p:'Knappen bygger ett pass åt dig med uppvärmning, träning och nedvarvning. Du behöver inte välja något, jag har redan tänkt åt dig!',v:'s',sel:['#start-today']},
     {t:'Lätt, Medel eller Hårt',p:'Välj hur tungt du vill ha det. Stapeln under visar hur passet fördelas mellan övning och vila, och hur långt det blir. Lätt är inte fusk, det är strategi.',v:'s',sel:['#seg','#bar'],pt:'#seg [data-l="1"]'},
@@ -1399,11 +1408,17 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     {t:'Återställ',p:'Återställ tar dig tillbaka till standardpasset, utan utrustning och med 2 varv. Som en ångra-knapp för dagens val.',v:'s',sel:['#reset-main']},
     {t:'Inställningar',p:'Här finns allt du kan ändra. Jag öppnar den så att du ser vad som finns, och jag lovar att inte röra om i dina favoriter.',v:'s',sel:['#bt-set']},
     {t:'Dina val',p:'Välj pass, utrustning, sport, program över flera veckor, tider och varv, samt dina favoriter. Peka på en knapp så förklarar jag den.',v:'s',o:1,sel:['#cats'],pt:'#cats [data-c="time"]',tip:1},
+    {t:'Bygg ett eget pass',p:'Vill du styra själv? Välj Eget pass här under Pass. Då är du dagens tränare och bestämmer vilka övningar som ska ingå.',v:'s',o:1,cat:'pass',m:1,sel:['#mseg'],pt:'#mseg [data-m="custom"]',tip:1},
+    {t:'Välj övningar',p:'Nu dyker knappen Välj övningar upp på startsidan. Tryck på den för att öppna listan med alla övningar.',v:'s',m:1,sel:['#pick-open'],tip:1},
+    {t:'Plocka dina övningar',p:'Peka på en övning för att lägga till den, och peka igen för att ta bort den. Med filtret överst visar du bara den utrustning du har. Ingen övning blir sårad om du väljer bort den.',pk:1,sel:['#pk-f','#pk-list .pkr'],pt:'#pk-list .pkr'},
+    {t:'Klar',p:'Tryck Klar när du är nöjd, så kommer du tillbaka till startsidan med ditt eget pass.',pk:1,sel:['#pk-done'],tip:1},
+    {t:'Spara som favorit',p:'Ge passet ett namn och tryck Spara som favorit, så slipper du bygga om det nästa gång. Du kan ha flera, och roliga namn som Torsdagsplågan är tillåtna.',v:'s',o:1,cat:'pass',m:1,sel:['#savefav'],pt:'#fav-save',tip:1},
+    {t:'Dina favoriter',p:'Sparade pass hittar du under Favoriter. Där kan du visa dem eller köra dem direkt. De väntar snällt tills du behöver dem.',v:'s',o:1,sel:['#cats .cat[data-c="fav"]'],tip:1},
     {t:'Spara',p:'Tryck Spara när du är klar, så sparas valen och du kommer tillbaka till startsidan. Återställ här går tillbaka till standardpasset.',v:'s',o:1,sel:['.setrow'],pt:'#save-set'},
     {t:'Under passet',p:'Med Nästa och Föregående byter du övning. Pekar du på en knapp visas en tipsruta som förklarar den. Nej, du får inte skippa uppvärmningen, jag ser dig.',v:'s',mock:MKR},
     {t:'Efter passet',p:'Du får en summering med gröna bockar och vilka muskelgrupper du tränat. På startsidan ser du hur veckan går och hur många dagar i rad du tränat, med en liten applåd på köpet.',v:'s',mock:MKD},
-    {t:'Det var allt!',p:'Lycka till med träningen! Du hittar Coachhjälpen igen längst ner i Inställningar. Jag sitter kvar och hejar.',v:'s',last:1}];
-  var tourI=0,tourOn=false,tourFrom='w';
+    {t:'Det var allt!',p:'Lycka till med träningen, dä ordnar sej! Du hittar Coachhjälpen igen längst ner i Inställningar. Jag sitter kvar och hejar.',v:'s',last:1}];
+  var tourI=0,tourOn=false,tourFrom='w',tourMode='today';
   function tourSeen(){cfg.tour=1;saveCfg()}
   function tourHas(){var L=cfg.log||{};return Object.keys(L).length>0}
   function maybeTour(){if(tourOn||cfg.tour||tourHas())return;showTour(0)}
@@ -1419,15 +1434,23 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       tx=(pb.left+pb.right)/2,ty=pb.bottom-10,HH=80;
     hd.style.display='block';hd.style.left=Math.max(2,Math.min(W-94,tx-24))+'px';hd.style.top=(ty-3)+'px';
     if(st.tip&&pe)showTip(pe,tipFor(pe));else hideTip();
-    var below=Math.max(r.b+pad+14,ty+HH+6),above=r.t-pad-14-ch,top;
-    if(below+ch<=H-10)top=below;else if(above>=10)top=above;else top=Math.max(10,H-ch-10);
+    c.classList.remove('compact');ch=c.offsetHeight;
+    var below,above,top,br=(st.tip&&pe&&bub.style.display!=='none')?bub.getBoundingClientRect():null,fit=function(){below=Math.max(r.b+pad+14,ty+HH+6);above=r.t-pad-14-ch;if(br){if(br.top<pb.top)above=Math.min(above,br.top-8-ch);else below=Math.max(below,br.bottom+8)}return below+ch<=H-10?1:above>=10?2:0},f=fit();
+    if(!f){c.classList.add('compact');ch=c.offsetHeight;f=fit()}
+    if(f===1)top=below;else if(f===2)top=above;else top=Math.max(10,H-ch-10);
     c.style.top=top+'px'}
   function tourView(st){
-    var wv=$('welcome'),sv=$('setup');
-    if(st.v==='w'){wv.classList.remove('hidden');sv.classList.add('hidden')}else{wv.classList.add('hidden');sv.classList.remove('hidden')}
-    var open=$('bt-set').classList.contains('open');if(!!st.o!==open)$('bt-set').click()}
+    var wv=$('welcome'),sv=$('setup'),pv=$('picker');
+    if(st.pk){wv.classList.add('hidden');sv.classList.add('hidden');pv.classList.remove('hidden');MODE='custom';renderPicker()}
+    else{
+      pv.classList.add('hidden');
+      if(st.v==='w'){wv.classList.remove('hidden');sv.classList.add('hidden')}else{wv.classList.add('hidden');sv.classList.remove('hidden')}
+      var nm=st.m?'custom':tourMode;if(MODE!==nm){MODE=nm;renderToday()}
+      var open=$('bt-set').classList.contains('open');if(!!st.o!==open)$('bt-set').click();
+    }
+    OPENC=st.cat||null;applyCats()}
   function showTour(i){tourOn=true;document.documentElement.classList.add('touring');tourI=i;var st=TOUR[i],last=i===TOUR.length-1,first=i===0;
-    if(first||!$('tour').dataset.on){tourFrom=$('welcome').classList.contains('hidden')?'s':'w'}
+    if(first||!$('tour').dataset.on){tourFrom=$('welcome').classList.contains('hidden')?'s':'w';tourMode=MODE}
     $('tour').dataset.on='1';tourView(st);
     $('tour').classList.remove('hidden');$('tour-t').textContent=st.t;$('tour-p').textContent=st.p;
     $('tour-mock').innerHTML=st.mock||'';
@@ -1439,7 +1462,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     $('tour-c').style.top='-999px';
     setTimeout(function(){tourPlace()},60);setTimeout(tourPlace,320);
     $('tour-next').focus({preventScroll:true})}
-  function closeTour(){hideTip();document.documentElement.classList.remove('touring');$('tour-hand').style.display='none';var open=$('bt-set').classList.contains('open');if(open)$('bt-set').click();
+  function closeTour(){hideTip();$('picker').classList.add('hidden');MODE=tourMode;OPENC=null;applyCats();renderToday();document.documentElement.classList.remove('touring');$('tour-hand').style.display='none';var open=$('bt-set').classList.contains('open');if(open)$('bt-set').click();
     $('tour').classList.add('hidden');delete $('tour').dataset.on;tourOn=false;tourSeen();
     if(tourFrom==='w'){$('welcome').classList.remove('hidden');$('setup').classList.add('hidden')}
     else{$('welcome').classList.add('hidden');$('setup').classList.remove('hidden')}
@@ -1651,7 +1674,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     });
     if(!q)segs.push({t:'pbreak',g:'cool',d:30,n:'Gör dig redo för nedvarvning',sub:'Träningen är klar',ill:COOL[0],dim:true});
     COOL.forEach(function(x,i){segs.push({t:'cool',d:dur(x,20),n:x,sub:'Nedvarvning '+(i+1)+' av '+COOL.length,ill:x});if(i<COOL.length-1)segs.push({t:'rest',g:'cool',d:10,n:'Vila',sub:'Nedvarvning '+(i+1)+' av '+COOL.length+' klar',ill:COOL[i+1],dim:true})});
-    segs.push({t:'done',d:0,n:'Klart!',sub:'Passet är klart – bra jobbat, svettiga hjälte!'});
+    segs.push({t:'done',d:0,n:'Klart!',sub:'Passet är klart – gôtt jobbat, svettiga hjälte!'});
   }
 
   function build(mode){
@@ -1662,13 +1685,13 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     ['Rumpan är kroppens största muskel, låt den vara stolt!','Baksidan har väntat på det här hela dagen.','Gott för både hållning och byxor.','Sitter du mycket? Då är det här dina muskler som tackar mest.'],
     ['Ryggen bär dig varje dag, ge den lite kärlek.','Skrivbordsryggen tackar dig.','Dra isär skulderbladen, då blir hållningen elegant som en kaffekopp.','Stolt rygg, glad människa.'],
     ['Bålen jobbar tyst men hårt, precis som bra kollegor.','Skrattar du under övningen? Då räknas det också som mage.','Spänn magen som inför ett dåligt skämt.','Bålen tar äran även när armar och ben gör jobbet.'],
-    ['Hela kroppen är med, även tårna, de glöms ofta bort.','Pulsen går upp. Det är kroppens sätt att applådera.','Andas! Det är gratis och funkar varje gång.','Det här är övningen du pratar om efteråt.']];
+    ['Nu kôr vi! Hela kroppen är med, även tårna, de glöms ofta bort.','Pulsen går upp. Det är kroppens sätt att applådera.','Andas! Det är gratis och funkar varje gång.','Det här är övningen du pratar om efteråt.']];
   var HUMX=[['Burpees','Ja, de är lika roliga som de låter. Nästan klar, nästan!'],['Planka','Tiden går långsammare i en planka. Det är vetenskap.'],['Knäböj','Sätt dig på en osynlig stol, men res dig innan den hinner bli bekväm.'],['Utfall','Ett steg i taget, som en elegant kavaljer.'],['Armhävning','Golvet är snällare än det ser ut. Det puffar tillbaka!'],['Glutebrygga','Kläm i toppen som om du höll en valnöt mellan skinkorna.'],['Jumping jacks','Du ser ut som ett fyrverkeri, ett effektivt sådant.'],['Superman','Flyg! Kappa är valfritt.'],['Bergsklättrare','Berget är platt, men tänk att du är sen till bussen.'],['Höga knän','Låtsas att golvet är varmt.'],['Katt och ko','Mjaua tyst, det räknas ändå.'],['Barnets ställning','Här får du gärna sucka högt. Ingen dömer.'],['Tåhävningar','Du blir en centimeter längre varje gång, helt gratis!'],['Sidoplanka','Vinka gärna med överarmen, om balansen tillåter.'],['Thruster','Två övningar till priset av en. Ett riktigt fynd!']];
   function exHum(n){if(!n)return '';for(var i=0;i<HUMX.length;i++)if(n.indexOf(HUMX[i][0])===0)return ' '+HUMX[i][1];
     var c=CATX[n],sl=(c&&c.s!==undefined)?c.s:5,a=HUMS[sl]||HUMS[5],h=0,k;for(k=0;k<n.length;k++)h=(h*31+n.charCodeAt(k))>>>0;return ' '+a[h%a.length]}
   var MG=[['Ben','Benen fick jobba, lår och säte blir starkare. Trapporna darrar redan i förväg!','Starka ben bär dig långt. Idag tränade du framsidan av låren och sätet. Det är helt normalt att trappan känns lång imorgon.','Benträning idag! Den största muskelgruppen jobbade, förbränningen är hög och kaffet smakar bättre.'],
-    ['Tryck','Bröst, axlar och triceps fick en rejäl omgång. Dags att bära matkassarna med stil!','Överkroppen jobbade, pressmusklerna i bröst och armar var med. Tunga dörrar blir snart lättare.','Bra tryck idag! Bröst, axlar och baksidan av armarna blir starkare. Syltburkar öppnas på första försöket.'],
-    ['Baksida','Baksidan jobbade, rumpa och lårens baksida fick sitt. De har aldrig varit så uppmärksammade.','Rumpa och baksida lår fick jobba. Bra för hållningen, och för att resa sig ur soffan med värdighet.','Starkt! Kroppens baksida fick sin beskärda del idag, helt utan att klaga.'],
+    ['Bröst & axlar','Bröst, axlar och triceps fick en rejäl omgång. Dags att bära matkassarna med stil!','Överkroppen jobbade, pressmusklerna i bröst och armar var med. Tunga dörrar blir snart lättare.','Bra jobbat med överkroppen idag! Bröst, axlar och baksidan av armarna blir starkare. Syltburkar öppnas på första försöket.'],
+    ['Baksida','Baksidan jobbade, rumpa och lårens baksida fick sitt. De har aldrig varit så uppmärksammade.','Rumpa och baksida lår fick jobba. Gôtt för hållningen, och för att resa sig ur soffan med värdighet.','Starkt! Kroppens baksida fick sin beskärda del idag, helt utan att klaga.'],
     ['Rygg','Ryggen och dragmusklerna fick jobba, bra för hållningen. Mormor skulle vara stolt!','Stark rygg ger bättre hållning. Idag drog du ditt strå till stacken, bokstavligen!','Ryggen var med idag, dina dragmuskler tackar dig. Skrivbordsstolen märker skillnaden.'],
     ['Mage','Bålen jobbade, mage och djupa muskler blir starkare. Skratta gärna, det är också träning!','Magen fick sig en omgång. En stark bål stöttar allt du gör, även när du lyfter tvätthögen.','Core-träning idag! Bålen blir stabilare för varje pass, mittpunkten i din värld.'],
     ['Helkropp','Hela kroppen var med, pulsen och konditionen fick en skjuts. Ingen muskel fick sitta på bänken!','Helkroppsträning! Puls upp och många muskler igång samtidigt. Effektivt, som en bra städdag.','Hela kroppen jobbade idag, både styrka och kondition vann på det. Alla fick vara med.']];
@@ -1702,7 +1725,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       logDone(sg);
       running=false;clearInterval(timerId);releaseLock();
       $('time').textContent='✓';
-      var PM=['Starkt jobbat! Du gjorde det igen, och kroppen skickar ett tackkort.','Du kom, du körde, du klarade det. Soffan fick vänta idag.','Ett riktigt bra pass. Ta en klunk vatten och var lite stolt, du har förtjänat det.','Varje pass räknas, och idag räknades det extra. Grymt!','Imorgon blir det ännu lättare att komma igång. Kroppen minns allt du gjorde idag.','Det där kallas att leverera! Nu väntar ett välförtjänt pusterum.'];
+      var PM=['Gôtt jobbat! Du gjorde det igen, och kroppen skickar ett tackkort.','Kors i taket, du kom, du körde, du klarade det! Soffan fick vänta idag.','Ett riktigt bra pass. Ta en klunk vatten och var lite stolt, du har förtjänat det.','Varje pass räknas, och idag räknades det extra. Grymt!','Imorgon blir det ännu lättare att komma igång. Kroppen minns allt du gjorde idag.','Det där kallas att leverera! Nu väntar ett välförtjänt pusterum.'];
       $('pepp').textContent=PM[Math.floor(Math.random()*PM.length)];renderSum();
       $('pause').textContent='Tillbaka';
       beep(660,.15);setTimeout(function(){beep(880,.15)},200);setTimeout(function(){beep(1100,.4)},400);
