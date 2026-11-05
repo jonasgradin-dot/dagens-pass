@@ -1289,7 +1289,7 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
    ['#next','Hoppa till nästa övning. Fuska inte för ofta, jag ser dig!'],
    ['#pause','Pausa eller fortsätt timern. Ta en klunk vatten, dä ä tillåtet.'],
    ['#stop','Avsluta passet och gå tillbaka. Dä ä lugnt, imorgon är en ny dag.'],
-   ['#voicebtn','Slå av eller på rösten som räknar ner de sista fem sekunderna av varje övning. Tyst, men trevligt.'],
+   ['#voicebtn','Slå av eller på rösten som räknar ner de sista tre sekunderna av varje övning. Tyst, men trevligt.'],
    ['#tickbtn','Slå av eller på taktljudet. Tick tack, eller tyst, du bestämmer.']
   ];
   function tipFor(b){if(b.dataset&&b.dataset.tip)return b.dataset.tip;for(var i=0;i<TIPT.length;i++){var t=TIPT[i];try{if(b.matches(t[0]))return typeof t[1]==='function'?t[1](b):t[1]}catch(e){}}return ''}
@@ -1489,7 +1489,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     {t:'Spara som favorit',p:'Ge passet ett namn och tryck Spara som favorit, så slipper du bygga om det nästa gång. Du kan ha flera, och roliga namn som Torsdagsplågan är tillåtna.',v:'s',o:1,cat:'pass',m:1,sel:['#savefav'],pt:'#fav-save',tip:1},
     {t:'Dina favoriter',p:'Sparade pass hittar du under Favoriter. Där kan du visa dem eller köra dem direkt. De väntar snällt tills du behöver dem.',v:'s',o:1,sel:['#cats .cat[data-c="fav"]'],tip:1},
     {t:'Spara',p:'Tryck Spara när du är klar, så sparas valen och du kommer tillbaka till startsidan. Återställ här går tillbaka till standardpasset.',v:'s',o:1,sel:['.setrow'],pt:'#save-set'},
-    {t:'Under passet',p:'De sista fem sekunderna av varje övning räknar en röst ner, och siffran växer på skärmen. Ingen smiter undan de sista fem! Med Nästa och Föregående byter du övning.',v:'s',mock:MKR},
+    {t:'Under passet',p:'De sista tre sekunderna av varje övning räknar en röst ner, och siffran växer på skärmen. Ingen smiter undan de sista tre! Med Nästa och Föregående byter du övning.',v:'s',mock:MKR},
     {t:'Efter passet',p:'Du får en summering med gröna bockar och vilka muskelgrupper du tränat. På startsidan ser du hur veckan går och hur många dagar i rad du tränat, med en liten applåd på köpet.',v:'s',mock:MKD},
     {t:'Det var allt!',p:'Lycka till med träningen, dä ordnar sej! Du hittar Coachhjälpen igen längst ner i Inställningar. Jag sitter kvar och hejar.',v:'s',last:1}];
   var tourI=0,tourOn=false,tourFrom='w',tourMode='today';
