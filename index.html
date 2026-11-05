@@ -650,6 +650,11 @@ html.touring .bubble{z-index:2100}
 #w-stats .ws-week{margin:8px 0 6px}
 #w-q{font-size:clamp(1.1rem,3.1vh,1.5rem);line-height:1.1;word-spacing:1px}
 .w-quote{margin:10px 0 0}
+/* Coachhjälpen + Min röst: gemensam knappform, bredvid varandra */
+.toolrow{display:flex;gap:10px;margin:12px 0 4px}
+.toolrow .tourb{flex:1 1 0;min-width:0;margin:0;height:44px;padding:0 10px;border-radius:26px 9px 26px 9px;border:1.5px solid var(--c-honey);background:var(--ct-honey);color:var(--cf-honey);font:inherit;font-weight:600;font-size:.9rem;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
+.toolrow .tourb{gap:8px}
+.toolrow .ti{width:20px;height:20px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 </style>
 </head>
 <body>
@@ -704,8 +709,7 @@ html.touring .bubble{z-index:2100}
       <div class="panel" id="pn-fav" data-c="fav"><p class="ptip"></p><div id="fav-list"></div></div>
       </div>
       <div class="setrow"><button class="rsb" id="reset-set" type="button">Återställ</button><button class="svb" id="save-set" type="button">Spara</button></div>
-      <button class="tourb" id="tour-open" type="button">Coachhjälpen</button>
-      <button class="tourb" id="myvoice" type="button">Min röst</button>
+      <div class="toolrow"><button class="tourb" id="tour-open" type="button"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>Coachhjälpen</button><button class="tourb" id="myvoice" type="button"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6"/></svg>Min röst</button></div>
     </div>
     <div class="th" id="t-title"></div><div class="tm" id="t-meta"></div>
     <button class="pickbtn" id="pick-open" type="button">Välj övningar ›</button>
@@ -1289,6 +1293,8 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
    ['#next','Hoppa till nästa övning. Fuska inte för ofta, jag ser dig!'],
    ['#pause','Pausa eller fortsätt timern. Ta en klunk vatten, dä ä tillåtet.'],
    ['#stop','Avsluta passet och gå tillbaka. Dä ä lugnt, imorgon är en ny dag.'],
+   ['#tour-open','Startar genomgången av appen igen, steg för steg. Perfekt om du glömt hur något fungerar. Jag tar det lugnt.'],
+   ['#myvoice','Här lägger du in din egen röst: siffror och peppande tillrop. Din röst går först i passet, så du coachar dig själv.'],
    ['#voicebtn','Slå av eller på rösten som räknar ner de sista tre sekunderna av varje övning. Tyst, men trevligt.'],
    ['#tickbtn','Slå av eller på taktljudet. Tick tack, eller tyst, du bestämmer.']
   ];
@@ -1489,6 +1495,8 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     {t:'Spara som favorit',p:'Ge passet ett namn och tryck Spara som favorit, så slipper du bygga om det nästa gång. Du kan ha flera, och roliga namn som Torsdagsplågan är tillåtna.',v:'s',o:1,cat:'pass',m:1,sel:['#savefav'],pt:'#fav-save',tip:1},
     {t:'Dina favoriter',p:'Sparade pass hittar du under Favoriter. Där kan du visa dem eller köra dem direkt. De väntar snällt tills du behöver dem.',v:'s',o:1,sel:['#cats .cat[data-c="fav"]'],tip:1},
     {t:'Spara',p:'Tryck Spara när du är klar, så sparas valen och du kommer tillbaka till startsidan. Återställ här går tillbaka till standardpasset.',v:'s',o:1,sel:['.setrow'],pt:'#save-set'},
+    {t:'Coachhjälpen',p:'Knappen med glödlampan startar den här genomgången igen, när du vill. Du hittar den längst ner i Inställningar.',v:'s',o:1,sel:['#tour-open'],pt:'#tour-open'},
+    {t:'Min röst',p:'Med mikrofonen lägger du in din egen röst: siffrorna och peppande tillrop. Din röst spelas före de inbyggda, så du kan coacha dig själv.',v:'s',o:1,sel:['#myvoice'],pt:'#myvoice'},
     {t:'Under passet',p:'De sista tre sekunderna av varje övning räknar en röst ner, och siffran växer på skärmen. Ingen smiter undan de sista tre! Med Nästa och Föregående byter du övning.',v:'s',mock:MKR},
     {t:'Efter passet',p:'Du får en summering med gröna bockar och vilka muskelgrupper du tränat. På startsidan ser du hur veckan går och hur många dagar i rad du tränat, med en liten applåd på köpet.',v:'s',mock:MKD},
     {t:'Det var allt!',p:'Lycka till med träningen, dä ordnar sej! Du hittar Coachhjälpen igen längst ner i Inställningar. Jag sitter kvar och hejar.',v:'s',last:1}];
