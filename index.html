@@ -1506,12 +1506,16 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function kcalSec(q,sec){return segMet(q)*3.5*KG/200/60*sec}
   function kcalTotalPass(){return segs.reduce(function(a,q){return a+kcalSec(q,q.d||0)},0)}
   function kcalNow(){var a=0,i;for(i=0;i<idx&&i<segs.length;i++)a+=kcalSec(segs[i],segs[i].d||0);var cs=segs[idx];if(cs&&cs.d&&running){var left=Math.max(0,(endAt-Date.now())/1000);a+=kcalSec(cs,Math.max(0,Math.min(cs.d,cs.d-left)))}return a}
+  var KMS=[[100,'100 kcal – lika mycket som en banan. Första kliven är tagen!'],[250,'250 kcal – ungefär en kanelbulle. Den har du jobbat bort med råge!'],[500,'500 kcal – det är lika mycket som en Big Mac. Bra jobbat!'],[750,'750 kcal – en rejäl tallrik pannkakor med sylt och grädde. Smaklig måltid, du har förtjänat den!'],[1000,'1 000 kcal – en hel chokladkaka på 200 gram. Du får faktiskt äta upp den nu!'],[1500,'1 500 kcal – en hel pizza! Du är en riktig pizzabrännare.'],[2000,'2 000 kcal – ungefär vad många äter på en hel dag. Kroppen är imponerad!'],[3000,'3 000 kcal – tre kompletta hamburgermenyer. Det är ju fest!'],[4000,'4 000 kcal – en hel prinsesstårta! Grönt marsipanlock och allt.'],[5000,'5 000 kcal – två hela dagars mat. Du är oslagbar!'],[7500,'7 500 kcal – energin i ett helt kilo smör. Fantastiskt jobbat!'],[10000,'10 000 kcal – mer energi än i ett kilo kroppsfett. Det här är stort!'],[15000,'15 000 kcal – en hel veckas mat bortjobbad. Du är en maskin!'],[20000,'20 000 kcal – energin i två och ett halvt kilo kroppsfett. Hatten av!'],[30000,'30 000 kcal – drygt två veckors mat. Du är en legend!'],[50000,'50 000 kcal – en hel månads mat. Det här är ren hjältestatus!'],[100000,'100 000 kcal – 50 dagars mat. Du är i en liga för dig själv!']];
+  function kcTot(){var L=cfg.log||{},t=0;Object.keys(L).forEach(function(k){var e=L[k];t+=e.kc||Math.round(e.s*0.1)});return t}
   function logDone(sg){
     if(sg.logged)return;sg.logged=true;
+    var kcBefore=kcTot();
     var d=dnOf(new Date()),sec=segs.reduce(function(a,q){return a+((q.t==='prep'||q.t==='done')?0:q.d)},0);
     cfg.log=cfg.log||{};var e=cfg.log[d]||{n:0,s:0};e.n++;e.s+=sec;e.kc=(e.kc||0)+Math.round(kcalTotalPass());
     try{initCat();var nm=[],gr=[];segs.forEach(function(q){if(q.t==='work'&&nm.indexOf(q.n)<0){nm.push(q.n);var c=CATX[q.n];if(c&&gr.indexOf(c.s)<0)gr.push(c.s)}});e.ex=(e.ex||[]).concat(nm.filter(function(x){return (e.ex||[]).indexOf(x)<0}));e.f=(e.f||[]).concat(gr.filter(function(x){return (e.f||[]).indexOf(x)<0}))}catch(er){}
     cfg.log[d]=e;saveCfg();renderStats();
+    var kcAfter=kcTot();sg.ms=null;KMS.forEach(function(m){if(kcBefore<m[0]&&kcAfter>=m[0])sg.ms=m[1]});
   }
   function renderStats(){
     var L=cfg.log||{},ks=Object.keys(L).map(Number).sort(function(a,b){return a-b}),now=new Date(),t=dnOf(now),
@@ -1962,7 +1966,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       running=false;clearInterval(timerId);releaseLock();
       $('time').textContent='✓';
       var PM=['Gôtt jobbat! Du gjorde det igen, och kroppen skickar ett tackkort.','Kors i taket, du kom, du körde, du klarade det! Soffan fick vänta idag.','Ett riktigt bra pass. Ta en klunk vatten och var lite stolt, du har förtjänat det.','Varje pass räknas, och idag räknades det extra. Grymt!','Imorgon blir det ännu lättare att komma igång. Kroppen minns allt du gjorde idag.','Det där kallas att leverera! Nu väntar ett välförtjänt pusterum.','Där satt refrängen! Nu får kroppen applåder och en stor klunk vatten.','Ett pass med riktig dansbandskänsla: jämnt, glatt och ingen tappade takten. Gôtt jobbat!','Ta en bugning, du har förtjänat det. Soffan klappar händerna.','Det ordnar sig alltid när man kommer igång, och idag ordnade det sig riktigt bra!','Lite svett, lite stolthet, ingen brådska. Det är hela receptet. Bra kôrt!'];
-      var pm=PM[Math.floor(Math.random()*PM.length)];if(cfg.name&&Math.random()<.6)pm=cfg.name+', '+pm.charAt(0).toLowerCase()+pm.slice(1);$('pepp').textContent=pm;renderSum();
+      var pm=PM[Math.floor(Math.random()*PM.length)];if(cfg.name&&Math.random()<.6)pm=cfg.name+', '+pm.charAt(0).toLowerCase()+pm.slice(1);$('pepp').textContent=sg.ms?'🔥 '+(cfg.name?cfg.name+', ':'')+sg.ms.charAt(0).toLowerCase()+sg.ms.slice(1):pm;renderSum();
       $('pause').textContent='Tillbaka';
       beep(660,.15);setTimeout(function(){beep(880,.15)},200);setTimeout(function(){beep(1100,.4)},400);
       return;
