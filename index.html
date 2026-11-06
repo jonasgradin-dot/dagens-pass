@@ -1488,8 +1488,8 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     ep=Math.floor(sp/N);pos=sp-ep*N;o=ord(ep);
     if(pos===0&&ep>0){var pv=ord(ep-1);if(pv[N-1]===o[0]){var t=o[0];o[0]=o[1];o[1]=t}}
     var it=WHERO[o[pos]];e.style.backgroundImage='url('+it[0]+')';e.setAttribute('aria-label',it[1])}
-  function greet(){var h=new Date().getHours(),g=(h<4||h>=22)?'Hej nattuggla':h<10?'God morgon':h<12?'God förmiddag':h<14?'God middag':h<18?'God eftermiddag':'God kväll';g+=cfg.name?', '+cfg.name+'!':'!';var e=$('w-hi');if(e){e.textContent=g;fitHi()}}
-  function fitHi(){var e=$('w-hi');if(!e)return;e.style.fontSize='';var fs=parseFloat(getComputedStyle(e).fontSize),w=e.clientWidth,n=0;if(!w)return;while(e.scrollWidth>w+1&&fs>12&&n++<60){fs-=1;e.style.fontSize=fs+'px'}}
+  function greet(){var h=new Date().getHours(),g=(h<4||h>=22)?'Hej nattuggla':h<10?'God morgon':h<12?'God förmiddag':h<14?'God middag':h<18?'God eftermiddag':'God kväll';g+=cfg.name?', '+cfg.name+'!':'!';var e=$('w-hi');if(e){e.innerHTML='<span></span>';e.firstChild.textContent=g;fitHi()}}
+  function fitHi(){var e=$('w-hi');if(!e||!e.firstChild)return;var sp=e.firstChild;if(sp.nodeType!==1){e.innerHTML='<span></span>';e.firstChild.textContent=sp.nodeValue;sp=e.firstChild}e.style.fontSize='';var pw=e.parentElement?e.parentElement.clientWidth:0,avail=Math.min(pw||999,window.innerWidth-28);if(avail<=40)return;e.style.maxWidth=avail+'px';e.style.overflow='visible';e.style.textOverflow='clip';sp.style.display='inline-block';sp.style.whiteSpace='nowrap';var fs=parseFloat(getComputedStyle(e).fontSize),n=0;while(sp.getBoundingClientRect().width>avail-2&&fs>10&&n++<80){fs=Math.max(10,fs*Math.min(.97,(avail-2)/sp.getBoundingClientRect().width));e.style.fontSize=fs+'px'}}
   window.addEventListener('resize',fitHi);
   setInterval(function(){try{greet()}catch(x){}},30000);document.addEventListener('visibilitychange',function(){if(!document.hidden)try{greet()}catch(x){}});window.addEventListener('focus',function(){try{greet()}catch(x){}});
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fitHi()});
