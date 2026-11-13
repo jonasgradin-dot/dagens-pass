@@ -2084,6 +2084,10 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       draw(a.map(function(v,q){return v+(b[q]-v)*u}));
     })(t0);
   }
+  var BLKM=[['Skönt att du är här! Skaka loss axlarna, ta ett djupt andetag och drick lite vatten. Vi börjar lugnt med uppvärmningen.','Nu är det bara du och passet. Ställ dig bekvämt, släpp axlarna och andas ut. Kroppen gillar att få en mjuk start.','Bra att du kom igång, det är redan det svåraste! Rulla lite på axlarna så börjar vi om en liten stund.','Ta en klunk vatten och känn efter hur kroppen mår idag. Uppvärmningen tar hand om resten.'],
+    ['Uppvärmningen är klar, vad fint du kom igång! Ta en klunk vatten och andas lugnt. Nu börjar den riktiga träningen.','Musklerna är varma och redo. Skaka ur händerna, räta på ryggen och ta ett djupt andetag. Nu kör vi!','Grymt jobbat hittills. Nu blir det lite mer kämpa-på. Du klarar det, det har du ju redan bevisat.','Pulsen är på väg upp, precis som den ska. Vila, drick och samla krafterna inför träningen.'],
+    ['Där satt det! Träningen är klar och du får lov att vara riktigt nöjd. Nu varvar vi ner i lugn och ro.','Starkt jobbat! Låt pulsen sjunka, andas djupt och skaka ut armar och ben. Nedvarvningen är din belöning.','Det värsta är över, nu får kroppen landa. Ta en klunk vatten och ta det lugnt en liten stund.','Tack för att du gav järnet! Nu mjukar vi upp musklerna så blir det lättare imorgon.']];
+  function blkMsg(k){var a=BLKM[k],m=a[Math.floor(Math.random()*a.length)];return (cfg.name&&Math.random()<.5)?cfg.name+', '+m.charAt(0).toLowerCase()+m.slice(1):m}
   function buildToday(){
     var T=today(),q=MODE==='quick',RN=rounds(),N=T.ex.length,wd=q?20:30;
     SNAP=false;
@@ -2096,9 +2100,9 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
         return;
       }
     }
-    segs=[{t:'prep',d:5,n:'Gör dig redo',sub:'Uppvärmning först',ill:WARM[0],dim:true}];
+    segs=[{t:'prep',d:q?5:30,n:q?'Gör dig redo':'Gör dig redo för uppvärmning',sub:q?'Uppvärmning först':blkMsg(0),ill:WARM[0],dim:true}];
     WARM.forEach(function(x,i){segs.push({t:'warm',d:dur(x,wd),n:x,sub:'Uppvärmning '+(i+1)+' av '+WARM.length,ill:x});if(i<WARM.length-1)segs.push({t:'rest',g:'warm',d:10,n:'Vila',sub:'Uppvärmning '+(i+1)+' av '+WARM.length+' klar',ill:WARM[i+1],dim:true})});
-    if(!q)segs.push({t:'pbreak',g:'work',d:30,n:'Gör dig redo för träning',sub:'Uppvärmningen är klar',ill:T.ex[0],dim:true});
+    if(!q)segs.push({t:'pbreak',g:'work',d:30,n:'Gör dig redo för träning',sub:blkMsg(1),ill:T.ex[0],dim:true});
     for(var r=1;r<=RN;r++)T.ex.forEach(function(x,i){
       var nx=i<N-1?T.ex[i+1]:(r<RN?T.ex[0]:COOL[0]);
       var vp=RN>1?'Varv '+r+' av '+RN+' · ':'';
@@ -2107,7 +2111,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       if(i===N-1&&r<RN){var left=RN-r;segs.push({t:'rbreak',d:(MODE==='yest'?60:(cfg.rb||60)),n:'Bra jobbat'+(cfg.name?', '+cfg.name:'')+'!',sub:(left===1?'Ett varv kvar – nu bjuder vi på det sista!':left+' varv kvar – du har ju redan visat vad du går för!'),ill:T.ex[0],dim:true})}
       else if(rd>0&&!(r===RN&&i===N-1&&!q))segs.push({t:'rest',d:rd,n:'Vila',sub:vp+(i+1)+' av '+N+' klara',ill:nx,dim:true});
     });
-    if(!q)segs.push({t:'pbreak',g:'cool',d:30,n:'Gör dig redo för nedvarvning',sub:'Träningen är klar',ill:COOL[0],dim:true});
+    if(!q)segs.push({t:'pbreak',g:'cool',d:30,n:'Gör dig redo för nedvarvning',sub:blkMsg(2),ill:COOL[0],dim:true});
     COOL.forEach(function(x,i){segs.push({t:'cool',d:dur(x,20),n:x,sub:'Nedvarvning '+(i+1)+' av '+COOL.length,ill:x});if(i<COOL.length-1)segs.push({t:'rest',g:'cool',d:10,n:'Vila',sub:'Nedvarvning '+(i+1)+' av '+COOL.length+' klar',ill:COOL[i+1],dim:true})});
     segs.push({t:'done',d:0,n:'Klart'+(cfg.name?', '+cfg.name:'')+'!',sub:'Passet är klart – gôtt jobbat, svettiga hjälte!'});
   }
