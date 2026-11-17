@@ -821,8 +821,9 @@ html.touring .bubble{z-index:2100}
 @keyframes fgrip{from{opacity:0;transform:rotate(-12deg) scaleY(.05)}25%{opacity:1}to{opacity:1;transform:rotate(-12deg) scaleY(1)}}
 .w-pawbox .pw.l{animation:pawup .8s cubic-bezier(.3,.1,.3,1) .2s both,pwl 1.6s ease-in-out 1s infinite alternate}
 @keyframes pawup{from{translate:0 24px}to{translate:0 0}}
-.w-go-wrap>#w-pet,#w-pet.w-pet{animation:swup 3.4s cubic-bezier(.45,.05,.35,1) 1.2s both,zpet 4.6s linear both}
-@keyframes zpet{0%,80%{z-index:1}84%,100%{z-index:4}}
+#w-pet.w-pet{animation:petup 5.6s ease-in-out both,zpet 5.6s linear both}
+@keyframes zpet{0%,72%{z-index:1}73%,100%{z-index:4}}
+@keyframes petup{0%,21%{transform:translateY(84px) scale(1)}70%,79%{transform:translateY(-7px) scale(1)}89%{transform:translateY(-5px) scale(1.12)}100%{transform:none}}
 #w-pet svg.pf{animation:pfs 3.4s ease-in-out infinite alternate,hz 5s ease-in-out both;animation-delay:var(--wd),.7s}
 @keyframes hz{0%,10%{rotate:14deg;translate:4px 2px;scale:.88 1}78%,86%{rotate:7deg;translate:4px -2px;scale:.9 1}98%,100%{rotate:0deg;translate:0 0;scale:1 1}}
 #w-pet .eyes{animation:blk 4.6s infinite,gz 5s ease-in-out both;animation-delay:var(--wd),.7s}
@@ -831,7 +832,7 @@ html.touring .bubble{z-index:2100}
 @keyframes sws{from{transform:rotate(-3.5deg)}to{transform:rotate(3.5deg)}}
 .w-pet .sw2 .pw.r{display:block;top:22px;left:49px;animation:none;transform:none;z-index:3}
 .w-pet .sw2 .sg{animation:none;transform:translateX(-50%) rotate(-1.5deg)}
-.w-pet .sw{position:absolute;left:0;top:0;width:0;height:0;animation:swup 3.4s cubic-bezier(.45,.05,.35,1) 1.2s both}
+.w-pet .sw{position:absolute;left:0;top:0;width:0;height:0;animation:swup 2.9s cubic-bezier(.45,.05,.35,1) 1.2s both}
 @keyframes swup{from{transform:translateY(84px)}to{transform:none}}
 .w-pet .sk{position:absolute;left:54px;top:-4px;width:5px;height:40px;background:linear-gradient(90deg,#b07a42,#8a5a2e);border:1.5px solid #6e4220;border-radius:2px;box-sizing:border-box}
 .w-pet .sg{position:absolute;left:56px;top:-29px;padding:4px 9px 5px;border-radius:5px;border:2px solid #6e4220;background:repeating-linear-gradient(0deg,rgba(110,66,32,.13) 0 1px,transparent 1px 5px),linear-gradient(#e0ab68,#c98d49);color:#4a2a10;font:800 13px/1.1 system-ui,-apple-system,sans-serif;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;box-shadow:0 2px 4px rgba(0,0,0,.3);text-shadow:0 1px 0 rgba(255,255,255,.35);transform:translateX(-50%) rotate(-3deg);transform-origin:50% 100%;animation:sgs 3s ease-in-out infinite alternate}
