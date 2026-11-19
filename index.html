@@ -2155,7 +2155,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     if(ch&&ch.lat===l.lat&&ch.lon===l.lon&&now-ch.t<18e5){wxShow(ch.d,l.place);return}
     var ac2=window.AbortController?new AbortController():null,to=setTimeout(function(){if(ac2)ac2.abort()},7000);
     fetch('https://api.open-meteo.com/v1/forecast?latitude='+l.lat+'&longitude='+l.lon+'&current=temperature_2m,weather_code,wind_speed_10m&wind_speed_unit=ms&timezone=auto',ac2?{signal:ac2.signal}:{}).then(function(r){return r.json()}).then(function(d){clearTimeout(to);if(!d||!d.current)throw 0;cfg.wxc={lat:l.lat,lon:l.lon,t:now,d:{current:d.current}};saveCfg();wxShow(cfg.wxc.d,l.place)}).catch(function(){clearTimeout(to);if(ch&&ch.lat===l.lat&&ch.lon===l.lon&&now-ch.t<216e5)wxShow(ch.d,l.place);else{$('w-wx').classList.add('hidden');wxFx(null)}})}
-  function wxAsk(){var el=$('w-wx');$('wx-1').textContent='🌤️ Visa vädret hos dig';$('wx-2').textContent='Tryck här, så hämtar jag dä. Din plats stannar i appen.';el.classList.remove('hidden')}
+  function wxAsk(){var el=$('w-wx');$('wx-1').textContent='🌤️ Visa vädret hos dig';$('wx-2').textContent='Tillåt plats, så följer vädret med dej vart du än ä.';el.classList.remove('hidden')}
   function wxDist(a,b,c,d){var R=6371,x=(c-a)*Math.PI/180,y=(d-b)*Math.PI/180,q=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(q))}
   function wxName(lat,lon,cb){var ac3=window.AbortController?new AbortController():null,to=setTimeout(function(){if(ac3)ac3.abort()},5000);
     fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude='+lat+'&longitude='+lon+'&localityLanguage=sv',ac3?{signal:ac3.signal}:{}).then(function(r){return r.json()}).then(function(d){clearTimeout(to);cb((d&&(d.city||d.locality))||'')}).catch(function(){clearTimeout(to);cb('')})}
@@ -2164,12 +2164,19 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       if(o&&o.gps&&o.lat!=null&&wxDist(o.lat,o.lon,la,lo)<3){done(true,false);return}
       cfg.wx={lat:la,lon:lo,place:'',gps:1};cfg.wxc=null;saveCfg();
       wxName(la,lo,function(n){if(cfg.wx&&cfg.wx.lat===la&&cfg.wx.lon===lo){cfg.wx.place=n;saveCfg();if(cfg.wxc)wxShow(cfg.wxc.d,n)}});done(true,true)},
-      function(){done(false)},{timeout:first?9000:6000,maximumAge:first?6e5:3e5,enableHighAccuracy:false})}
+      function(){done(false)},{timeout:first?9000:6000,maximumAge:first?6e5:3e4,enableHighAccuracy:false})}
   function wxGeo(){wxPos(true,function(ok){if(ok)wxLoad();else{$('wx-in').classList.remove('hidden');var q=$('wx-q');if(q)q.focus()}})}
   function wxCity(){var q=($('wx-q').value||'').trim();if(!q)return;fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(q)+'&count=8&language=sv').then(function(r){return r.json()}).then(function(d){var rs=(d&&d.results)||[],g=null,i;for(i=0;i<rs.length;i++)if(rs[i].country_code==='SE'){g=rs[i];break}if(!g)g=rs[0];if(!g){$('wx-q').value='';$('wx-q').placeholder='Hittade inte orten, prova igen';return}cfg.wx={lat:Math.round(g.latitude*100)/100,lon:Math.round(g.longitude*100)/100,place:g.name};cfg.wxc=null;saveCfg();$('wx-in').classList.add('hidden');wxLoad()}).catch(function(){$('wx-q').value='';$('wx-q').placeholder='Ingen kontakt, försök igen'})}
   $('wx-main').addEventListener('click',function(){if(!cfg.wx||cfg.wx.lat==null)wxGeo();else{$('wx-in').classList.toggle('hidden')}});
   $('wx-ok').addEventListener('click',wxCity);$('wx-gps').addEventListener('click',function(){$('wx-in').classList.add('hidden');if(cfg.wx)cfg.wx.gps=0;wxGeo()});$('wx-q').addEventListener('keydown',function(e){if(e.key==='Enter')wxCity()});
-  try{if(cfg.wx&&cfg.wx.lat!=null){wxLoad();if(cfg.wx.gps)wxPos(false,function(ok,moved){if(moved)wxLoad()})}else wxAsk()}catch(e){}
+  var WXT=0;
+  function wxAuto(){WXT=Date.now();var has=cfg.wx&&cfg.wx.lat!=null;
+    var fb=function(){if(!has)wxAsk()};
+    var go=function(){if(has){wxLoad();wxPos(false,function(ok,moved){if(moved)wxLoad()})}
+      else{$('wx-1').textContent='📍 Hämtar din plats…';$('wx-2').textContent='';$('w-wx').classList.remove('hidden');wxPos(true,function(ok){if(ok)wxLoad();else{$('wx-2').textContent='';fb()}})}};
+    if(navigator.permissions&&navigator.permissions.query){navigator.permissions.query({name:'geolocation'}).then(function(st){if(st.state==='denied'){if(has)wxLoad();else fb()}else go()}).catch(go)}else go()}
+  document.addEventListener('visibilitychange',function(){if(!document.hidden&&Date.now()-WXT>6e5){try{wxAuto()}catch(e){}}});
+  try{wxAuto()}catch(e){}
   $('cc-auto').addEventListener('click',function(){coachClose('auto')});
   $('cc-self').addEventListener('click',function(){coachClose('self')});
   $('cc-skip').addEventListener('click',function(){coachClose('skip')});
