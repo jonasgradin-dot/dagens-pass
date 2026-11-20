@@ -143,6 +143,32 @@ body.rbreak{background:#2a7f6f;color:#fff}
 @keyframes fall{to{transform:translateY(105vh) rotate(540deg)}}
 .pepp{display:none;text-align:center;font-size:1.3rem;font-weight:600;line-height:1.3;margin:0 10px 18px}
 body.done .pepp{display:block;animation:fadein .9s 1.4s both}
+.rpe{display:none;margin:0 6px 12px;text-align:center}
+body.done .rpe{display:block;animation:fadein .9s 2.2s both}
+.rpe-q{font-size:.95rem;font-weight:600;margin-bottom:8px;opacity:.95}
+.rpe-b{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.rpe-b button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 2px 8px;border-radius:18px 8px 18px 8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.4);color:#fff;font:inherit;font-size:.78rem;font-weight:600;cursor:pointer}
+.rpe-b button i{font-style:normal;font-size:1.5rem;line-height:1.1}
+.rpe-b button.sel{background:rgba(255,255,255,.95);color:#1d3b36}
+.rpe.rated .rpe-b button:not(.sel){opacity:.55}
+.rpe-a{min-height:1.2em;margin-top:8px;font-size:.88rem;line-height:1.3;opacity:.95}
+.rpe-w{margin-top:10px;padding:12px 10px 10px;border-radius:20px 8px 20px 8px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.35)}
+.rpe-w.hidden{display:none}
+.rw-c{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:2px 0 10px}
+.rw-c button{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.45);color:#fff;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.rw-c button{position:relative}
+.rw-c button.sel{background:#fff;color:#1d3b36}
+.rw-c button.dn{background:rgba(255,255,255,.55);color:#1d3b36;border-color:rgba(255,255,255,.8)}
+.rw-c button.dn::before{content:'✓';position:absolute;left:-5px;top:-7px;width:17px;height:17px;border-radius:50%;background:#e23d3d;color:#fff;font-size:.68rem;font-weight:800;line-height:17px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.rpe-q.hidden,.rw-c.hidden{display:none}
+.rw-s{font-size:.9rem;line-height:1.35}
+.rw-s b{display:block;margin-bottom:6px;font-weight:600}
+.rw-l{margin:0 0 4px;font-size:.88rem}
+.rw-b{margin-top:8px}
+.rw-b{display:flex;flex-direction:column;gap:8px;align-items:center}
+.rw-s .rw-y{display:inline-block;margin:0 4px;padding:9px 18px;border-radius:999px;border:0;background:#fff;color:#1d3b36;font:inherit;font-weight:700;cursor:pointer}
+.rw-s .rw-n.sel{background:#fff;color:#1d3b36;border-color:#fff;font-weight:700}
+.rw-s .rw-n{display:inline-block;margin:0 4px;padding:9px 14px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;font:inherit;cursor:pointer}
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .nextbox{display:none;margin:6px 8px 0;padding:8px 14px;border-radius:16px;background:rgba(255,255,255,.2)}
 .nextbox small{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
@@ -785,6 +811,22 @@ html.touring .bubble{z-index:2100}
 .cd.on1{background:#a9d8b6}.cd.on2{background:#62b678;color:#fff;font-weight:700}.cd.on3{background:#2d7a47;color:#fff;font-weight:700}
 .cd{position:relative}.cd .gd{position:absolute;left:0;right:0;bottom:3px;display:flex;justify-content:center;gap:2px}.cd .gd i{width:6px;height:6px;border-radius:50%;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.25)}.gdot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.25);text-decoration:none}.hbk-b{display:flex;gap:10px;margin:10px 0}.hbk-b button{flex:1;padding:12px;border-radius:14px;border:1px solid var(--c,#b9c9bd);background:#fff;font:inherit;font-weight:700}.girlw{display:none;position:relative;width:100vw;margin:6px 0 0 calc(50% - 50vw);height:360px;overflow:hidden}
 #run.gq .girlw{display:block}
+#vp{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(16,34,26,0);transition:background .9s}
+#vp.hidden{display:none}
+#vp.in{background:rgba(16,34,26,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.vp-card{width:100%;max-width:360px;padding:18px 16px 14px;border-radius:26px;background:#fff;color:#1d3b36;text-align:center;box-shadow:0 12px 44px rgba(0,0,0,.4);transform:translateY(120vh);transition:transform 1.1s cubic-bezier(.3,.6,.3,1)}
+#vp.in .vp-card{transform:none}
+.vp-t{font-size:1.05rem;font-weight:700;margin-bottom:4px}
+.vp-fig{height:150px;display:flex;align-items:center;justify-content:center;border-radius:18px;background:#eaf3ee;margin:6px 0 10px;color:#2a7f6f}
+.vp-fig svg{height:130px;width:auto;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:8}
+.vp-n{font-size:1.25rem;font-weight:800}
+.vp-s{font-size:.85rem;opacity:.7;margin-bottom:6px}
+.vp-q{font-size:.98rem;font-weight:700;margin:4px 0 10px}
+.vp-new{display:block;width:100%;margin-top:8px;padding:12px;border-radius:999px;border:1.5px solid #2a7f6f;background:#fff;color:#2a7f6f;font:inherit;font-weight:700;cursor:pointer}
+.vp-new:disabled{opacity:.45;cursor:default}
+.vp-y{display:block;width:100%;padding:13px;border:0;border-radius:999px;background:#2a7f6f;color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer}
+.vp-v{display:block;text-align:center;margin:2px 0 8px;font-weight:700;color:#2a7f6f;text-decoration:underline}
+.vp-no{display:block;width:100%;margin-top:8px;padding:10px;border:0;background:none;color:#1d3b36;font:inherit;opacity:.8;cursor:pointer}
 #coach{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 #coach.hidden{display:none!important}
 #coach::before{content:'';position:absolute;inset:0;background:rgba(16,34,26,.7);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity 1.4s cubic-bezier(.3,.6,.3,1)}
@@ -796,6 +838,8 @@ html.touring .bubble{z-index:2100}
 #coach.in #cc-panel{transform:none;pointer-events:auto}
 #coach.out #cc-panel{transform:translateY(130%);transition-duration:.4s}
 #cc-p{margin:0 4px 2px;font-size:.98rem;line-height:1.35;text-align:center}
+#cc-why{margin:0 8px 6px;font-size:.78rem;line-height:1.3;text-align:center;opacity:.75}
+#cc-why:empty{display:none}
 #cc-panel .big{width:100%;min-height:0;padding:12px 18px}#cc-panel .big .bt{font-size:1.3rem;line-height:1.15}#cc-panel .big .bs{font-size:.85rem}
 #cc-skip{align-self:center}
 #run.gq .reps,#run.gq .tip,#run.gq .vidw{display:none!important}
@@ -1014,8 +1058,9 @@ html.touring .bubble{z-index:2100}
   </section>
   <section id="run" class="hidden" aria-live="off"><div id="rpets" aria-hidden="true"></div>
     <div id="confetti" class="confetti" aria-hidden="true"></div>
+    <div id="vp" class="hidden" role="dialog" aria-modal="true" aria-label="Ny variant"><div class="vp-card"><div class="vp-t" id="vp-t"></div><div class="vp-fig" id="vp-fig"></div><div class="vp-n" id="vp-n"></div><div class="vp-s" id="vp-s"></div><a id="vp-v" class="vp-v" target="_blank" rel="noopener" href="#">▶ Se video</a><div class="vp-q">Vad tror du om den här?</div><button type="button" class="vp-y" id="vp-y">Kör den varianten</button><button type="button" class="vp-new" id="vp-new">Nja, visa en ny</button><button type="button" class="vp-no" id="vp-no">Jag kör som förut</button></div></div>
     <div id="coach" class="hidden" role="dialog" aria-modal="true" aria-label="Förslag från coachen"><div id="cc-stage"></div>
-      <div id="cc-panel"><p id="cc-p"></p>
+      <div id="cc-panel"><p id="cc-p"></p><p id="cc-why"></p>
         <button class="big prim" id="cc-auto" type="button"><span class="bt">Låt coachen välja</span><span class="bs" id="cc-auto-s"></span></button>
         <button class="big sec" id="cc-self" type="button"><span class="bt">Justera själv</span><span class="bs">Tider, varv och vila</span></button>
         <button class="rsb" id="cc-skip" type="button">Fortsätt som vanligt</button></div></div>
@@ -1031,6 +1076,8 @@ html.touring .bubble{z-index:2100}
     <div class="vidw"><a class="vid" id="vid" target="_blank" rel="noopener noreferrer">▶ Se video</a></div>
     <div class="time" id="time" role="timer">0:00</div>
     <p class="pepp" id="pepp"></p>
+    <div class="rpe" id="rpe"><div class="rpe-q">Hur kändes passet?</div><div class="rpe-b"><button type="button" data-v="1"><i>😌</i><span>Lätt</span></button><button type="button" data-v="2"><i>👍</i><span>Lagom</span></button><button type="button" data-v="3"><i>😓</i><span>Tungt</span></button><button type="button" data-v="4"><i>🥵</i><span>För tungt</span></button></div><div class="rpe-a" id="rpe-a"></div>
+      <div class="rpe-w hidden" id="rpe-w"><div class="rpe-q" id="rw-q1">Vilken del var för tung?</div><div class="rw-c" id="rw-p"></div><div class="rpe-q hidden" id="rw-q2"></div><div class="rw-c hidden" id="rw-r"><button type="button" data-w="t">Tiden</button><button type="button" data-w="m">Rörelsen</button></div><div class="rw-s" id="rw-s"></div></div></div>
     <div class="sum" id="sum"></div>
     <div class="ctrl skip" id="skip">
       <button id="prev" aria-label="Föregående övning">‹ Föregående</button>
@@ -1096,6 +1143,13 @@ html.touring .bubble{z-index:2100}
    [['Planka på knä','Dead bug'],['Fågelhunden med paus','Liggande knälyft'],['Lång planka','Sidoplanka med höftlyft']],
    [[],['Snabba bergsklättrare'],['Korsande bergsklättrare']]
   ].forEach(function(s,i){s.forEach(function(a,l){POOL[i][l]=POOL[i][l].concat(a)})});
+  [[['Knäböj mot stol','Halv knäböj','Utfall med stöd'],['Sumo-knäböj','Bakåtutfall med paus','Knäböj med tåhävning'],['Pistol-knäböj mot stol','Bulgariska utfall','Hoppande sumo-knäböj']],
+   [['Armhävningar mot vägg','Armhävningar mot bänk','Negativa armhävningar på knä'],['Armhävningar med 3 s sänk','Spiderman-armhävningar','Armhävningar med bred-smal växling'],['Armhävningar med fötterna upphöjda','Archer-armhävningar','Armhävningar med axelklapp','Klapp-armhävningar']],
+   [['Liggande höftlyft','Halv glutebrygga','Lätt good morning'],['Glutebrygga med 3 s sänk','Glutebrygga med pulser','Good morning med armar bakom huvudet'],['Enbens glutebrygga med pulser','Glutebrygga med fötterna upphöjda','Enbens rumänsk marklyft med paus']],
+   [['Liggande rygglyft','Mini-superman','Liggande armlyft'],['Superman med 3 s hållning','Liggande T-lyft','Långsam omvänd snöängel'],['Superman med armsvep','Y-T-W med paus','Superman-simning med paus']],
+   [['Vägg-planka','Sidoplanka på knä','Lätt dead bug'],['Planka på underarmar','Dead bug med benpaus','Planka med knäindrag'],['Planka med benlyft','Sidoplanka med benlyft','Planka med knä mot armbåge','Hollow hold']],
+   [['Marsch på stället','Sidosteg med armsving','Steg-jack'],['Jumping jacks','Skridskohopp','Höga knän','Hälsparkar'],['Burpees','Burpees utan armhävning','Höga knän snabbt','Skridskohopp med paus']]
+  ].forEach(function(s,i){s.forEach(function(a,l){a.forEach(function(n){if(POOL[i][l].indexOf(n)<0)POOL[i][l].push(n)})})});
   var CP=[['Sträck framsida lår','Utfallssträck'],['Djup hukande ställning','Hängande framåtfällning'],['Barnets ställning','Lugn katt och ko'],['Sidosträck'],['Nackstretch']];
   var WPULSE=['Marsch med höga knän','Lätta jumping jacks','Jogg på stället','Sidosteg med armsvingar','Hopprep utan rep','Hälsparkar','Sidosteg'];
   var WG=[['Lugna knäböj','Lugna utfall','Benpendlar'],['Armcirklar','Sträck armarna upp','Axelrullar'],['Lätta glutebryggor','Lugn framåtfällning','Höftcirklar','Benpendlar'],['Katt och ko','Bakre armlyft','Axelrullar'],['Lätt fågelhund','Katt och ko','Höftcirklar'],['Höftcirklar','Sidosteg med armsvingar','Benpendlar','Axelrullar']];
@@ -1123,6 +1177,9 @@ html.touring .bubble{z-index:2100}
     else if(pg.on&&pg.f!=='full')ex=progEx(pg.f,lv,dn);
     else if(cfg.equip&&cfg.equip!=='body')ex=EQP[cfg.equip].map(function(o,i){return pickA(o,dn+i)});
     else ex=POOL.map(function(p,i){return pickA(p[lv],dn+i)});
+    if(cfg.pref&&defMode()){Object.keys(cfg.pref).forEach(function(k){var q=cfg.pref[k];if(q&&dn-q.at<=21&&ex[+k]!==undefined&&ex.indexOf(q.to)<0){ensureVar(q.to);ex[+k]=q.to}})}
+    var RNF=function(L){if(!cfg.rn)return L;Object.keys(cfg.rn).forEach(function(k){var q=cfg.rn[k];if(!q||dn-q.at>21)return;var j=L.indexOf(k);if(j>=0&&L.indexOf(q.to)<0){ensureVar(q.to);L[j]=q.to}});return L};
+    RNF(ex);
     if(MODE==='quick'){var sk=[dn%6,(dn+3)%6];if(yF&&yF.length>=3){var a0=yF[dn%yF.length],a1=yF[(dn+Math.ceil(yF.length/2))%yF.length];if(a0!==a1)sk=[a0,a1]}ex=ex.filter(function(x,i){return sk.indexOf(i)<0});WARM=WARM.slice(0,2);COOL=COOL.slice(0,1);work=[40,45,50][ld]}
     var cnt=[0,0,0,0,0,0],gi=[];
     ex.forEach(function(x){var c=CATX[x];if(c&&cnt[c.s]!==undefined)cnt[c.s]++});
@@ -1132,6 +1189,7 @@ html.touring .bubble{z-index:2100}
     gi.slice(0,2).forEach(function(g,k){var b=pickR(WG[g],dn+k,WARM);if(b)WARM.push(b)});
     gi.slice(0,3).forEach(function(g,k){var b=pickR(CG[g],dn+k,COOL);if(b)COOL.push(b)});
     if(MODE==='quick'){WARM=WARM.slice(0,2);COOL=COOL.slice(0,1)}
+    RNF(WARM);RNF(COOL);ex.concat(WARM,COOL).forEach(ensureVar);
     yEx={};REC={};
     return {w:w,lv:lv,work:work,rest:MODE==='quick'?60-work:[15,20,15][ld]+(STK>=3?5:0),ex:ex,dn:dn,gi:gi,pg:pg,stk:STK,tired:tired};
   }
@@ -1189,12 +1247,12 @@ html.touring .bubble{z-index:2100}
     var cw=(P&&pi.on&&P.f===pd.f&&P.weeks===pd.w)?pi.w:-1;
     $('pg-over').innerHTML=overview(pd.f,pd.w,ps,cw);
   }
-  function resetT(){cfg.gen=null;cfg.ov={};cfg.rgen=null;cfg.rov={}}
+  function resetT(){cfg.pref=null;cfg.rn=null;cfg.gen=null;cfg.ov={};cfg.rgen=null;cfg.rov={}}
   function frozenRest(x){var j=-1;segs.forEach(function(q,k){if(q.t==='work'&&q.n===x)j=k});return segs[j+1]&&segs[j+1].t==='rest'?segs[j+1].d:0}
-  function thumb(x){
+  function thumb(x,k){
     var ty=MAP[x],fr=ty&&FR[ty];
     if(!fr)return '<svg viewBox="0 0 200 120"></svg>';
-    var p=ex(fr[Math.min(1,fr.length-1)]),m=p[19]>.5,pt=function(a){return a.join(' ')};
+    var p=ex(fr[Math.min(k===undefined?1:k,fr.length-1)]),m=p[19]>.5,pt=function(a){return a.join(' ')};
     return '<svg viewBox="0 0 200 120" aria-hidden="true"><line x1="10" y1="109" x2="190" y2="109" opacity=".35" stroke-width="5"/><path d="'+tpath(p)+'" stroke-width="12"/><polyline points="'+pt([p[2],p[3],p[6],p[7],p[8],p[9]])+'"/>'+(p[19]>1.5?'<polyline points="'+pt([p[2],p[3],p[20],p[21],p[22],p[23]])+'"/>':m?'<polyline points="'+pt([p[2],p[3],2*p[2]-p[6],p[7],2*p[2]-p[8],p[9]])+'"/>':'')+'<polyline points="'+pt([p[4],p[5],p[10],p[11],p[12],p[13]])+'"/><polyline points="'+pt([p[4],p[5],p[14],p[15],p[16],p[17]])+'" opacity=".55"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="9" fill="currentColor"/></svg>';
   }
   function renderToday(){
@@ -1456,6 +1514,21 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
     POOL.forEach(function(sl,i){sl.forEach(function(lv){lv.forEach(function(n){if(!CATX[n]){CATX[n]={e:'body',s:i};CATL.push(n)}})})});
     EXD.forEach(function(r){CATL.push(r[2])});
   }
+  (function(){var NT={squat:['Knäböj mot stol','Halv knäböj','Sumo-knäböj','Knäböj med tåhävning','Pistol-knäböj mot stol','Hoppande sumo-knäböj'],lunge:['Utfall med stöd','Bakåtutfall med paus','Bulgariska utfall'],
+    pushk:['Armhävningar mot vägg','Armhävningar mot bänk','Negativa armhävningar på knä'],push:['Armhävningar med 3 s sänk','Spiderman-armhävningar','Armhävningar med bred-smal växling','Armhävningar med fötterna upphöjda','Archer-armhävningar','Armhävningar med axelklapp','Klapp-armhävningar'],
+    bridge:['Liggande höftlyft','Halv glutebrygga','Glutebrygga med 3 s sänk','Glutebrygga med pulser','Glutebrygga med fötterna upphöjda'],gm:['Lätt good morning','Good morning med armar bakom huvudet'],bridge1:['Enbens glutebrygga med pulser'],hinge1:['Enbens rumänsk marklyft med paus'],
+    superman:['Liggande rygglyft','Mini-superman','Superman med 3 s hållning','Liggande T-lyft','Långsam omvänd snöängel','Superman med armsvep','Y-T-W med paus','Superman-simning med paus'],armlift:['Liggande armlyft'],
+    plank:['Vägg-planka','Planka på underarmar','Planka med knäindrag','Planka med benlyft','Planka med knä mot armbåge'],sidep:['Sidoplanka på knä','Sidoplanka med benlyft'],deadbug:['Lätt dead bug','Dead bug med benpaus'],legraise:['Hollow hold'],
+    highknee:['Marsch på stället','Höga knän','Höga knän snabbt'],sidestep:['Sidosteg med armsving'],jack:['Steg-jack','Jumping jacks'],skate:['Skridskohopp','Skridskohopp med paus'],heelkick:['Hälsparkar'],burpee:['Burpees','Burpees utan armhävning']};
+    var have={};for(var k in TY)TY[k].forEach(function(n){have[n]=1});
+    for(var t in NT)NT[t].forEach(function(n){if(!have[n]){TY[t].push(n);have[n]=1}});
+    var T2={'Knäböj mot stol':'Sätt dig nästan ner på stolen och res dig utan att svänga. Stolen är ditt skydd.','Halv knäböj':'Sänk dig bara halvvägs, knäna pekar över tårna. Bra när knäböj känns tungt.','Utfall med stöd':'Håll i en stol eller vägg och ta ett steg bakåt. Sänk rakt ner.','Sumo-knäböj':'Bred ställning, tårna utåt. Sänk dig rakt ner med rak rygg.','Bakåtutfall med paus':'Steg bakåt, sänk och stanna en sekund nere innan du pressar upp.','Knäböj med tåhävning':'Res dig ur knäböjen och gå upp på tå högst upp.','Pistol-knäböj mot stol':'Ett ben i taget mot en stol. Sänk långsamt, det andra benet rakt framför.','Bulgariska utfall':'Bakre foten på en stol. Sänk rakt ner på främre benet.','Hoppande sumo-knäböj':'Bred ställning, hoppa upp och landa mjukt i nästa knäböj.',
+     'Armhävningar mot vägg':'Händerna mot väggen, kroppen rak. Böj armbågarna och pressa tillbaka.','Armhävningar mot bänk':'Händerna på en bänk eller soffkant, kroppen rak. Sänk bröstet mot kanten.','Negativa armhävningar på knä':'Sänk dig långsamt på knä, tre sekunder ner, och kom upp som du vill.','Armhävningar med 3 s sänk':'Sänk dig långsamt i tre sekunder och pressa upp med kontroll.','Spiderman-armhävningar':'Dra ett knä mot armbågen varje gång du sänker dig. Byt sida.','Armhävningar med bred-smal växling':'Växla mellan bred och smal handplacering för varje repetition.','Armhävningar med fötterna upphöjda':'Fötterna på en stol eller trappsteg. Hård kropp, sänk bröstet mot golvet.','Archer-armhävningar':'Bred ställning. Sänk dig mot ena handen medan andra armen sträcks ut. Byt sida.','Armhävningar med axelklapp':'Gör en armhävning och klappa motsatt axel. Håll höfterna stilla.','Klapp-armhävningar':'Pressa upp så kraftigt att händerna lämnar golvet. Landa mjukt.',
+     'Liggande höftlyft':'Lyft höften ett par centimeter och spänn rumpan. Sänk lugnt.','Halv glutebrygga':'Lyft höften halvvägs upp och spänn rumpan i toppen.','Lätt good morning':'Händerna på höfterna, fäll framåt med rak rygg ett litet stycke.','Glutebrygga med 3 s sänk':'Lyft snabbt, sänk höften långsamt i tre sekunder.','Glutebrygga med pulser':'Håll höften högt och pulsa upp och ner några centimeter.','Good morning med armar bakom huvudet':'Händerna bakom huvudet, fäll framåt med rak rygg och res dig.','Enbens glutebrygga med pulser':'Ett ben i taget. Håll höften högt och pulsa lite upp och ner.','Glutebrygga med fötterna upphöjda':'Hälarna på en stol eller bänk. Lyft höften och spänn rumpan.','Enbens rumänsk marklyft med paus':'Fäll framåt på ett ben, stanna en sekund nere och res dig.',
+     'Liggande rygglyft':'Ligg på mage och lyft bröstet lite från golvet. Blicken ner.','Mini-superman':'Lyft armar och ben bara några centimeter och spänn ryggen.','Liggande armlyft':'Ligg på mage och lyft armarna från golvet utan att dra upp huvudet.','Superman med 3 s hållning':'Lyft armar och ben och håll tre sekunder innan du sänker.','Liggande T-lyft':'Armarna rakt ut åt sidorna. Lyft dem och knip ihop skulderbladen.','Långsam omvänd snöängel':'Armarna sveper långsamt från sidan till över huvudet, hela tiden över golvet.','Superman med armsvep':'Håll superman-läget och sväng armarna ut och in i en båge.','Y-T-W med paus':'Lyft armarna i Y, T och W och håll en sekund i varje form.','Superman-simning med paus':'Lyft armar och ben och simma lugnt med ben och armar. Stanna en sekund i varje ände.',
+     'Vägg-planka':'Underarmarna mot väggen, kroppen rak som en planka. Spänn magen.','Sidoplanka på knä':'Stöd på underarmen och knäna. Lyft höften så kroppen blir rak.','Lätt dead bug':'Ligg på rygg, sträck ut ett ben i taget och håll ländryggen mot golvet.','Planka på underarmar':'Underarmarna i golvet, kroppen rak. Spänn mage och rumpa.','Dead bug med benpaus':'Sänk motsatt arm och ben och stanna en sekund innan du byter.','Planka med knäindrag':'Håll plankan och dra ett knä mot bröstet i taget.','Planka med benlyft':'Håll plankan och lyft ett ben i taget utan att svaja i ryggen.','Sidoplanka med benlyft':'Håll sidoplankan och lyft det övre benet. Byt sida.','Planka med knä mot armbåge':'Dra knäet mot samma armbåge. Hållningen stilla, byt sida.','Hollow hold':'Ligg på rygg, lyft axlar och ben och håll ländryggen mot golvet.',
+     'Marsch på stället':'Marschera med höga knän och sväng med armarna. Mjukt och lugnt.','Sidosteg med armsving':'Stor sidosteg och sväng armarna uppåt. Byt håll varje gång.','Steg-jack':'Steg ut med ett ben i taget och lyft armarna. Inga hopp.','Jumping jacks':'Hoppa ut med benen och lyft armarna. Mjuk landning.','Skridskohopp':'Hoppa från sida till sida som en skridskoåkare. Mjuk landning.','Höga knän':'Spring på stället med höga knän och starka armar.','Hälsparkar':'Spring på stället och sparka hälarna mot rumpan.','Burpees':'Ner i planka, armhävning, hoppa in och upp med ett hopp.','Burpees utan armhävning':'Ner i planka, hoppa in och upp med ett hopp. Ingen armhävning.','Höga knän snabbt':'Snabba höga knän. Starka armar och landa lätt.','Skridskohopp med paus':'Hoppa åt sidan och stanna en sekund på ett ben innan nästa hopp.'};
+    for(var n in T2)if(!TIPS[n])TIPS[n]=T2[n]})();
   for(var k in TY)TY[k].forEach(function(n){MAP[n]=k});
   function ex(f){var q=f.length<18?f.concat(f.slice(10,14)):f.slice();while(q.length<24)q.push(0);return q}
   function draw(p){
@@ -1471,6 +1544,7 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
     var ge=$('f-eq');if(ge)ge.innerHTML=EQNOW?eqSvg(p,EQNOW):'';
   }
   var VQ={"Knäböj": "bodyweight squat form", "Sumo-knäböj med paus": "bodyweight sumo squat pause", "Hoppknäböj": "jump squat form", "Knäböj med armlyft": "bodyweight squat with arm raise", "Långsam knäböj": "slow tempo bodyweight squat", "Knäböj med paus": "pause squat bodyweight", "Hoppknäböj med paus": "jump squat with pause", "Lugna knäböj": "bodyweight squat warm up", "Djup hukande ställning": "deep squat hold mobility", "Knäböj med band": "resistance band squat form", "Knäböj med hantlar": "dumbbell squat form", "Sumo-knäböj med hantel": "dumbbell sumo squat form", "Thruster med hantlar": "dumbbell thruster form", "Goblet-knäböj": "goblet squat form", "Sumo-knäböj med kettlebell": "kettlebell sumo squat", "Thruster med kettlebell": "kettlebell thruster form", "Utfall bakåt": "reverse lunge form", "Utfall framåt": "forward lunge form", "Hoppande utfall": "jumping lunges exercise", "Gående utfall": "walking lunges form", "Utfall med knälyft": "reverse lunge with knee drive", "Lugna utfall": "bodyweight reverse lunge warm up", "Utfallssträck": "lunge hip flexor stretch", "Utfall med band": "resistance band lunge", "Utfall med hantlar": "dumbbell lunge form", "Utfall med kettlebell": "kettlebell goblet lunge", "Armhävningar på knä": "knee push ups form", "Breda armhävningar på knä": "wide knee push ups", "Armhävningar": "push up form", "Breda armhävningar": "wide push up form", "Diamantarmhävningar": "diamond push ups form", "Långsamma armhävningar": "slow tempo push ups", "Armhävningar med paus": "pause push ups", "Smala armhävningar": "close grip push ups", "Armhävningar med lång paus": "push up with long pause at bottom", "Explosiva armhävningar": "explosive push ups", "Armhävning med band": "resistance band push up", "Armhävning på hantlar": "push ups on dumbbells", "Smala armhävningar på knä": "close grip knee push ups", "Långsamma armhävningar på knä": "slow knee push ups", "Glutebrygga": "glute bridge form", "Glutebrygga med marsch": "glute bridge march", "Glutebrygga med paus": "glute bridge with pause", "Enbens glutebrygga": "single leg glute bridge", "Glutebrygga med knän isär": "glute bridge knees out", "Glutebrygga på tå": "glute bridge on toes", "Lätta glutebryggor": "glute bridge warm up", "Glutebrygga med band": "resistance band glute bridge", "Glutebrygga med hantel": "dumbbell glute bridge", "Glutebrygga med kettlebell": "kettlebell glute bridge", "Enbens glutebrygga med paus": "single leg glute bridge pause", "Good morning": "bodyweight good morning exercise", "Enbens rumänsk marklyft": "single leg romanian deadlift bodyweight", "Långsam good morning": "slow bodyweight good morning exercise", "Good morning med paus": "good morning exercise with pause", "Lugn framåtfällning": "standing hip hinge forward fold", "Hängande framåtfällning": "standing forward fold stretch", "Marklyft med band": "resistance band deadlift form", "Good morning med band": "resistance band good morning", "Rumänsk marklyft med hantlar": "dumbbell romanian deadlift form", "Good morning med hantel": "dumbbell good morning exercise", "Marklyft med kettlebell": "kettlebell deadlift form", "Enbens good morning": "single leg good morning exercise", "Superman": "superman exercise back extension on floor", "Omvänd snöängel": "reverse snow angel exercise", "Superman med paus": "superman hold exercise", "Omvänd snöängel med paus": "reverse snow angel hold exercise", "Y-T-W liggande": "prone Y T W raises exercise", "Superman med pulsar": "superman pulses exercise", "Simning": "swimmers exercise prone back", "Bakre armlyft": "prone arm lift back exercise arms at sides", "Superman med armar vid sidan": "prone back extension arms at sides exercise", "Liggande W-lyft": "prone W raise exercise", "Superman med långa pauser": "superman hold exercise", "Superman-roddar": "prone row superman exercise", "Planka": "forearm plank form", "Sidoplanka": "side plank form", "Planka med axelklapp": "plank shoulder taps form", "Planka på knä": "knee plank exercise", "Lång planka": "plank hold form", "Planka med band": "resistance band plank exercise", "Planka med kettlebell": "kettlebell plank pull through", "Sidoplanka med höftlyft": "side plank hip dips exercise", "Fågelhunden": "bird dog core exercise form", "Fågelhunden med paus": "bird dog exercise with hold", "Lätt fågelhund": "bird dog exercise beginner core", "Fågelhund med hantel": "bird dog exercise with dumbbell", "Fågelhund med kettlebell": "bird dog exercise with kettlebell", "Cykelcrunch": "bicycle crunch form", "Benhöjningar liggande": "lying leg raises form abs", "Dead bug": "dead bug core exercise form", "Liggande knälyft": "lying knee raises abs exercise", "Benlyft med band": "resistance band leg raise exercise", "Dead bug med band": "dead bug with resistance band exercise", "Dead bug med hantel": "dead bug with dumbbell exercise", "Dead bug med kettlebell": "dead bug with kettlebell exercise", "Bergsklättrare": "mountain climbers form", "Snabba bergsklättrare": "fast mountain climbers exercise", "Korsande bergsklättrare": "cross body mountain climbers exercise", "Plankhopp": "plank jacks exercise", "Bergsklättrare med band": "resistance band mountain climbers", "Jumping jacks": "jumping jacks form", "Skridskohopp": "skater jumps exercise", "Lätta jumping jacks": "low impact jumping jacks exercise", "Höga knän": "high knees exercise form", "Marsch med höga knän": "marching high knees warm up", "Hälsparkar": "butt kicks exercise", "Höga knän med snabba armar": "high knees fast arms exercise", "Jogg på stället": "jogging in place warm up", "Höga knän med band": "resistance band high knees exercise", "Burpees": "burpee form", "Halvburpees": "half burpee no push up exercise", "Burpees med hantlar": "dumbbell burpees form", "Burpees över kettlebell": "burpees over kettlebell exercise", "Sidosteg": "lateral shuffle exercise", "Sidosteg med armsvingar": "side step with arm swing warm up", "Sidosteg med band": "banded lateral walk exercise", "Skridskohopp med band": "resistance band skater jumps exercise", "Armcirklar": "arm circles warm up exercise", "Halo med kettlebell": "kettlebell halo exercise", "Höftcirklar": "standing hip circles warm up", "Katt och ko": "cat cow stretch yoga", "Lugn katt och ko": "cat cow stretch yoga", "Sträck framsida lår": "standing quad stretch", "Barnets ställning": "child pose stretch yoga", "Sidosträck": "standing side bend stretch", "Sträck armarna upp": "standing overhead reach stretch", "Nackstretch": "neck side tilt stretch", "Axelpress med band": "resistance band overhead press", "Axelpress med hantlar": "dumbbell shoulder press form", "Axelpress med kettlebell": "kettlebell overhead press form", "Frontlyft med band": "resistance band front raise", "Frontlyft med hantlar": "dumbbell front raise form", "Frontlyft med kettlebell": "kettlebell front raise exercise", "Roddar med band": "resistance band bent over row", "Hantelrodd": "dumbbell bent over row form", "Kettlebell-rodd": "kettlebell bent over row form", "Enarmsrodd med kettlebell": "single arm kettlebell row form", "Sidolyft med band": "resistance band lateral raise", "Sidolyft med hantlar": "dumbbell lateral raise form", "Bicepscurl med band": "resistance band bicep curl", "Bicepscurl med hantlar": "dumbbell bicep curl form", "Bicepscurl med kettlebell": "kettlebell bicep curl exercise", "Hantelpress på golv": "dumbbell floor press form", "Hantelsving": "dumbbell swing form", "Kettlebell-sving": "kettlebell swing form", "Kettlebell-clean": "kettlebell clean form"};
+  (function(){var N={"Knäböj mot stol": "chair squat sit to stand", "Halv knäböj": "partial range bodyweight squat", "Utfall med stöd": "supported reverse lunge holding chair", "Sumo-knäböj": "bodyweight sumo squat form", "Bakåtutfall med paus": "reverse lunge with pause", "Knäböj med tåhävning": "squat to calf raise", "Pistol-knäböj mot stol": "assisted pistol squat to box", "Bulgariska utfall": "bulgarian split squat bodyweight", "Hoppande sumo-knäböj": "jumping sumo squat", "Armhävningar mot vägg": "wall push up", "Armhävningar mot bänk": "incline push up on bench", "Negativa armhävningar på knä": "negative push up on knees slow lowering", "Armhävningar med 3 s sänk": "tempo push up slow lowering", "Spiderman-armhävningar": "spiderman push up", "Armhävningar med bred-smal växling": "wide narrow push up variation", "Armhävningar med fötterna upphöjda": "decline push up feet elevated", "Archer-armhävningar": "archer push up", "Armhävningar med axelklapp": "push up with shoulder tap", "Klapp-armhävningar": "clap push up", "Liggande höftlyft": "beginner glute bridge hip raise", "Halv glutebrygga": "partial range glute bridge beginner", "Lätt good morning": "bodyweight good morning exercise", "Glutebrygga med 3 s sänk": "glute bridge slow lowering tempo", "Glutebrygga med pulser": "glute bridge pulses", "Good morning med armar bakom huvudet": "bodyweight good morning hands behind head", "Enbens glutebrygga med pulser": "single leg glute bridge pulses", "Glutebrygga med fötterna upphöjda": "feet elevated glute bridge", "Enbens rumänsk marklyft med paus": "single leg romanian deadlift bodyweight pause", "Liggande rygglyft": "prone back extension on floor", "Mini-superman": "superman exercise beginner", "Liggande armlyft": "prone arm raises exercise", "Superman med 3 s hållning": "superman hold exercise", "Liggande T-lyft": "prone T raise", "Långsam omvänd snöängel": "reverse snow angel slow", "Superman med armsvep": "superman arm sweeps prone", "Y-T-W med paus": "prone Y T W raises", "Superman-simning med paus": "superman swimmers exercise", "Vägg-planka": "wall plank exercise", "Sidoplanka på knä": "side plank on knees", "Lätt dead bug": "dead bug exercise beginner", "Planka på underarmar": "forearm plank form", "Dead bug med benpaus": "dead bug leg pause", "Planka med knäindrag": "plank knee tuck", "Planka med benlyft": "plank leg lift", "Sidoplanka med benlyft": "side plank leg lift", "Planka med knä mot armbåge": "plank knee to elbow", "Hollow hold": "hollow body hold", "Marsch på stället": "march in place warm up", "Sidosteg med armsving": "side step with arm swing exercise", "Steg-jack": "low impact step jack", "Jumping jacks": "jumping jacks form", "Skridskohopp": "skater jumps exercise", "Höga knän": "high knees exercise", "Hälsparkar": "butt kicks exercise", "Burpees": "burpee form", "Burpees utan armhävning": "burpee without push up", "Höga knän snabbt": "fast high knees in place", "Skridskohopp med paus": "skater jump balance hold", "Benpendlar": "leg swings warm up", "Axelrullar": "shoulder rolls warm up", "Sträck baksida lår": "standing hamstring stretch", "Vadsträck": "calf stretch against wall", "Tricepssträck": "overhead triceps stretch", "Bröststräck": "doorway chest stretch", "Djupa andetag": "deep breathing cool down", "Hopprep utan rep": "jump rope without rope warm up"};for(var n in N)if(!VQ[n])VQ[n]=N[n]})();
   VQ['Tåhävningar']='calf raises exercise form';VQ['Sidoutfall']='lateral lunge exercise form';VQ['Dubbelstakning']='resistance band double poling cross country ski training';VQ['Dubbelstakning med band']='resistance band double poling cross country ski training';VQ['Skidhopp']='ski bounding drill cross country skiing';
   var NOVID={};
   function vidUrl(n){var q=VQ[n]||(n+' exercise');if(q.indexOf('exercise')<0&&q.indexOf('stretch')<0&&q.indexOf('warm up')<0)q+=' exercise';return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q)}
@@ -1857,12 +1931,105 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function kcalNow(){var a=0,i;for(i=0;i<idx&&i<segs.length;i++)a+=kcalSec(segs[i],segs[i].d||0);var cs=segs[idx];if(cs&&cs.d&&running){var left=Math.max(0,(endAt-Date.now())/1000);a+=kcalSec(cs,Math.max(0,Math.min(cs.d,cs.d-left)))}return a}
   var KMS=[[100,'100 kcal – lika mycket som en banan. Första kliven är tagen!'],[250,'250 kcal – ungefär en kanelbulle. Den har du jobbat bort med råge!'],[500,'500 kcal – det är lika mycket som en Big Mac. Bra jobbat!'],[750,'750 kcal – en rejäl tallrik pannkakor med sylt och grädde. Smaklig måltid, du har förtjänat den!'],[1000,'1 000 kcal – en hel chokladkaka på 200 gram. Du får faktiskt äta upp den nu!'],[1500,'1 500 kcal – en hel pizza! Du är en riktig pizzabrännare.'],[2000,'2 000 kcal – ungefär vad många äter på en hel dag. Kroppen är imponerad!'],[3000,'3 000 kcal – tre kompletta hamburgermenyer. Det är ju fest!'],[4000,'4 000 kcal – en hel prinsesstårta! Grönt marsipanlock och allt.'],[5000,'5 000 kcal – två hela dagars mat. Du är oslagbar!'],[7500,'7 500 kcal – energin i ett helt kilo smör. Fantastiskt jobbat!'],[10000,'10 000 kcal – mer energi än i ett kilo kroppsfett. Det här är stort!'],[15000,'15 000 kcal – en hel veckas mat bortjobbad. Du är en maskin!'],[20000,'20 000 kcal – energin i två och ett halvt kilo kroppsfett. Hatten av!'],[30000,'30 000 kcal – drygt två veckors mat. Du är en legend!'],[50000,'50 000 kcal – en hel månads mat. Det här är ren hjältestatus!'],[100000,'100 000 kcal – 50 dagars mat. Du är i en liga för dig själv!']];
   function kcTot(){var L=cfg.log||{},t=0;Object.keys(L).forEach(function(k){var e=L[k];t+=e.kc||Math.round(e.s*0.1)});return t}
+  var RPK=null,RWP=[],RWR={},RWA=null,RWM='',RWD={},RWX={},RWU={},RWQ=[];
+  function segD(x){var j;for(j=0;j<segs.length;j++)if(segs[j].n===x&&(segs[j].t==='work'||segs[j].t==='warm'||segs[j].t==='cool'))return segs[j].d;return 30}
+  function restOf(x){var j,k=-1;for(j=0;j<segs.length;j++)if(segs[j].t==='work'&&segs[j].n===x)k=j;return k>=0&&segs[k+1]&&segs[k+1].t==='rest'?segs[k+1].d:0}
+  function segNames(t){var a=[];segs.forEach(function(q){if(q.t===t&&q.n&&a.indexOf(q.n)<0)a.push(q.n)});return a}
+  function rwFor(p){return p==='#warm'?segNames('warm'):p==='#cool'?segNames('cool'):p==='#all'?segNames('work'):[p]}
+  function isG(p){return p.charAt(0)==='#'}
+  function rwList(){var a=[];RWP.forEach(function(p){rwFor(p).forEach(function(x){if(a.indexOf(x)<0)a.push(x)})});return a}
+  function rwLbl(p){return p==='#all'?'Hela passet':p==='#warm'?'Uppvärmning':p==='#cool'?'Nedvarvning':p}
+  function rwPaint(){document.querySelectorAll('#rw-p button').forEach(function(b){var p=b.dataset.p,i=RWP.indexOf(p);b.classList.toggle('sel',p===RWA&&!RWD[p]);b.classList.toggle('dn',i>=0&&(p!==RWA||!!RWD[p]))});
+    var has=!!RWA,q=$('rw-q2'),rr=$('rw-r');q.classList.toggle('hidden',!has);rr.classList.toggle('hidden',!has);
+    if(has){q.innerHTML=(RWM==='e'?'Vad var för lätt i «':'Vad var för tungt i «')+rwLbl(RWA).replace(/</g,'&lt;')+'»? <small style="font-weight:400;opacity:.85">(valfritt)</small>';rr.querySelectorAll('button').forEach(function(b){b.classList.toggle('sel',b.dataset.w===RWR[RWA])})}}
+  function rwUndo(p){if(RWU[p]){RWU[p]();delete RWU[p]}delete RWD[p];delete RWX[p]}
+  function rwBuild(){$('rw-q1').textContent=RWM==='e'?'Vilken del var för lätt?':'Vilken del var för tung?';var w=segNames('warm'),k=segNames('work'),c=segNames('cool'),box=$('rw-p');box.innerHTML='';RWP=[];RWR={};RWA=null;RWD={};RWX={};RWU={};RWQ=[];
+    var add=function(label,key){var b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.p=key;b.addEventListener('click',function(){
+      if(key===RWA){rwUndo(key);RWP.splice(RWP.indexOf(key),1);delete RWR[key];RWA=RWP.length?RWP[RWP.length-1]:null}
+      else if(RWP.indexOf(key)>=0){RWA=key}
+      else{RWP.push(key);RWA=key}
+      rwPaint();rwUpd()});box.appendChild(b)};
+    add('Hela passet','#all');if(w.length)add('Uppvärmning','#warm');k.forEach(function(x){add(x,x)});if(c.length)add('Nedvarvning','#cool');
+    $('rw-q2').classList.add('hidden');$('rw-r').classList.add('hidden');$('rw-s').innerHTML=''}
+  function rwRestore(parts){RWP=[];RWR={};parts.forEach(function(o){RWP.push(o.p);RWR[o.p]=o.r});RWA=RWP.length?RWP[RWP.length-1]:null;rwPaint();rwUpd();RWQ=RWP.filter(function(p){return !isG(p)});if(RWQ.length){var f0=RWQ.shift();setTimeout(function(){vpOpen(f0)},500)}}
+  function defMode(){return MODE!=='custom'&&!(cfg.sport&&SPORTL[cfg.sport])&&!(cfg.prog&&progInfo(dnOf(new Date())).on&&cfg.prog.f!=='full')&&!(cfg.equip&&cfg.equip!=='body')}
+  function findSlot(x){var i,l;for(i=0;i<POOL.length;i++)for(l=0;l<POOL[i].length;l++)if(POOL[i][l].indexOf(x)>=0)return {i:i,l:l};return null}
+  var VB={},MODS={d:{'-1':[['halv rörelse','Gå bara halvvägs och kom upp igen. Öka när det känns lätt.'],['med stöd','Håll i en stol, bänk eller vägg så får du balans och avlastning.'],['lugnt tempo','Gör rörelsen mjukt och lugnt, utan att jaga.'],['med extra vila','Gör 3–4 reps, vila en sekund och fortsätt.']],'1':[['med 2 s paus','Stanna två sekunder i det svåraste läget innan du fortsätter.'],['långsamt (3 s ner)','Sänk dig långsamt, tre sekunder ner, och kom upp med kontroll.'],['större rörelse','Gå så djupt eller långt du kan med bra kontroll.'],['snabb uppgång','Sänk lugnt och kom upp snabbt och kontrollerat.']]},
+   s:{'-1':[['med stöd','Ta stöd av en stol, bänk eller vägg så blir det lättare.'],['med vila var 10:e sekund','Släpp kort och ta tag igen var tionde sekund.'],['lugnt tempo','Andas lugnt och spänn lagom mycket.'],['mindre utsträckning','Håll dig närmare utgångsläget så blir det lättare.']],'1':[['med extra spänning','Spänn mage, rumpa och lår så hårt du kan.'],['med lyft ben eller arm','Lyft ena benet eller armen en stund och byt sida.'],['med långsamma pulser','Små långsamma pulser upp och ner i läget.'],['med längre hållning','Håll de sista sekunderna extra stilla och spänd.']]},
+   r:{'-1':[['skonsamt','Sträck bara tills det känns lätt, aldrig till smärta.'],['med stöd','Ta stöd mot vägg eller stol.'],['kortare sträck','Håll en kortare stund och släpp ut försiktigt.'],['försiktigt tempo','Rör dig långsamt och mjukt.']],'1':[['lite djupare','Gå ett litet steg djupare, men aldrig till smärta.'],['håll längre','Håll några sekunder längre och andas ut.'],['ett extra andetag','Ta ett andetag till i sträcket innan du släpper.'],['med djup andning','Andas djupt och låt kroppen sjunka lite för varje utandning.']]},
+   e:{'-1':[['lättare motstånd','Ta ett lättare band eller en lättare vikt.']],'1':[['tyngre motstånd','Ta ett kraftigare band eller en tyngre vikt.']]}},SUFS={},STATT={plank:1,sidep:1,bird:1,deadbug:1},STRT={cat:1,quad:1,child:1,hamst:1,calfst:1,chest:1,neck:1,tricep:1,reach:1,sidebend:1,armcircle:1,hipcircle:1,legswing:1,shroll:1},STRN=null,EQN=null;
+  Object.keys(MODS).forEach(function(k){['-1','1'].forEach(function(d){MODS[k][d].forEach(function(m){if(!SUFS[m[0]])SUFS[m[0]]=+d})})});
+  function setOf(b){if(!STRN){STRN={};[WG,CG,CP,WP].forEach(function(L){L.forEach(function(a){a.forEach(function(n){STRN[n]=1})})})}
+    var ty=MAP[b];if(ty){if(STRT[ty])return 'r';if(STATT[ty])return 's';return 'd'}return STRN[b]?'r':'d'}
+  function eqHas(b){if(!EQN){EQN={};Object.keys(EQP).forEach(function(k){EQP[k].forEach(function(a){a.forEach(function(n){EQN[n]=1})})})}return !!EQN[b]}
+  function baseOf(x){var i=x.lastIndexOf(' – ');if(i>0&&SUFS[x.slice(i+3)]!==undefined)return x.slice(0,i);return x}
+  function ensureVar(n){var b=baseOf(n);if(b===n||VB[n])return;var suf=n.slice(b.length+3),sg=SUFS[suf],st=setOf(b),tip='';
+    [st,'e'].forEach(function(k){['-1','1'].forEach(function(d){MODS[k][d].forEach(function(m){if(m[0]===suf&&!tip)tip=m[1]})})});
+    VB[n]={b:b,s:sg,tip:tip};if(MAP[b]&&!MAP[n])MAP[n]=MAP[b];if(CATX[b]&&!CATX[n])CATX[n]=CATX[b];
+    TIPS[n]=(TIPS[b]?TIPS[b]+' ':'')+tip;if(!VQ[n]){var EN={'halv rörelse':'partial range','med stöd':'supported','lugnt tempo':'slow controlled','med extra vila':'beginner','med 2 s paus':'with pause','långsamt (3 s ner)':'slow tempo','större rörelse':'full range of motion','snabb uppgång':'explosive','med vila var 10:e sekund':'easier','mindre utsträckning':'easier','med extra spänning':'hard','med lyft ben eller arm':'with leg lift','med långsamma pulser':'pulses','med längre hållning':'long hold','lättare motstånd':'light','tyngre motstånd':'heavy'};VQ[n]=(VQ[b]||'')?VQ[b]+' '+(EN[suf]||''):''}
+    var t=TEMPOX[b]||(MAP[b]&&TEMPO[MAP[b]]);if(t&&!TEMPOX[n]){t=t.slice();if(suf==='med 2 s paus')t[1]=Math.max(t[1],2000);else if(suf==='långsamt (3 s ner)')t[0]=3000;else if(suf==='snabb uppgång')t[2]=500;else if(suf==='lugnt tempo'||suf==='försiktigt tempo'){t[0]=Math.round(t[0]*1.3);t[2]=Math.round(t[2]*1.3)}TEMPOX[n]=t}}
+  function cand(x,dir){var b=baseOf(x),sg=b===x?0:(VB[x]||(ensureVar(x),VB[x])||{s:0}).s,f=findSlot(b),used=segNames('work'),out=[],seen={};seen[x]=1;
+    function add(n,tip){if(seen[n])return;seen[n]=1;ensureVar(n);out.push({x:x,to:n,slot:f?f.i:-1,dir:dir,tip:tip||''})}
+    if(sg&&sg===-dir)add(b,'Tillbaka till ursprungsövningen.');
+    if(f){var l=f.l+dir;if(l>=0&&l<=2){var c=POOL[f.i][l].filter(function(n){return n!==b&&MAP[n]&&FR[MAP[n]]}),c2=c.filter(function(n){return used.indexOf(n)<0});c2.concat(c.filter(function(n){return c2.indexOf(n)<0})).forEach(function(n){add(n)})}}
+    var st=setOf(b),ks=(eqHas(b)?['e']:[]).concat([st]);
+    var mx=0;ks.forEach(function(k){mx=Math.max(mx,MODS[k][dir>0?'1':'-1'].length)});
+    for(var i=0;i<mx;i++)ks.forEach(function(k){var m=MODS[k][dir>0?'1':'-1'][i];if(m)add(b+' – '+m[0],m[1])});
+    return out}
+  function propFor(p,idx){var x=p,r=RWR[p]||'t',dir=RWM==='e'?1:-1;
+    if(r==='m'){var c=cand(x,dir);if(c.length)return {k:'v',v:c[Math.min(idx,c.length-1)],n:c.length,dir:dir}}
+    var ds=r==='m'?[10,15,20]:[5,10,15],d=dir*ds[Math.min(idx,ds.length-1)];return {k:'t',d:d,n:ds.length,dir:dir,fb:r==='m'}}
+  function rwPlan(){var G=RWP.filter(isG);if(!G.length)return null;var e=RWM==='e',dir=e?1:-1,dl={},lines=[];
+    G.forEach(function(p){var r=RWR[p]||'t',d=(r==='m'?10:5)*dir;rwFor(p).forEach(function(x){if(RWD[x])return;dl[x]=d});lines.push(rwLbl(p)+': '+(r==='m'?10:5)+' s '+(e?'längre':'kortare')+' tid')});
+    return {lines:lines,apply:function(){cfg.ov=cfg.ov||{};Object.keys(dl).forEach(function(x){cfg.ov[x]=Math.max(10,Math.min(120,(cfg.ov[x]||segD(x))+dl[x]))})}}}
+  var VPT=0,VPC=null;
+  function vpFig(x){var ty=MAP[x],fr=ty&&FR[ty],n=fr?fr.length:1,k=0,d=1,box=$('vp-fig');clearInterval(VPT);var draw=function(){box.innerHTML=thumb(x,k)};draw();if(n>1)VPT=setInterval(function(){k+=d;if(k>=n-1)d=-1;if(k<=0)d=1;k=Math.max(0,Math.min(n-1,k));draw()},520)}
+  function addRetry(parts){var id=RPK.d+':'+RPK.i;if(!cfg.retry||cfg.retry.id!==id||cfg.retry.m!==(RWM||'h'))cfg.retry={parts:[],m:RWM||'h',id:id};parts.forEach(function(o){if(!cfg.retry.parts.some(function(q){return q.p===o.p}))cfg.retry.parts.push(o)});saveCfg()}
+  function dropRetry(p){if(cfg.retry&&cfg.retry.parts){cfg.retry.parts=cfg.retry.parts.filter(function(q){return q.p!==p});if(!cfg.retry.parts.length)cfg.retry=null;saveCfg()}}
+  function vpRender(){var c=VPC,pr=propFor(c.p,c.i),W=pr.dir>0?'svårare':'lättare',x=c.p;c.pr=pr;
+    if(pr.k==='v'){$('vp-t').textContent='Vi provar en '+W+' variant';$('vp-n').textContent=pr.v.to;$('vp-s').textContent='i stället för «'+x+'»'+(pr.v.tip?'. '+pr.v.tip:'');vpFig(pr.v.to);$('vp-y').textContent='Kör den varianten';var vl=$('vp-v');vl.href=vidUrl(pr.v.to);vl.style.display=(NOVID[pr.v.to]||!VQ[pr.v.to])?'none':''}
+    else{var cur=cfg.ov&&cfg.ov[x]||segD(x),nw=Math.max(10,Math.min(120,cur+pr.d));$('vp-t').textContent=(pr.fb?'Det finns ingen '+W+' variant. ':'')+'Vi provar '+(pr.dir>0?'längre':'kortare')+' tid';$('vp-n').textContent=x;$('vp-s').textContent=Math.abs(pr.d)+' s '+(pr.dir>0?'längre':'kortare')+' tid ('+cur+' → '+nw+' s)';vpFig(x);$('vp-y').textContent='Bra, kör den';$('vp-v').style.display='none'}
+    var nb=$('vp-new');nb.disabled=c.i>=pr.n-1;nb.textContent=c.i>=pr.n-1?'Inga fler förslag':'Nja, visa en ny'}
+  function vpOpen(p){rwUndo(p);dropRetry(p);VPC={p:p,i:0};var v=$('vp');vpRender();v.classList.remove('hidden');void v.offsetWidth;v.classList.add('in')}
+  function vpDone(){var v=$('vp');clearInterval(VPT);if(RWQ.length){var n=RWQ.shift();VPC={p:n,i:0};rwUndo(n);vpRender();return}v.classList.remove('in');setTimeout(function(){v.classList.add('hidden')},450)}
+  $('vp-y').addEventListener('click',function(){var c=VPC;if(!c)return;var pr=c.pr,x=c.p,W=pr.dir>0?'svårare':'lättare';
+    if(pr.k==='v'&&pr.v.slot>=0&&defMode()){var sl=pr.v.slot,old=cfg.pref&&cfg.pref[sl];cfg.pref=cfg.pref||{};cfg.pref[sl]={to:pr.v.to,at:dnOf(new Date())};RWU[x]=function(){if(old)cfg.pref[sl]=old;else if(cfg.pref)delete cfg.pref[sl];saveCfg()};RWX[x]='vi provar en '+W+' variant: '+pr.v.to}
+    else if(pr.k==='v'){cfg.rn=cfg.rn||{};var rk=x;Object.keys(cfg.rn).forEach(function(k){if(cfg.rn[k]&&cfg.rn[k].to===x)rk=k});var oldr=cfg.rn[rk];cfg.rn[rk]={to:pr.v.to,at:dnOf(new Date())};RWU[x]=function(){if(oldr)cfg.rn[rk]=oldr;else if(cfg.rn)delete cfg.rn[rk];saveCfg()};RWX[x]='vi provar en '+W+' variant: '+pr.v.to}
+    else{cfg.ov=cfg.ov||{};var had=cfg.ov[x],cur=had||segD(x);cfg.ov[x]=Math.max(10,Math.min(120,cur+pr.d));RWU[x]=function(){if(had===undefined)delete cfg.ov[x];else cfg.ov[x]=had;saveCfg()};RWX[x]=Math.abs(pr.d)+' s '+(pr.dir>0?'längre':'kortare')+' tid'}
+    RWD[x]='ok';saveCfg();rwPaint();rwUpd();vpDone()});
+  $('vp-new').addEventListener('click',function(){if(!VPC)return;VPC.i++;vpRender()});
+  $('vp-no').addEventListener('click',function(){var c=VPC;if(!c)return;RWD[c.p]='keep';RWX[c.p]='kör som förut, vi följer upp efter nästa pass';addRetry([{p:c.p,r:RWR[c.p]||'t'}]);rwPaint();rwUpd();vpDone()});
+  var DAYN=['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
+  function rwUpd(){var box=$('rw-s'),e=RPK&&(cfg.log||{})[RPK.d],o=rwPlan();
+    if(e){var kk=RWM==='e'?'ev':'hv';e[kk]=e[kk]||{};if(RWP.length)e[kk][RPK.i]={x:rwList(),p:RWP.map(function(p){return [p,RWR[p]||'t']})};else delete e[kk][RPK.i];saveCfg()}
+    box.innerHTML='';if(!RWP.length)return;
+    var h=document.createElement('b');h.textContent='Coachens förslag:';box.appendChild(h);
+    RWP.filter(function(p){return !isG(p)}).forEach(function(p){var d=document.createElement('div');d.className='rw-l';d.textContent=rwLbl(p)+': '+(RWD[p]?(RWD[p]==='ok'?'✓ ':'↺ ')+RWX[p]:'välj tiden eller rörelsen');box.appendChild(d)});
+    if(!o)return;
+    o.lines.forEach(function(t){var d=document.createElement('div');d.className='rw-l';d.textContent=t;box.appendChild(d)});
+    var fin=function(t){var q=document.createElement('b');q.textContent=t;box.innerHTML='';box.appendChild(q)};
+    var y=document.createElement('button');y.type='button';y.className='rw-y';y.textContent='Låter bra';y.addEventListener('click',function(){o.apply();saveCfg();fin('Klart! Ändringen gäller från nästa pass. Du kan alltid justera under Inställningar.')});
+    var n=document.createElement('button');n.type='button';n.className='rw-n';n.textContent=RWM==='e'?'Jag behåller det, provar nästa pass igen':'Jag biter ihop, provar nästa pass igen';n.addEventListener('click',function(){addRetry(RWP.filter(isG).map(function(p){return {p:p,r:RWR[p]||'t'}}));n.classList.add('sel')});
+    var r=document.createElement('div');r.className='rw-b';r.appendChild(y);r.appendChild(n);box.appendChild(r)}
+  document.querySelectorAll('#rw-r button').forEach(function(b){b.addEventListener('click',function(){if(!RWA)return;RWR[RWA]=b.dataset.w;rwUndo(RWA);rwPaint();rwUpd();if(!isG(RWA)){RWQ=[];vpOpen(RWA)}})});
+  function topOf(key){var t=dnOf(new Date()),c={},i,e,best=null;for(i=0;i<14;i++){e=(cfg.log||{})[t-i];if(e&&e[key])Object.keys(e[key]).forEach(function(j){((e[key][j]&&e[key][j].x)||[]).forEach(function(x){c[x]=(c[x]||0)+1})})}Object.keys(c).forEach(function(x){if(c[x]>=2&&(!best||c[x]>c[best]))best=x});return best}
+  function hxTop(){return topOf('hv')}
+  var RPA={1:['Noterat! Känns dä lätt flera gånger föreslår coachen ett steg upp.','Lätt, bra! Coachen håller koll å höjer när dä ä dags.'],2:['Lagom, då ligger du rätt!','Bra, dä ä precis där dä ska vara.'],3:['Noterat, lyssna på kroppen. Coachen håller koll.','Tungt ibland ä helt normalt. Kom ihåg å vila ordentligt.'],4:['Okej, ta dä lugnt. Kommer dä igen föreslår coachen ett lättare läge.','Förstått. Vila gôtt, nästa pass kan coachen ta ner lite.']};
+  function rpeReset(){var r=$('rpe');if(!r)return;RWP=[];RWR={};RWA=null;RWM='';RWD={};RWX={};RWU={};RWQ=[];$('rpe-w').classList.add('hidden');if($('vp')){$('vp').classList.remove('in');$('vp').classList.add('hidden')}$('rw-s').innerHTML='';r.classList.remove('rated');r.querySelectorAll('.rpe-b button').forEach(function(b){b.classList.remove('sel')});$('rpe-a').textContent=''}
+  document.querySelectorAll('#rpe .rpe-b button').forEach(function(b){b.addEventListener('click',function(){if(!RPK)return;var v=Number(b.dataset.v),e=(cfg.log||{})[RPK.d];if(!e||!e.r)return;e.r[RPK.i]=v;saveCfg();var r=$('rpe');r.classList.add('rated');r.querySelectorAll('.rpe-b button').forEach(function(x){x.classList.toggle('sel',x===b)});var A=RPA[v],md=v===4?'h':v===1?'e':'',rt=cfg.retry&&cfg.retry.id!==RPK.d+':'+RPK.i?cfg.retry:null,rm=rt?(rt.m||'h'):'';$('rpe-a').textContent=A[Math.floor(Math.random()*A.length)];
+    if(rt){if(rm==='h'&&v<=2){$('rpe-a').textContent='Bra att du bet ihop! Dä gick bättre den här gången.';cfg.retry=null;saveCfg()}else if(rm==='e'&&v>=2){$('rpe-a').textContent='Bra, då ligger du rätt nu! Kul att du provade.';cfg.retry=null;saveCfg()}}
+    var pw=$('rpe-w'),e2=cfg.log[RPK.d];
+    if(md){if(pw.classList.contains('hidden')||RWM!==md){RWM=md;pw.classList.remove('hidden');rwBuild();
+        if(rt&&rm===md){$('rpe-a').textContent=md==='h'?'Du bet ihop sist, men dä var fortfarande för tungt. Då justerar vi.':'Dä var fortfarande lätt. Då ger vi lite mer.';rwRestore(rt.parts||(rt.x||[]).map(function(x){return {p:x,r:rt.w==='m'?'m':'t'}}))}}
+      if(e2){var ok=md==='h'?'ev':'hv';if(e2[ok])delete e2[ok][RPK.i]}saveCfg()}
+    else{pw.classList.add('hidden');RWM='';if(e2){if(e2.hv)delete e2.hv[RPK.i];if(e2.ev)delete e2.ev[RPK.i]}saveCfg()}})});
   function logDone(sg){
     if(sg.logged)return;sg.logged=true;
     var kcBefore=kcTot();
     var d=dnOf(new Date()),sec=segs.reduce(function(a,q){return a+((q.t==='prep'||q.t==='done')?0:q.d)},0);
     cfg.log=cfg.log||{};var e=cfg.log[d]||{n:0,s:0};e.n++;e.s+=sec;e.kc=(e.kc||0)+Math.round(kcalTotalPass());
     try{initCat();var nm=[],gr=[];segs.forEach(function(q){if(q.t==='work'&&nm.indexOf(q.n)<0){nm.push(q.n);var c=CATX[q.n];if(c&&gr.indexOf(c.s)<0)gr.push(c.s)}});e.ex=(e.ex||[]).concat(nm.filter(function(x){return (e.ex||[]).indexOf(x)<0}));e.f=(e.f||[]).concat(gr.filter(function(x){return (e.f||[]).indexOf(x)<0}));var wn=[],cn=[];segs.forEach(function(q){if(q.t==='warm'&&wn.indexOf(q.n)<0)wn.push(q.n);if(q.t==='cool'&&cn.indexOf(q.n)<0)cn.push(q.n)});e.w=(e.w||[]).concat(wn.filter(function(x){return (e.w||[]).indexOf(x)<0}));e.c=(e.c||[]).concat(cn.filter(function(x){return (e.c||[]).indexOf(x)<0}))}catch(er){}
+    e.r=(e.r||[]).concat(0);RPK={d:d,i:e.r.length-1};
     cfg.log[d]=e;saveCfg();renderStats();
     var kcAfter=kcTot();sg.ms=null;KMS.forEach(function(m){if(kcBefore<m[0]&&kcAfter>=m[0])sg.ms=m[1]});
   }
@@ -2087,11 +2254,68 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     $('w-av').innerHTML=avatar(q[1],oi);
   }
   var COACHON=false,CCH=null,CCRAF=0;
-  document.body.appendChild($('coach'));
+  document.body.appendChild($('coach'));document.body.appendChild($('vp'));
   function coachWeeks(){var L=cfg.log||{},d=new Date(),t=dnOf(d),mon=t-((d.getDay()+6)%7),w=[],k,i,c,s0,run=0;for(k=0;k<8;k++){c=0;for(i=0;i<7;i++){var e=L[mon-7*k+i];if(e)c+=e.n}w.push(c)}s0=w[0]>=2?0:1;while(s0+run<8&&w[s0+run]>=2)run++;return run}
-  function coachDue(){if(document.documentElement.classList.contains('touring'))return false;var t=dnOf(new Date());if(cfg.coachAt&&t-cfg.coachAt<21)return false;return coachWeeks()>=3}
+  function lgs(){return cfg.log||{}}
+  function wkN(k){var d=new Date(),t=dnOf(d),mon=t-((d.getDay()+6)%7),c=0,i,e;for(i=0;i<7;i++){e=lgs()[mon-7*k+i];if(e)c+=e.n}return c}
+  function ratings(days){var t=dnOf(new Date()),r=[],i,j,e;for(i=0;i<days;i++){e=lgs()[t-i];if(e&&e.r)for(j=e.r.length-1;j>=0;j--)if(e.r[j]>0)r.push({d:t-i,v:e.r[j]})}return r}
+  function regWeeks(){var c=0,k;for(k=1;k<=6;k++)if(wkN(k)>=3)c++;return c}
+  function runFull(){var k=1;while(k<=8&&wkN(k)>=3)k++;return k-1}
+  var ADV=null;
+  function adviceNow(){if(document.documentElement.classList.contains('touring'))return null;
+    var t=dnOf(new Date()),ld=cfg.load||0,L=lgs(),ks=Object.keys(L).map(Number),last=ks.length?Math.max.apply(null,ks):0,gap=last?t-last:0,reg=regWeeks();
+    if(reg<2)return null;if(cfg.advAt&&t-cfg.advAt<4)return null;
+    var r=ratings(10),f3=r.slice(0,3),hv=f3.filter(function(x){return x.v>=3}).length,ch=cfg.loadAt&&t-cfg.loadAt<5;
+    if(gap>=10&&ld>0&&!cfg.dl)return {t:'restart'};
+    if(f3.length>=2&&hv>=2&&(!ch||hv>=3))return {t:'down'};
+    if(cfg.loadAt&&t-cfg.loadAt<=21&&cfg.loadUp&&wkN(2)>=3&&wkN(1)<=wkN(2)-2&&ld>0)return {t:'down',fr:1};
+    if(cfg.dl&&t>=cfg.dl.until)return {t:'back'};
+    if(cfg.dl)return null;
+    var run=runFull(),r4=ratings(28).slice(0,4),av=r4.length?r4.reduce(function(a,x){return a+x.v},0)/r4.length:0;
+    if(ld>0&&(!cfg.dlAt||t-cfg.dlAt>=28)&&(run>=5||(run>=4&&r4.length>=3&&av>=2.5)))return {t:'deload'};
+    var r21=ratings(21);
+    if(wkN(1)>=3&&wkN(2)>=3&&(!cfg.loadAt||t-cfg.loadAt>=14)&&r21.length>=3&&r21.every(function(x){return x.v<=2})){var easy=r21.filter(function(x){return x.v===1}).length;if(easy>=2||r21.length>=6){if(ld<2||rounds()<5)return {t:'up'}}}
+    return null}
+  function coachDue(){if(document.documentElement.classList.contains('touring'))return false;var t=dnOf(new Date());var a=adviceNow();if(a){ADV=a;return true}
+    if(regWeeks()>=2&&ratings(21).length>0)return false;
+    if(cfg.coachAt&&t-cfg.coachAt<21)return false;return coachWeeks()>=3}
   var CCO=null;
-  function levelCoach(){var nm=(cfg.name||'').trim(),N=nm?', '+nm:'',ld=cfg.load||0,up=ld<2;
+  function segTo(l){var b=document.querySelector('#seg [data-l="'+l+'"]');if(b)b.click()}
+  function openSet(){if(!SET_OPEN)$('bt-set').click();var cb=document.querySelector('.cat[data-c="time"]');if(cb&&!cb.classList.contains('open'))cb.click();setTimeout(function(){var n=$('nerd');if(n&&n.scrollIntoView)n.scrollIntoView({behavior:'smooth',block:'start'})},120)}
+  function regCoach(a){var nm=(cfg.name||'').trim(),N=nm?', '+nm:'',ld=cfg.load||0,t=dnOf(new Date()),P=function(k,arr){return poolPick(k,arr,3)},o;
+    if(a.t==='up'){var up=ld<2;
+      o={flag:P('rcu',['Dä känns lätt nu'+N+'! Flera pass i rad ha varit lätta. Dags för ett steg upp?','Du tränar minst tre gånger i veckan'+N+', å kroppen säger lätt. Dä ä dags å höja!','Starkt jobbat'+N+'! Passen känns lätta nu, så du ä redo för mer.']),
+        p:up?'Du kör '+LVN[ld]+' nu. Vill du prova '+LVN[ld+1]+'? Eller justera tider, varv och vila själv.':'Du kör redan Hårt. Vill du ha ett varv extra, eller justera själv?',
+        why:'Forskningen säger: höj när du klarar lite mer än du behöver, ungefär 2–10 % i taget. Din egen känsla visar att du gör dä.',
+        auto:['Låt coachen välja',up?LVN[ld]+' → '+LVN[ld+1]:'Ett varv extra'],self:['Justera själv','Tider, varv och vila'],
+        on:{auto:function(){cfg.loadUp=1;if(ld<2)segTo(ld+1);else if(rounds()<5)$('g4-p').click();else $('g-p').click()},self:openSet}};var te=topOf('ev');if(te){o.p='Det som känts lättast ä «'+te+'». Vill du förlänga den lite, eller höja hela nivån?';o.auto=['Förläng '+te,'5 s längre tid på den övningen'];o.self=[up?'Höj hela nivån':'Justera själv',up?LVN[ld]+' → '+LVN[ld+1]:'Tider, varv och vila'];o.on={auto:function(){cfg.ov=cfg.ov||{};cfg.ov[te]=Math.min(120,(cfg.ov[te]||segD(te))+5);saveCfg()},self:function(){if(up){cfg.loadUp=1;segTo(ld+1)}else openSet()}}}}
+    else if(a.t==='down'){var lo=ld>0;
+      o={flag:P('rcd',a.fr?['Dä blev färre pass efter höjningen'+N+'. Kanske ä dä lite för mycket? Ta ett steg tillbaka, dä ä ingen skam.','Passen har blivit färre på sistone'+N+'. Lyssna på kroppen, ett steg ner kan hjälpa dej framåt.']:['Dä låter tungt'+N+'. Lyssna på kroppen, ett steg ner ger snabbare styrka i längden.','Flera tunga pass i rad'+N+'. Kroppen behöver återhämtning, inte mer slit. Ta ett steg ner!','Du ä inte svagare'+N+', du ä trött. Ett lättare läge hjälper dej å hämta sej.']),
+        p:lo?'Du kör '+LVN[ld]+'. Vill du prova '+LVN[ld-1]+' ett tag?':(rounds()>1?'Du kör redan Lätt. Vill du ta ett varv färre ett tag?':'Du kör redan Lätt. Vill du justera tid och vila själv?'),
+        why:'När flera pass känns tunga i rad är det ofta bättre att backa lite än att köra på. Det ger bättre pass framåt, å lägre risk för överbelastning.',
+        auto:['Låt coachen välja',lo?LVN[ld]+' → '+LVN[ld-1]:(rounds()>1?'Ett varv färre':'Tider och vila')],self:['Justera själv','Tider, varv och vila'],
+        on:{auto:function(){cfg.loadUp=0;if(lo)segTo(ld-1);else if(rounds()>1)$('g4-m').click();else openSet()},self:openSet}};var tp=hxTop();if(tp){o.p='Det som tagit emot mest ä «'+tp+'». Vill du korta den lite, eller sänka hela nivån?';o.auto=['Korta '+tp,'5 s kortare tid på den övningen'];o.self=[lo?'Sänk hela nivån':'Justera själv',lo?LVN[ld]+' → '+LVN[ld-1]:'Tider, varv och vila'];o.on={auto:function(){cfg.ov=cfg.ov||{};cfg.ov[tp]=Math.max(10,(cfg.ov[tp]||segD(tp))-5);saveCfg()},self:function(){if(lo){cfg.loadUp=0;segTo(ld-1)}else openSet()}}}}
+    else if(a.t==='deload'){
+      o={flag:P('rcl',['Du har tränat riktigt bra i flera veckor'+N+'. En lättare vecka ger kroppen chans å hämta sej!','Grymt jobbat'+N+'! Nu ä dä klokt med en lugnare vecka, så orkar du längre.','Flera veckor i rad'+N+'. Vilar kroppen en vecka blir du starkare efteråt.']),
+        p:'Vill du köra '+LVN[ld-1]+' en vecka och sen tillbaka till '+LVN[ld]+'?',
+        why:'Många som tränar regelbundet tar en lättare vecka var fjärde till sjätte vecka. Forskningen ä inte entydig, men dä hjälper många å orka längre.',
+        auto:['Ja, en lätt vecka',LVN[ld]+' → '+LVN[ld-1]+' i 7 dagar'],self:['Nej, jag kör på','Fråga igen om en månad'],
+        on:{auto:function(){cfg.dl={from:ld,until:t+7};cfg.dlAt=t;cfg.loadUp=0;segTo(ld-1)},self:function(){cfg.dlAt=t;saveCfg()}}}}
+    else if(a.t==='back'){var fr=cfg.dl?cfg.dl.from:ld;
+      o={flag:P('rcb',['Lätta veckan ä klar'+N+'! Nu ä du utvilad. Tillbaka till '+LVN[fr]+'?','Kroppen har fått vila'+N+'. Dags å ta upp tråden igen!']),
+        p:'Vill du gå tillbaka till '+LVN[fr]+', eller stanna på '+LVN[ld]+' ett tag till?',why:'',
+        auto:['Ja, tillbaka',LVN[ld]+' → '+LVN[fr]],self:['Stanna kvar','Fortsätt på '+LVN[ld]],
+        on:{auto:function(){cfg.dl=null;saveCfg();if(fr!==(cfg.load||0))segTo(fr)},self:function(){cfg.dl=null;saveCfg()}}}}
+    else{
+      o={flag:P('rcr',['Välkommen tillbaka'+N+'! Efter ett uppehåll ä dä smart å börja lite lättare.','Dä var ett tag sen'+N+'. Vi tar det lugnt i början, så bygger vi upp igen.']),
+        p:'Börja på '+LVN[ld-1]+' idag? Sen kan du höja igen på en vecka eller två. Eller kör '+LVN[ld]+' som vanligt.',
+        why:'Efter ett längre uppehåll är dä klokt å trappa upp igen. Dä minskar risken för träningsvärk å bakslag.',
+        auto:['Börja lite lättare',LVN[ld]+' → '+LVN[ld-1]],self:['Kör som förr','Behåll '+LVN[ld]],
+        on:{auto:function(){cfg.dl={from:ld,until:t+10};cfg.loadUp=0;segTo(ld-1)},self:function(){}}}}
+    o.mark=true;o.skip=true;o.skipT='Inte nu';
+    var inner=o.on,wrap=function(fn){return function(){cfg.advAt=t;saveCfg();if(fn)fn()}};
+    o.on={auto:wrap(inner.auto),self:wrap(inner.self),skip:wrap(null)};return o}
+  function levelCoach(){if(ADV){var av=ADV;ADV=null;return regCoach(av)}var nm=(cfg.name||'').trim(),N=nm?', '+nm:'',ld=cfg.load||0,up=ld<2;
     var fl=['Gôtt jobbat'+N+'! Minst två pass i veckan, tre veckor i rad. Dä ä riktig uthållighet. Dags å höja ribban lite?','Wow'+N+'! Tre veckor i rad med två pass eller fler. Kroppen ä redo för nästa steg.','Kors i taket'+N+', tre veckor i sträck! Du har byggt en riktig vana. Vad sägs om lite mer utmaning?','Du ä på rätt väg'+N+'! Tre veckor med minst två pass i veckan. Nu kan du få ut ännu mer.','Starkt'+N+'! Tre veckor i rad utan å tappa takten. Kroppen ä redo för en liten uppgradering.'];
     return {mark:true,flag:fl[Math.floor(Math.random()*fl.length)],p:up?'Du kör '+LVN[ld]+' nu. Vill du prova '+LVN[ld+1]+'? Eller justera tider, varv och vila själv.':'Du kör redan Hårt! Vill du ha ett varv extra, eller justera tider, varv och vila själv?',auto:['Låt coachen välja',up?LVN[ld]+' → '+LVN[ld+1]:'Ett varv extra'],self:['Justera själv','Tider, varv och vila'],skip:true,
       on:{auto:function(){var l=cfg.load||0;if(l<2){var b=document.querySelector('#seg [data-l="'+(l+1)+'"]');if(b)b.click()}else if(rounds()<5)$('g4-p').click();else $('g-p').click()},
@@ -2105,7 +2329,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     (function w(now){var u=Math.min(1,(now-tq)/900);g0.classList.remove('st');g0.style.transform='translateX('+Math.round(x0+(W+20-x0)*u*u)+'px)';if(u<1)CCRAF=requestAnimationFrame(w);else{c.classList.add('hidden');c.classList.remove('out');if(CCH&&CCH.p)CCH.p.insertBefore(gw,CCH.n);gw.style.cssText='';g0.style.transform='translateX(-190px)';COACHON=false}})(tq);
     var fn=o.on&&o.on[act];if(fn)fn()}
   function coachShow(o){if(COACHON)return;COACHON=true;CCO=o=o||levelCoach();var gw=$('girlw');
-    $('cc-p').textContent=o.p;$('cc-auto').querySelector('.bt').textContent=o.auto[0];$('cc-auto-s').textContent=o.auto[1];var sb=$('cc-self');sb.querySelector('.bt').textContent=o.self[0];sb.querySelector('.bs').textContent=o.self[1];$('cc-skip').style.display=o.skip?'':'none';
+    $('cc-p').textContent=o.p;$('cc-why').textContent=o.why||'';$('cc-skip').textContent=o.skipT||'Fortsätt som vanligt';$('cc-auto').querySelector('.bt').textContent=o.auto[0];$('cc-auto-s').textContent=o.auto[1];var sb=$('cc-self');sb.querySelector('.bt').textContent=o.self[0];sb.querySelector('.bs').textContent=o.self[1];$('cc-skip').style.display=o.skip?'':'none';
     CCH={p:gw.parentNode,n:gw.nextSibling};$('cc-stage').appendChild(gw);
     var an=nextAn();document.querySelectorAll('.gan').forEach(function(a){a.classList.toggle('on',+a.getAttribute('data-an')===an)});
     setFlagText(o.flag);var c=$('coach');c.classList.remove('hidden','in','out');
@@ -2196,7 +2420,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     for(var k=0;k<36;k++){var e=document.createElement('i');e.style.left=(Math.random()*100)+'%';e.style.background=cols[k%5];e.style.animationDelay=(Math.random()*.8)+'s';e.style.animationDuration=(2+Math.random()*1.5)+'s';c.appendChild(e)}
     setTimeout(function(){c.innerHTML=''},4500);
   }
-  document.querySelectorAll('#seg button').forEach(function(b){b.addEventListener('click',function(){cfg.load=Number(b.dataset.l);resetT();saveCfg();renderToday()})});
+  document.querySelectorAll('#seg button').forEach(function(b){b.addEventListener('click',function(){var nl=Number(b.dataset.l);if(nl!==(cfg.load||0)){cfg.loadAt=dnOf(new Date());cfg.loadUp=nl>(cfg.load||0)?1:0}if(cfg.dl&&nl>=cfg.dl.from)cfg.dl=null;cfg.load=nl;resetT();saveCfg();renderToday()})});
   function rst(x,def){if(MODE==='yest')return def;var v=cfg.rov[x];return v!==undefined?v:(cfg.rgen!=null?cfg.rgen:def)}
   function rgen(d){var b=cfg.rgen!=null?cfg.rgen:today().rest;cfg.rgen=Math.min(120,Math.max(0,b+d));cfg.rov={};saveCfg();renderToday()}
   $('g2-m').addEventListener('click',function(){rgen(-5)});
@@ -2593,7 +2817,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       running=false;clearInterval(timerId);releaseLock();
       $('time').textContent='✓';
       var PM=['Gôtt jobbat! Du gjorde det igen, och kroppen skickar ett tackkort.','Kors i taket, du kom, du körde, du klarade det! Soffan fick vänta idag.','Ett riktigt bra pass. Ta en klunk vatten och var lite stolt, du har förtjänat det.','Varje pass räknas, och idag räknades det extra. Grymt!','Imorgon blir det ännu lättare att komma igång. Kroppen minns allt du gjorde idag.','Det där kallas att leverera! Nu väntar ett välförtjänt pusterum.','Där satt refrängen! Nu får kroppen applåder och en stor klunk vatten.','Ett pass med riktig dansbandskänsla: jämnt, glatt och ingen tappade takten. Gôtt jobbat!','Ta en bugning, du har förtjänat det. Soffan klappar händerna.','Det ordnar sig alltid när man kommer igång, och idag ordnade det sig riktigt bra!','Lite svett, lite stolthet, ingen brådska. Det är hela receptet. Bra kôrt!'];
-      var pm=blkMsg(3);$('pepp').textContent=sg.ms?'🔥 '+(cfg.name?cfg.name+', ':'')+sg.ms.charAt(0).toLowerCase()+sg.ms.slice(1):pm;renderSum();
+      rpeReset();var pm=blkMsg(3);$('pepp').textContent=sg.ms?'🔥 '+(cfg.name?cfg.name+', ':'')+sg.ms.charAt(0).toLowerCase()+sg.ms.slice(1):pm;renderSum();
       $('pause').textContent='Tillbaka';
       beep(660,.15);setTimeout(function(){beep(880,.15)},200);setTimeout(function(){beep(1100,.4)},400);
       return;
