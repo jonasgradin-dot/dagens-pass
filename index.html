@@ -53,11 +53,37 @@ h2.sub{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:1.4rem
 .hasfig #fig{display:block}
 #fig.dim{opacity:.55}
 .nxs{display:none;position:fixed;z-index:2;text-align:left;pointer-events:none}
-#run.hasnx .nxs{display:block;animation:nxin .7s cubic-bezier(.2,.8,.3,1) 5s both}
+#run.hasnx .nxs{display:block;opacity:0;transform:translateX(120px)}
+#run.hasnx.nx5 .nxs{animation:nxin .7s cubic-bezier(.2,.8,.3,1) both}
+.prog{display:none;margin:6px 0 2px;text-align:center;line-height:1}
+.prog .pn{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:3.2rem;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.prog .pn em{font-style:normal;opacity:.7;font-size:2.2rem}
+.prog .pl{font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin-left:6px}
+.prog .pd{display:flex;justify-content:center;gap:5px;margin-top:6px;padding:0 14px}
+.prog .pd i{flex:1 1 0;max-width:34px;height:9px;border-radius:5px;border:2px solid currentColor;opacity:.55}
+.prog .pd i.on{background:currentColor;opacity:1}
+.prog .pd i.cur{opacity:1;background:linear-gradient(to right,currentColor calc(var(--f,0)*100%),transparent 0)}
+@keyframes pgp{50%{opacity:.35}}
+body.prep #prog,body.done #prog,body.pbreak #prog{display:none!important}
+body.work .tip,body.warm .tip,body.cool .tip{display:none!important}
+body.work #phase,body.warm #phase,body.cool #phase{display:none}
+body.work #reps,body.warm #reps,body.cool #reps{display:none!important}
+.prog .pl{display:none!important}
+body.work .vidw,body.warm .vidw,body.cool .vidw{display:none!important}
+.fi{animation:rfi .9s ease both}
+@keyframes rfi{from{opacity:0}to{opacity:1}}
+#run.fo{opacity:0;transition:opacity .7s ease}
+#run.xf>*:not(#fig):not(#girlw){animation:rfi 1.1s ease both}
+body{transition:background-color .9s ease}
+.rnd{display:none;position:fixed;top:12px;right:14px;z-index:5;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:.04em;padding:2px 11px;border-radius:12px;background:rgba(255,255,255,.22);font-variant-numeric:tabular-nums}
+.ctrlrow{display:flex;gap:6px;margin-bottom:6px}
+.ctrlrow .ctrl{display:contents}
+.ctrlrow .ctrl button{height:48px;font-size:1.1rem;padding:0 2px;white-space:nowrap;border-radius:14px;min-width:0}
+body.work #round,body.warm #round,body.cool #round,body.rest #round{display:none}
 @keyframes nxin{from{transform:translateX(120px);opacity:0}to{transform:none;opacity:1}}
 .nxs small{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
 .nxs b{display:block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.25rem;line-height:1.1}
-#run.hasnx #fig{width:calc(100% - 112px)}
+#run.hasnx.nx5 #fig{width:calc(100% - 112px);transition:width .7s cubic-bezier(.2,.8,.3,1)}
 .hasfig .time{flex:0 0 auto;font-size:clamp(4.5rem,22vw,7.5rem);padding:4px 0 12px}
 .skip{margin-bottom:12px}
 .ctrl.skip button{height:48px;font-size:1.25rem}
@@ -67,7 +93,7 @@ h2.sub{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:1.4rem
 .hasfig #fig{min-height:90px}
 .tip{display:none;margin:0 6px 4px;min-height:4em;font-size:.98rem;line-height:1.35}
 .hasfig .tip{display:block}
-.awake{font-size:.8rem;opacity:.75;margin:6px 0 0;min-height:1.2em}
+.awake{font-size:.8rem;opacity:.75;margin:6px 0 0}.awake:empty{display:none}
 .reps{display:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:1.3rem;margin:2px 0 4px;min-height:1.4em}
 .hasfig .reps{display:block}
 .hasfig .tip{min-height:3.4em;font-size:.92rem}
@@ -1065,7 +1091,9 @@ html.touring .bubble{z-index:2100}
         <button class="big sec" id="cc-self" type="button"><span class="bt">Justera själv</span><span class="bs">Tider, varv och vila</span></button>
         <button class="rsb" id="cc-skip" type="button">Fortsätt som vanligt</button></div></div>
     <div class="phase" id="phase"></div>
+    <div class="rnd" id="rnd"></div>
     <div class="round" id="round"></div>
+    <div class="prog" id="prog" aria-live="polite"><div><span class="pn"><b id="pg-a">0</b><em id="pg-b"></em></span><span class="pl" id="pg-l">gjorda</span></div><div class="pd" id="pg-d"></div></div>
     <div class="kc" id="kc" aria-label="Förbrända kalorier"></div>
     <div class="nxs" id="nxs" aria-hidden="true"><small>Nästa</small><b></b></div>
     <div class="nextbox" id="nextbox"><small id="nx-l"></small><b id="nx-n"></b></div>
@@ -1079,13 +1107,15 @@ html.touring .bubble{z-index:2100}
     <div class="rpe" id="rpe"><div class="rpe-q">Hur kändes passet?</div><div class="rpe-b"><button type="button" data-v="1"><i>😌</i><span>Lätt</span></button><button type="button" data-v="2"><i>👍</i><span>Lagom</span></button><button type="button" data-v="3"><i>😓</i><span>Tungt</span></button><button type="button" data-v="4"><i>🥵</i><span>För tungt</span></button></div><div class="rpe-a" id="rpe-a"></div>
       <div class="rpe-w hidden" id="rpe-w"><div class="rpe-q" id="rw-q1">Vilken del var för tung?</div><div class="rw-c" id="rw-p"></div><div class="rpe-q hidden" id="rw-q2"></div><div class="rw-c hidden" id="rw-r"><button type="button" data-w="t">Tiden</button><button type="button" data-w="m">Rörelsen</button></div><div class="rw-s" id="rw-s"></div></div></div>
     <div class="sum" id="sum"></div>
+    <div class="ctrlrow">
     <div class="ctrl skip" id="skip">
-      <button id="prev" aria-label="Föregående övning">‹ Föregående</button>
+      <button id="prev" aria-label="Föregående övning">‹ Förra</button>
       <button id="next" aria-label="Nästa övning">Nästa ›</button>
     </div>
     <div class="ctrl">
       <button id="pause" class="main">Pausa</button>
       <button id="stop">Avsluta</button>
+    </div>
     </div>
     <p class="awake" id="awake"></p>
     <div class="sndrow"><button class="tickbtn" id="tickbtn" type="button"></button><button class="tickbtn" id="voicebtn" type="button"></button></div>
@@ -1113,6 +1143,31 @@ html.touring .bubble{z-index:2100}
   function fmt(sec){var m=Math.floor(sec/60),s=sec%60;return m+':'+(s<10?'0':'')+s}
   function fmtLong(sec){var m=Math.floor(sec/60),s=sec%60;return m?m+' min'+(s?' '+s+' s':''):s+' s'}
 
+  var viaGong=false,gongSnd=false,fiT=0,holdG=false,stillUntil=0;
+  function gong(){
+    if(!ac)return;
+    try{var t=ac.currentTime,cp=ac.createDynamicsCompressor(),m=ac.createGain();m.gain.value=.49;cp.threshold.value=-9;cp.ratio.value=10;cp.attack.value=.002;m.connect(cp);cp.connect(ac.destination);
+      var P=[[130,1],[195,.8],[262,.75],[343,.6],[498,.45],[690,.3],[925,.2],[1240,.1]];
+      P.forEach(function(p,i){
+        [1,1.006].forEach(function(dt,j){if(j&&i>2)return;var o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=p[0]*dt;
+          g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(p[1]*.62,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+4.2-i*.4);
+          o.connect(g);g.connect(m);o.start(t);o.stop(t+4.3)})});
+      var n=ac.createBuffer(1,Math.floor(ac.sampleRate*.12),ac.sampleRate),d=n.getChannelData(0),k;for(k=0;k<d.length;k++)d[k]=(Math.random()*2-1)*Math.pow(1-k/d.length,3);
+      var ns=ac.createBufferSource(),nf=ac.createBiquadFilter(),ng=ac.createGain();ns.buffer=n;nf.type='bandpass';nf.frequency.value=900;nf.Q.value=.7;ng.gain.value=.9;ns.connect(nf);nf.connect(ng);ng.connect(m);ns.start(t);
+    }catch(e){}
+  }
+  function whistle(){
+    if(!ac)return;
+    try{var t=ac.currentTime,D=.85,m=ac.createGain(),cp=ac.createDynamicsCompressor();m.gain.setValueAtTime(.0001,t);m.gain.exponentialRampToValueAtTime(.5,t+.02);m.gain.setValueAtTime(.5,t+D-.12);m.gain.exponentialRampToValueAtTime(.0001,t+D);m.connect(cp);cp.connect(ac.destination);
+      [[2750,1],[3320,.45]].forEach(function(h){var o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain(),tr=ac.createOscillator(),tg=ac.createGain();
+        o.type='sine';o.frequency.setValueAtTime(h[0]*.96,t);o.frequency.exponentialRampToValueAtTime(h[0],t+.05);
+        l.frequency.value=34;lg.gain.value=h[0]*.035;l.connect(lg);lg.connect(o.frequency);
+        g.gain.value=h[1]*.5;tr.frequency.value=34;tg.gain.value=h[1]*.22;tr.connect(tg);tg.connect(g.gain);
+        o.connect(g);g.connect(m);o.start(t);l.start(t);tr.start(t);o.stop(t+D+.02);l.stop(t+D+.02);tr.stop(t+D+.02)});
+      var n=ac.createBuffer(1,Math.floor(ac.sampleRate*D),ac.sampleRate),d=n.getChannelData(0),k;for(k=0;k<d.length;k++)d[k]=Math.random()*2-1;
+      var ns=ac.createBufferSource(),nf=ac.createBiquadFilter(),ng=ac.createGain();ns.buffer=n;nf.type='bandpass';nf.frequency.value=3000;nf.Q.value=4;ng.gain.value=.22;ns.connect(nf);nf.connect(ng);ng.connect(m);ns.start(t);
+    }catch(e){}
+  }
   function beep(freq,dur){
     if(!ac)return;
     try{
@@ -1557,9 +1612,14 @@ FR.calf=[[100,16,100,32,100,60,100,46,100,58,100,83,100,106],[100,10,100,26,100,
      'Vägg-planka':'Underarmarna mot väggen, kroppen rak som en planka. Spänn magen.','Sidoplanka på knä':'Stöd på underarmen och knäna. Lyft höften så kroppen blir rak.','Lätt dead bug':'Ligg på rygg, sträck ut ett ben i taget och håll ländryggen mot golvet.','Planka på underarmar':'Underarmarna i golvet, kroppen rak. Spänn mage och rumpa.','Dead bug med benpaus':'Sänk motsatt arm och ben och stanna en sekund innan du byter.','Planka med knäindrag':'Håll plankan och dra ett knä mot bröstet i taget.','Planka med benlyft':'Håll plankan och lyft ett ben i taget utan att svaja i ryggen.','Sidoplanka med benlyft':'Håll sidoplankan och lyft det övre benet. Byt sida.','Planka med knä mot armbåge':'Dra knäet mot samma armbåge. Hållningen stilla, byt sida.','Hollow hold':'Ligg på rygg, lyft axlar och ben och håll ländryggen mot golvet.',
      'Marsch på stället':'Marschera med höga knän och sväng med armarna. Mjukt och lugnt.','Sidosteg med armsving':'Stor sidosteg och sväng armarna uppåt. Byt håll varje gång.','Steg-jack':'Steg ut med ett ben i taget och lyft armarna. Inga hopp.','Jumping jacks':'Hoppa ut med benen och lyft armarna. Mjuk landning.','Skridskohopp':'Hoppa från sida till sida som en skridskoåkare. Mjuk landning.','Höga knän':'Spring på stället med höga knän och starka armar.','Hälsparkar':'Spring på stället och sparka hälarna mot rumpan.','Burpees':'Ner i planka, armhävning, hoppa in och upp med ett hopp.','Burpees utan armhävning':'Ner i planka, hoppa in och upp med ett hopp. Ingen armhävning.','Höga knän snabbt':'Snabba höga knän. Starka armar och landa lätt.','Skridskohopp med paus':'Hoppa åt sidan och stanna en sekund på ett ben innan nästa hopp.'};
     for(var n in T2)if(!TIPS[n])TIPS[n]=T2[n]})();
+  TY.snowang=['Omvänd snöängel','Omvänd snöängel med paus','Långsam omvänd snöängel'];
+  FR.snowang=[[158,84,142,92,112,102,128,86,112,90,88,100,64,96],[158,84,142,92,112,102,150,80,154,72,88,100,64,96],[158,86,142,92,112,102,168,84,188,82,88,100,64,96],[158,84,142,92,112,102,150,80,154,72,88,100,64,96],[158,84,142,92,112,102,128,86,112,90,88,100,64,96]];
   for(var k in TY)TY[k].forEach(function(n){MAP[n]=k});
   function ex(f){var q=f.length<18?f.concat(f.slice(10,14)):f.slice();while(q.length<24)q.push(0);return q}
+  var LASTP=null,MF=null;
   function draw(p){
+    if(MF){var mu=Math.min(1,(performance.now()-MF.t0)/MF.ms);if(mu>=1)MF=null;else{mu=mu*mu*(3-2*mu);var mf=MF.from;p=p.map(function(v,q){return mf[q]+(v-mf[q])*mu})}}
+    LASTP=p.slice();
     function pl(id,a){$(id).setAttribute('points',a.join(' '))}
     $('f-tor').setAttribute('d',tpath(p));
     var mr=p[19]>.5,x2=p[19]>1.5;
@@ -2224,7 +2284,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
   var PETSES={};
   function petsLeave(){var box=$('rpets');if(!box)return;var W=window.innerWidth;box.querySelectorAll('.rpet:not(.out):not(.clap)').forEach(function(d){var x=d.getBoundingClientRect().left+32;d.style.setProperty('--dx',Math.round(x<W/2?-(x+120):(W-x+120))+'px');d.style.setProperty('--rot',(x<W/2?-14:14)+'deg');d.classList.add('clap');setTimeout(function(){d.classList.remove('clap');d.classList.add('out')},1300)})}
-  function posNx(){var e=$('nxs'),run=$('run'),f=$('fig');if(!e||!run||!run.classList.contains('hasnx')||!f)return;var fr=f.getBoundingClientRect(),rr=run.getBoundingClientRect();if(!fr.height)return;var l=fr.right+4,w=Math.max(60,rr.right-l-8);e.style.left=l+'px';e.style.width=w+'px';var tp=fr.top+fr.height/2-e.offsetHeight/2;e.style.top=tp+'px';NXR={left:l,top:tp,right:l+w,bottom:tp+e.offsetHeight,width:w,height:e.offsetHeight}}
+  function posNx(){var e=$('nxs'),run=$('run'),f=$('fig');if(!e||!run||!run.classList.contains('hasnx')||!f)return;var fr=f.getBoundingClientRect(),rr=run.getBoundingClientRect();if(!fr.height)return;var l=(run.classList.contains('nx5')?fr.right:fr.right-112)+4,w=Math.max(60,rr.right-l-8);e.style.left=l+'px';e.style.width=w+'px';var tp=fr.top+fr.height/2-e.offsetHeight/2;e.style.top=tp+'px';NXR={left:l,top:tp,right:l+w,bottom:tp+e.offsetHeight,width:w,height:e.offsetHeight}}
   var NXR=null;
   window.addEventListener('resize',posNx);
   try{new ResizeObserver(posNx).observe($('fig'));new ResizeObserver(posNx).observe($('run'))}catch(e){}
@@ -2564,10 +2624,10 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function loadClips(){if(!ac||CDBUF.ok)return;CDBUF.ok=1;Object.keys(CDCLIPS).forEach(function(k){try{var s=atob(CDCLIPS[k]),n=s.length,b=new Uint8Array(n);for(var i=0;i<n;i++)b[i]=s.charCodeAt(i);var p=ac.decodeAudioData(b.buffer,function(x){CDBUF[k]=x},function(){});if(p&&p.catch)p.catch(function(){})}catch(e){}})}
   function playClip(n){if(!voiceOn||!ac||!CDBUF[n])return false;try{if(ac.state==='suspended')ac.resume();var s=ac.createBufferSource(),g=ac.createGain();s.buffer=CDBUF[n];g.gain.value=1;s.connect(g);g.connect(ac.destination);s.start();return true}catch(e){return false}}
   function vcBtn(){$('voicebtn').textContent='Röst: '+(voiceOn?'på':'av')}
-  function countdown(sec){try{petsLeave()}catch(e){}var t=$('time');t.textContent=String(sec);t.classList.remove('cdp');void t.offsetWidth;t.classList.add('cd','cdp');
-    var cg=segs[idx];if(cg&&cg.t!=='work'){if(sec<=3)beep(760,.12);return}
+  function countdown(sec){
+    var cg=segs[idx];if(cg&&cg.t!=='work'){if(sec>=1&&sec<=2)beep(760,.12);return}
     if(cg&&cg.cd&&cg.cd.indexOf(sec)<0)return;
-    if(!playUser(String(sec))&&!playClip((sec===1&&cg&&cg.alt)?cg.alt:sec)&&!say(CDW[sec]))beep(560+(5-sec)*70,.14)}
+    if(!playUser(String(sec))&&!playClip((sec===1&&cg&&cg.alt)?cg.alt:sec)&&!say(CDW[sec])&&sec>=2)beep(560+(5-sec)*70,.14)}
   function rf(r){var RNn=rounds();return RNn>1?((r||1)>1?1.5:.55):1}
   var missP=0,missQ=0,missM=0,PRAISE=[0,2,3,4,6,7],COACH=[1,5],lastK='';
   var BAGS={},BLAST={};
@@ -2581,7 +2641,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function praiseKeys(){return PRAISE.map(function(i){return 'p'+i}).concat(tagKeys('b'))}
   function coachKeys(){return COACH.map(function(i){return 'p'+i}).concat(tagKeys('i'))}
   function cueDur(k){return UB[k]?UB[k].dur:(CDBUF[k]?CDBUF[k].duration:1.2)}
-  function cheer(){var cs=segs[idx],k=cs&&cs.pk;if(!k)return;if(!playCue(k))beep(880,.2)}
+  function cheer(){var cs=segs[idx],k=cs&&cs.pk;if(!k)return;playCue(k)}
   function precue(){var k=pickKey(coachKeys(),['q0','q1','q2','q3'],'coach');playCue(k)}
   function tk(f){
     if(!ac||!tickOn)return;
@@ -2660,7 +2720,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     var ty=sg.ill&&MAP[sg.ill],fr=ty&&FR[ty];
     var nb=sg.ill&&sg.dim;
     $('nextbox').style.display=nb?'block':'none';
-    (function(){var t=null,k;if(!sg.msg&&!sg.dim&&(sg.t==='work'||sg.t==='warm'||sg.t==='cool')&&sg.d>=4){t='Sista övningen!';for(k=idx+1;k<segs.length;k++){var q=segs[k];if(q.ill&&(q.t==='work'||q.t==='warm'||q.t==='cool')){t=q.ill;break}}}$('run').classList.toggle('hasnx',!!t);if(t)$('nxs').querySelector('b').textContent=t;posNx()})();
+    (function(){var t=null,k;if(false&&!sg.msg&&!sg.dim&&(sg.t==='work'||sg.t==='warm'||sg.t==='cool')&&sg.d>=4){t='Sista övningen!';for(k=idx+1;k<segs.length;k++){var q=segs[k];if(q.t==='rbreak'){t='Paus';break}if(q.ill&&(q.t==='work'||q.t==='warm'||q.t==='cool')){t=q.ill;break}}}$('run').classList.toggle('hasnx',!!t);if(t)$('nxs').querySelector('b').textContent=t;posNx()})();
     if(nb){$('nx-l').textContent=sg.t==='prep'?'Börjar med':'Nästa övning';$('nx-n').textContent=sg.ill}
     var ce=sg.ill&&CATX[sg.ill]&&CATX[sg.ill].e;
     $('tip').textContent=((sg.ill&&TIPS[sg.ill])||'')+((ce==='db'||ce==='kb')?' Välj en vikt som du klarar med god teknik.':(ce==='band'?' Välj ett band med lagom motstånd.':''))+exHum(sg.ill);
@@ -2673,8 +2733,9 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     var n=fr.length,lp=!!LOOP[ty],D=DUR[ty]||900,t0=performance.now(),last=t0,el=0,tp=TEMPOX[sg.ill]||TEMPO[ty]||[1000,200,1000,200],cyc=tp[0]+tp[1]+tp[2]+tp[3],ph=-1,hold=HOLD[ty],prev=!!sg.dim,lb=LAB[ty];
     $('f-lab').textContent='';
     $('reps').textContent=prev?'Så här gör du – titta på figuren':(hold||'');
+    var fs=1;if(!prev&&sg.d>=4&&(sg.t==='work'||sg.t==='warm'||sg.t==='cool')){var CL=lp?D*n:cyc,fd=(sg.d-1)*1000,NN=Math.max(1,Math.round(fd/CL));fs=NN*CL/fd}
     (function f(now){
-      raf=requestAnimationFrame(f);now=performance.now();if(running)el+=Math.max(0,now-last);last=now;
+      raf=requestAnimationFrame(f);now=performance.now();if(running&&!holdG&&Date.now()>=stillUntil)el+=Math.max(0,now-last)*fs;last=now;
       var d=el/D,pos,np=-1;
       if(lp){pos=d%n;np=Math.floor(pos)===0?0:-1}
       else{
@@ -2687,7 +2748,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       }
       if(np!==ph){
         ph=np;
-        if(running&&!prev&&(np===0||np===2))tk(np?780:520);
+        if(running&&!holdG&&!prev&&(np===0||np===2))tk(np?780:520);
         if(!prev&&lb){
           var L=null;
           if(np===0)L=lb[0];else if(np===2)L=lb[1];
@@ -2750,18 +2811,18 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
       }
     }
     segs=[{t:'prep',d:q?5:30,n:q?'Gör dig redo':'Gör dig redo för uppvärmning',sub:'Uppvärmning först',msg:q?'':blkMsg(0),ill:WARM[0],dim:true}];
-    WARM.forEach(function(x,i){segs.push({t:'warm',d:dur(x,wd),n:x,sub:'Uppvärmning '+(i+1)+' av '+WARM.length,ill:x});if(i<WARM.length-1)segs.push({t:'rest',g:'warm',d:10,n:'Vila',sub:'Uppvärmning '+(i+1)+' av '+WARM.length+' klar',ill:WARM[i+1],dim:true})});
+    WARM.forEach(function(x,i){segs.push({t:'warm',pd:i,pn:WARM.length,d:dur(x,wd),n:x,sub:'Uppvärmning '+(i+1)+' av '+WARM.length,ill:x});if(i<WARM.length-1)segs.push({t:'rest',g:'warm',pd:i+1,pn:WARM.length,d:10,n:'Vila',sub:'Uppvärmning '+(i+1)+' av '+WARM.length+' klar',ill:WARM[i+1],dim:true})});
     if(!q)segs.push({t:'pbreak',g:'work',d:30,n:'Gör dig redo för träning',sub:'Uppvärmningen är klar',msg:blkMsg(1),ill:T.ex[0],dim:true});
     for(var r=1;r<=RN;r++)T.ex.forEach(function(x,i){
       var nx=i<N-1?T.ex[i+1]:(r<RN?T.ex[0]:COOL[0]);
       var vp=RN>1?'Varv '+r+' av '+RN+' · ':'';
-      segs.push({t:'work',r:r,d:dur(x,T.work),n:x,sub:(RN>1?vp+'övning ':'Övning ')+(i+1)+' av '+N+(function(){var c=CATX[x];return c&&MG[c.s]?' · '+MG[c.s][0]:''})(),ill:x});
+      segs.push({t:'work',r:r,rt:RN,pd:i,pn:N,pl:RN>1?' i varvet':'',d:dur(x,T.work),n:x,sub:(RN>1?vp+'övning ':'Övning ')+(i+1)+' av '+N+(function(){var c=CATX[x];return c&&MG[c.s]?' · '+MG[c.s][0]:''})(),ill:x});
       var rd=rst(x,T.rest);
-      if(i===N-1&&r<RN){var left=RN-r;segs.push({t:'rbreak',d:(MODE==='yest'?60:(cfg.rb||60)),n:poolPick('rbn',['Bra jobbat','Gôtt kôrt','Fint jobbat','Där satt dä','Starkt kôrt'],3)+(cfg.name?', '+cfg.name:'')+'!',sub:(left===1?poolPick('rb1',['Ett varv kvar – nu bjuder vi på dä sista!','Sista varvet! Dä ä ju nästan i hamn.','Bara ett varv kvar. Dä här ä sträckan där man vinner.'],2):poolPick('rbm',[left+' varv kvar – du har ju redan visat vad du går för!',left+' varv kvar, å du ser stark ut.',left+' varv kvar. Dä här kôr vi!'],2)),ill:T.ex[0],dim:true})}
-      else if(rd>0&&!(r===RN&&i===N-1&&!q))segs.push({t:'rest',d:rd,n:'Vila',sub:vp+(i+1)+' av '+N+' klara',ill:nx,dim:true});
+      if(i===N-1&&r<RN){var left=RN-r;segs.push({t:'rbreak',r:r,rt:RN,pd:N,pn:N,pl:RN>1?' i varvet':'',d:(MODE==='yest'?60:(cfg.rb||60)),n:poolPick('rbn',['Bra jobbat','Gôtt kôrt','Fint jobbat','Där satt dä','Starkt kôrt'],3)+(cfg.name?', '+cfg.name:'')+'!',sub:(left===1?poolPick('rb1',['Ett varv kvar – nu bjuder vi på dä sista!','Sista varvet! Dä ä ju nästan i hamn.','Bara ett varv kvar. Dä här ä sträckan där man vinner.'],2):poolPick('rbm',[left+' varv kvar – du har ju redan visat vad du går för!',left+' varv kvar, å du ser stark ut.',left+' varv kvar. Dä här kôr vi!'],2)),ill:T.ex[0],dim:true})}
+      else if(rd>0&&!(r===RN&&i===N-1&&!q))segs.push({t:'rest',r:r,rt:RN,pd:i+1,pn:N,pl:RN>1?' i varvet':'',d:rd,n:'Vila',sub:vp+(i+1)+' av '+N+' klara',ill:nx,dim:true});
     });
     if(!q)segs.push({t:'pbreak',g:'cool',d:30,n:'Gör dig redo för nedvarvning',sub:'Träningen är klar',msg:blkMsg(2),ill:COOL[0],dim:true});
-    COOL.forEach(function(x,i){segs.push({t:'cool',d:dur(x,20),n:x,sub:'Nedvarvning '+(i+1)+' av '+COOL.length,ill:x});if(i<COOL.length-1)segs.push({t:'rest',g:'cool',d:10,n:'Vila',sub:'Nedvarvning '+(i+1)+' av '+COOL.length+' klar',ill:COOL[i+1],dim:true})});
+    COOL.forEach(function(x,i){segs.push({t:'cool',pd:i,pn:COOL.length,d:dur(x,20),n:x,sub:'Nedvarvning '+(i+1)+' av '+COOL.length,ill:x});if(i<COOL.length-1)segs.push({t:'rest',g:'cool',pd:i+1,pn:COOL.length,d:10,n:'Vila',sub:'Nedvarvning '+(i+1)+' av '+COOL.length+' klar',ill:COOL[i+1],dim:true})});
     segs.push({t:'done',d:0,n:'Klart'+(cfg.name?', '+cfg.name:'')+'!',sub:poolPick('dsub',['Passet ä klart – gôtt jobbat, svettiga hjälte!','Klart! Dä blev ett riktigt fint pass.','Dä där blev bra kôrt, helt klart.','Kors i taket, du klarade dä!','Dä ä klart, å dä blev int så farligt ändå.','Klart som en källa! Gôtt kôrt.'],3)});
   }
 
@@ -2835,13 +2896,16 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     el.innerHTML=h}
   var names={prep:'Gör dig redo',work:'Kör!',rest:'Vila',done:'Klart!'};
 
-  function enter(i,silent){
+  function enter(i,silent){holdG=false;if(viaGong&&LASTP)MF={from:LASTP.slice(),t0:performance.now(),ms:1300};
     idx=i;var sg=segs[i];sg.seen=true;sg.rv=false;$('run').classList.remove('gqx');$('girlw').style.cssText='';setTimeout(placePets,120);
     $('run').classList.toggle('gq',!!sg.msg);(function(){var fg=$('fig'),gw=$('girlw');if(sg.msg){if(fg.parentNode!==gw)gw.insertBefore(fg,gw.firstChild)}else if(fg.parentNode===gw)$('run').insertBefore(fg,$('reps'))})();if(sg.msg){setFlagText(sg.msg);if(sg.an===undefined)sg.an=nextAn();var ans=document.querySelectorAll('.gan');for(var ai=0;ai<ans.length;ai++)ans[ai].classList.toggle('on',+ans[ai].getAttribute('data-an')===sg.an);setGirl(0)}
     document.body.className=sg.t;
     $('phase').textContent=sg.n||names[sg.t];showFig(sg);$('skip').classList.toggle('hidden',sg.t==='done');if(sg.t==='rbreak'||sg.t==='done')confetti();
     var kce=$('kc');if(kce){if(sg.t==='done')kce.textContent='≈ '+Math.round(kcalTotalPass())+' kcal förbränt';else if(sg.t==='prep')kce.textContent='';else updKc()}
-    $('round').textContent=sg.sub||(sg.t==='prep'?'Första varvet startar snart':sg.t==='done'?cfg.rounds+' varv avklarade':'Varv '+sg.r+' av '+cfg.rounds);
+    (function(){var q=$('rnd');if(!q)return;var on=(sg.t==='work'||sg.t==='rbreak'||(sg.t==='rest'&&!sg.g))&&sg.r;q.style.display=on?'block':'none';if(on)q.textContent='Varv '+sg.r+'/'+(sg.rt||Math.max.apply(null,segs.map(function(z){return z.r||0})))})();
+    (function(){var rn=$('run');rn.classList.remove('fo','fi','xf');void rn.offsetWidth;rn.classList.add(viaGong?'xf':'fi')})();
+    $('run').classList.remove('nx5');(function(){var p=$('prog');if(!p)return;if(!sg.pn){p.style.display='none';return}p.style.display='block';$('pg-a').textContent=sg.pd;$('pg-b').textContent='/'+sg.pn;$('pg-l').textContent='gjorda'+(sg.pl||'');var h='',j,act=sg.t==='work'||sg.t==='warm'||sg.t==='cool';for(j=0;j<sg.pn;j++)h+='<i class="'+(j<sg.pd?'on':(act&&j===sg.pd?'cur':''))+'"></i>';$('pg-d').innerHTML=h})();
+    $('round').textContent=sg.sub||(sg.t==='prep'?'Första varvet startar snart':sg.t==='done'?cfg.rounds+' varv avklarade':'Varv '+sg.r+' av '+(sg.rt||cfg.rounds));
     lastBeep=-1;$('time').classList.remove('cd','cdp');
     if(sg.t==='done'){
       logDone(sg);
@@ -2859,11 +2923,11 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     sg.mid=null;sg.midDone=false;if(sg.t==='work'&&sg.d>=22&&voiceOn&&(Math.random()<Math.min(.9,.4*rf(sg.r))||missM>=(rf(sg.r)<1?5:3))){missM=0;sg.mid=pickKey(['m0','m1','m2','m3','m4'],[],'mid');sg.midAt=(10+Math.random()*5)*1000}else if(sg.t==='work'&&sg.d>=22)missM++;
     sg.alt=null;sg.ad=0;
     if(sg.t==='work'&&sg.d>=8&&voiceOn&&CDBUF.e1&&CDBUF.e2&&!UB['1']){var ok=pickKey(['1','e1','e2'],[],'one');if(ok!=='1'){sg.alt=ok;sg.pk=null;sg.ad=0;sg.ex=Math.max(0,Math.round((CDBUF[ok].duration-1)*1000))+150}}
-    remMs=sg.d*1000+sg.ex;endAt=Date.now()+remMs;
+    remMs=sg.d*1000+sg.ex;stillUntil=0;var xs=(sg.t==='work'||sg.t==='warm'||sg.t==='cool')&&sg.d>=4&&!sg.dim?1000:0;if(viaGong)remMs+=1300;if(viaGong||xs)stillUntil=Date.now()+(viaGong?1300:0)+xs;endAt=Date.now()+remMs;
     $('time').textContent=fmt(sg.d);
     sg.pre=null;sg.preDone=false;var nx=segs[i+1];
     if(!silent&&voiceOn&&((sg.t==='rest'&&!sg.g)||(sg.t==='pbreak'&&sg.g==='work'))&&nx&&nx.t==='work'&&sg.d>=6){var goQ=Math.random()<Math.min(.95,.5*rf(nx.r))||missQ>=(rf(nx.r)<1?3:2);missQ=goQ?0:missQ+1;if(goQ)sg.pre=pickKey(coachKeys(),['q0','q1','q2','q3'],'coach')}
-    if(!silent){if(sg.t==='work')beep(1000,.5);else if(sg.t==='rest'||sg.t==='pbreak')beep(520,.4);else if(sg.t==='warm'||sg.t==='cool')beep(700,.3);else if(sg.t==='rbreak'){beep(660,.15);setTimeout(function(){beep(880,.15)},180);setTimeout(function(){beep(1100,.35)},360)}}
+    var vg=gongSnd;gongSnd=false;if(!silent&&!vg){if(sg.t==='work'||sg.t==='warm'||sg.t==='cool')beep(1260,.85);else if(sg.t==='rest'||sg.t==='pbreak')beep(520,.4);else if(sg.t==='rbreak'){beep(660,.15);setTimeout(function(){beep(880,.15)},180);setTimeout(function(){beep(1100,.35)},360)}}
   }
 
   var FTC=null;
@@ -2883,16 +2947,19 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   function tick(){
     if(!running)return;
     var rem=endAt-Date.now();
-    if(rem<=0){enter(idx+1);return}
-    var cs=segs[idx],isEx=cs&&(cs.t==='work'||cs.t==='warm'||cs.t==='cool')&&cs.d>=4;
+    if(rem<=0){if(holdG)return;var ps=segs[idx];if(ps&&ps.t!=='done'&&ps.d>=4&&idx<segs.length-1){var nw=segs[idx+1]&&segs[idx+1].t==='work';if(!nw)gong();viaGong=true;gongSnd=!nw;enter(idx+1);viaGong=false;gongSnd=false}else enter(idx+1);return}
+    var cs=segs[idx];$('run').classList.toggle('nx5',!!cs&&rem<=5000);
+    if(cs&&rem<=750&&idx<segs.length-1&&cs.d<4)$('run').classList.add('fo');
+    var pc=document.querySelector('#pg-d i.cur');if(pc&&cs&&cs.d)pc.style.setProperty('--f',Math.max(0,Math.min(1,1-rem/(cs.d*1000))));
+    var isEx=cs&&(cs.t==='work'||cs.t==='warm'||cs.t==='cool')&&cs.d>=4;
     if(cs&&cs.msg){var tt=cs.d*1000-rem,S0=8000,L0=3000,q=tt<S0?tt:(tt<S0+L0?S0:tt-L0);setGirl(q/16000,tt>=S0&&tt<S0+L0);if(!cs.rv&&q/16000>=.78){cs.rv=true;revealEx()}}
-    if(isEx&&cs.ex){rem-=cs.ex;if(rem<=0){if(lastBeep!==0){lastBeep=0;$('time').textContent='0';if(cs.ad)setTimeout(function(){if(segs[idx]===cs)cheer()},cs.ad);else cheer()}return}}
+    if(isEx&&cs.ex){rem-=cs.ex;if(rem<=0){if(lastBeep!==0){lastBeep=0;$('time').textContent=fmt(0);if(cs.ad)setTimeout(function(){if(segs[idx]===cs)cheer()},cs.ad);else cheer()}return}}
     if(cs&&cs.pre&&!cs.preDone&&rem<=5500&&rem>2800){cs.preDone=true;playCue(cs.pre)}
     if(cs&&cs.mid&&!cs.midDone&&rem<=cs.midAt&&rem>2500){cs.midDone=true;playClip(cs.mid)}
-    var sec=Math.ceil(rem/1000);
-    if(isEx&&sec<=3){if(sec!==lastBeep){lastBeep=sec;countdown(sec)}return}
+    var sec=Math.ceil(rem/1000);if(cs&&cs.d&&sec>cs.d)sec=cs.d;
+    if(isEx&&sec<=3&&sec!==lastBeep){lastBeep=sec;countdown(sec)}
     $('time').textContent=fmt(sec);updKc();
-    if(sec<=3&&sec!==lastBeep){lastBeep=sec;beep(760,.12)}
+    if(sec<=2&&sec!==lastBeep){lastBeep=sec;if(sec>=1)beep(760,.12)}
   }
 
   function getLock(){
@@ -2900,7 +2967,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   }
   var want=false,vid=null,vt=null;
   function setAwake(s){
-    var m={wl:'Skärmen hålls tänd',fb:'Skärmen hålls tänd (reservläge)',none:'Kunde inte hålla skärmen tänd. Ställ in längre skärmlås på telefonen.',off:''};
+    var m={wl:'',fb:'',none:'Kunde inte hålla skärmen tänd. Ställ in längre skärmlås på telefonen.',off:''};
     $('awake').textContent=m[s]||'';
   }
   function fbStop(){
