@@ -852,6 +852,32 @@ html.touring .bubble{z-index:2100}
 .vp-new:disabled{opacity:.45;cursor:default}
 .vp-y{display:block;width:100%;padding:13px;border:0;border-radius:999px;background:#2a7f6f;color:#fff;font:inherit;font-weight:700;font-size:1rem;cursor:pointer}
 .vp-v{display:block;text-align:center;margin:2px 0 8px;font-weight:700;color:#2a7f6f;text-decoration:underline}
+.pr-card{position:relative;width:100%;max-width:360px;max-height:88vh;display:flex;flex-direction:column;padding:14px 12px 8px;border-radius:26px;background:#fff;color:#1d3b36;box-shadow:0 12px 44px rgba(0,0,0,.4);transform:translateY(120px);opacity:0;transition:transform .45s ease-in,opacity .4s ease-in}
+#pr{position:fixed;inset:0;z-index:92;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(16,34,26,0);transition:background .5s}
+#pr.hidden{display:none}
+#pr.in{background:rgba(16,34,26,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+#pr.in{transition:background 1.4s ease-out,backdrop-filter 1.4s}#pr.in .pr-card{transform:none;opacity:1;transition:transform 1.4s cubic-bezier(.16,.84,.3,1) .15s,opacity 1.1s ease-out .15s}
+.pr-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}.pr-pet.rpet{position:absolute;left:34px;top:-22px;animation:none;width:64px;height:46px;transform:translateX(250px) scale(1.25);opacity:0;transition:none;transform-origin:0 100%;pointer-events:none;z-index:2}#pr.pet .pr-pet.rpet{transform:scale(1.25);opacity:1;transition:transform 1.3s cubic-bezier(.3,.7,.3,1),opacity .35s ease-out}.pr-pet .ht{display:none!important}.pr-pet .pw{top:21px!important;animation:none!important;z-index:3}
+.pr-tx{flex:1;min-width:0}.pr-tm{font-size:.82rem;font-weight:700;color:#2a7f6f;margin:1px 0 2px;text-align:center}
+.pr-h{font-size:1.1rem;font-weight:800;text-align:center}
+.pr-x{position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(29,59,54,.1);color:#1d3b36;font-size:15px;line-height:30px;padding:0;cursor:pointer;z-index:3}
+.pr-s1{display:block;white-space:nowrap;overflow:hidden;line-height:1.3}.pr-sn{font-weight:700;color:#2a7f6f}
+.pr-s{font-size:.82rem;opacity:.78;text-align:center;margin:0;line-height:1.3}
+.pr-body{-webkit-user-select:none;user-select:none;overflow-y:auto;flex:1 1 auto;min-height:80px;padding:2px 2px 6px;transition:opacity .35s}
+.pr-body.sw{opacity:0}
+.pr-why{list-style:none;margin:4px 0 0;padding:0;font-size:.78rem;opacity:.85;text-align:left}.pr-why li{padding-left:16px;position:relative;margin:2px 0}.pr-why li:before{content:'✓';position:absolute;left:0;color:#2a7f6f;font-weight:800}
+.pr-fh{font-size:.9rem;font-weight:700;text-align:center;margin:8px 0 6px;white-space:nowrap;overflow:hidden;line-height:1.3}
+.pr-vl{display:inline-block;margin-top:2px;font-size:.64rem;-webkit-user-select:none;user-select:none;font-weight:700;color:#2a7f6f;text-decoration:underline}
+.pr-foc{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:0 0 4px}.pr-foc button{padding:7px 12px;border-radius:999px;border:1.5px solid #2a7f6f;background:#fff;color:#2a7f6f;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer}.pr-foc button.on{background:#2a7f6f;color:#fff}
+.pr-g{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:5px 2px 3px}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pr-it{background:#eaf3ee;border-radius:12px;padding:3px 3px 5px;cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;text-align:center;color:#2a7f6f}
+.pr-it{position:relative}.pr-tt{position:absolute;top:3px;right:4px;z-index:1;font-style:normal;font-size:.62rem;font-weight:800;line-height:1;padding:2px 5px;border-radius:8px;background:#fff;color:#2a7f6f;pointer-events:none}
+.pr-it svg{height:40px;pointer-events:none;width:100%;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:8}
+.pr-it span{display:block;font-size:.7rem;line-height:1.12;-webkit-user-select:none;user-select:none;font-weight:700;color:#1d3b36;margin-top:2px;word-break:break-word}
+.pr-act{padding-top:5px}.pr-gob{margin-top:6px;padding:0 11px;height:38px;font-size:.95rem;line-height:1.2;border:1.5px solid #2a7f6f;box-sizing:border-box}.pr-two .vp-new{padding:0 11px;height:38px;font-size:.95rem;line-height:1.2;box-sizing:border-box}.pr-act .vp-new{padding:11px;font-size:.95rem}.pr-act .vp-no{margin-top:2px;padding:6px;font-size:.8rem}
+.pr-or{font-size:.8rem;text-align:center;margin:10px 4px 6px;opacity:.8;line-height:1.3}
+.pr-two{display:flex;gap:6px;margin-top:6px}.pr-card>*{flex-shrink:0}.pr-card>.pr-body{flex-shrink:1}.pr-two .vp-new{margin-top:0}
 .vp-no{display:block;width:100%;margin-top:8px;padding:10px;border:0;background:none;color:#1d3b36;font:inherit;opacity:.8;cursor:pointer}
 #coach{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 #coach.hidden{display:none!important}
@@ -1125,6 +1151,7 @@ html.touring .bubble{z-index:2100}
 <div id="mv" class="mv hidden" role="dialog" aria-modal="true" aria-label="Min röst"><h2>Min röst</h2><p>Spela in dig själv, ett kort tillrop per rad. Tryck Spela in (öppnar mobilens inspelare) eller Välj fil om du redan har spelat in. Dina klipp används före den inbyggda rösten. Tala tydligt och peppat, tystnad före och efter klipps bort automatiskt.</p><div id="mv-list"></div><button class="mvx" id="mv-close" type="button">Klar</button></div>
 <div id="tour" class="tour hidden" role="dialog" aria-modal="true" aria-labelledby="tour-t"><div class="tour-hl" id="tour-hl"></div><div class="tour-hand" id="tour-hand" aria-hidden="true"><svg viewBox="0 0 92 82" width="92" height="82"><g transform="rotate(-22 24 3)"><g fill="#5b3a22" stroke="#5b3a22" stroke-width="5" stroke-linejoin="round"><rect x="17" y="3" width="14" height="48" rx="7"/><rect x="31" y="31" width="11" height="26" rx="5.5"/><rect x="41" y="34" width="11" height="24" rx="5.5"/><rect x="51" y="38" width="9" height="21" rx="4.5"/><rect x="12" y="44" width="48" height="32" rx="15"/><rect x="4" y="42" width="15" height="26" rx="7.5" transform="rotate(14 11 55)"/></g><g fill="#ffe3c4"><rect x="17" y="3" width="14" height="48" rx="7"/><rect x="31" y="31" width="11" height="26" rx="5.5"/><rect x="41" y="34" width="11" height="24" rx="5.5"/><rect x="51" y="38" width="9" height="21" rx="4.5"/><rect x="12" y="44" width="48" height="32" rx="15"/><rect x="4" y="42" width="15" height="26" rx="7.5" transform="rotate(14 11 55)"/></g><g stroke="#5b3a22" stroke-width="2.4" stroke-linecap="round" fill="none"><path d="M31 36v12M41.5 39v11M51 42v10"/><path d="M18 56c1 3 3 5 6 6"/></g></g></svg></div><div class="tour-c" id="tour-c"><div class="tour-by">Coachhjälpen</div><div class="tour-dots" id="tour-dots"></div><h2 id="tour-t"></h2><p id="tour-p"></p><div class="tour-mock" id="tour-mock"></div><div class="tour-b"><button type="button" id="tour-back">Tillbaka</button><button type="button" id="tour-next" class="tn">Nästa</button></div><button type="button" id="tour-skip" class="tour-x"></button></div></div>
 
+<div id="pr" class="hidden" role="dialog" aria-modal="true" aria-label="Dagens pass"><div class="pr-card"><div class="rpet pr-pet" id="pr-pet" aria-hidden="true"></div><button type="button" class="pr-x" id="pr-x" aria-label="Stäng">&#10005;</button><div class="pr-top"><div class="pr-tx"><div class="pr-h" id="pr-h">Ditt pass idag</div><div class="pr-tm" id="pr-tm"></div><div class="pr-s" id="pr-s"></div></div></div><div class="pr-body" id="pr-body"></div><button type="button" class="vp-y pr-gob" id="pr-go">Låter bra, kör!</button><div class="pr-two"><button type="button" class="vp-new" id="pr-ez">Lite lättare</button><button type="button" class="vp-new" id="pr-hd">Lite tyngre</button></div><div class="pr-fh">Fokus på något speciellt idag? Välj en eller flera.</div><div class="pr-foc" id="pr-foc" role="group" aria-label="Fokus idag"></div><div class="pr-act"><button type="button" class="vp-no" id="pr-own">Komponera själv</button></div></div></div>
 <script>
 (function(){
   var cfg={work:30,rest:15,rounds:8};
@@ -1210,30 +1237,53 @@ html.touring .bubble{z-index:2100}
   var WPULSE=['Marsch med höga knän','Lätta jumping jacks','Jogg på stället','Sidosteg med armsvingar','Hopprep utan rep','Hälsparkar','Sidosteg'];
   var WG=[['Lugna knäböj','Lugna utfall','Benpendlar'],['Armcirklar','Sträck armarna upp','Axelrullar'],['Lätta glutebryggor','Lugn framåtfällning','Höftcirklar','Benpendlar'],['Katt och ko','Bakre armlyft','Axelrullar'],['Lätt fågelhund','Katt och ko','Höftcirklar'],['Höftcirklar','Sidosteg med armsvingar','Benpendlar','Axelrullar']];
   var CG=[['Sträck framsida lår','Utfallssträck','Djup hukande ställning','Sträck baksida lår','Vadsträck'],['Sträck armarna upp','Sidosträck','Tricepssträck','Bröststräck','Nackstretch'],['Hängande framåtfällning','Barnets ställning','Sträck baksida lår'],['Barnets ställning','Lugn katt och ko','Bröststräck','Nackstretch'],['Lugn katt och ko','Sträck armarna upp','Djupa andetag','Sidosträck'],['Sidosträck','Hängande framåtfällning','Djupa andetag','Vadsträck']];
-  var MODE='today',SNAP=false;
+  var MODE='today',SNAP=false,PADJ=0,PSEED=0,HWHY=[],PFOC=[],FOCN=['Ben','Bröst & axlar','Rumpa & baksida','Rygg','Mage','Puls'];
+  function focusEx(lv,sd){
+    var out=[],G=PFOC.slice().sort(function(a,b){return a-b}),eq=(cfg.equip&&cfg.equip!=='body'&&EQP[cfg.equip])?cfg.equip:null,N=6,i,g,L,tries;
+    function lst(g,l){var a=[];if(l<0||l>2)return a;if(eq&&EQP[eq][g]&&l===lv)a=a.concat(EQP[eq][g]);return a.concat(POOL[g][l]||[])}
+    for(i=0;i<N;i++){g=G[i%G.length];var c;
+      [[lv],[lv-1],[lv+1],[lv-2],[lv+2]].some(function(ls){var a=lst(g,ls[0]);a=a.filter(function(x,j){return a.indexOf(x)===j});c=pickR(a,sd+i,out);return c!==undefined});
+      if(c===undefined){var al=[];G.forEach(function(q){[lv,lv-1,lv+1].forEach(function(l){al=al.concat(lst(q,l))})});c=pickR(al,sd+i,out)}
+      if(c!==undefined)out.push(c)}
+    return out}
+  function histAdj(dn){
+    var L=cfg.log||{},ks=Object.keys(L).map(Number).filter(function(k){return k<dn&&L[k]&&L[k].n>0});
+    if(!ks.length)return {d:0,r:[],none:1};
+    var last=Math.max.apply(null,ks),gap=dn-last,lb=cfg.loadAt||0;
+    if(gap>=10)return {d:-1,r:['Länge sedan sist: lite mjukare.']};
+    var rt=ratings(21).filter(function(x){return x.d>=lb&&x.d<dn}),f3=rt.slice(0,3),hv=f3.filter(function(x){return x.v>=3}).length;
+    if(f3.length>=2&&hv>=2)return {d:-1,r:['Tunga pass nyligen: lite lättare.']};
+    var n14=0,i;for(i=1;i<=14;i++)if(L[dn-i]&&L[dn-i].n>0)n14++;
+    if(rt.length>=3&&n14>=4&&rt.every(function(x){return x.v<=2})&&rt.filter(function(x){return x.v===1}).length>=2)return {d:1,r:['Lätta pass nyligen: lite tyngre.']};
+    return {d:0,r:[]};
+  }
   var WP=[['Armcirklar','Sträck armarna upp'],['Höftcirklar','Lugn framåtfällning'],['Marsch med höga knän','Lätta jumping jacks','Jogg på stället','Sidosteg med armsvingar'],['Lugna knäböj','Lugna utfall','Lätta glutebryggor'],['Katt och ko','Lätt fågelhund']];
   var yEx={},REC={},STK=0;
   function pickR(a,k,ex){var n=a.length,b,bs=-1;for(var j=0;j<n;j++){var c=a[(k+j)%n];if(ex&&ex.indexOf(c)>=0)continue;var sc=REC[c]===undefined?9:REC[c];if(sc>bs){bs=sc;b=c}}return b}
   function today(){
     var n=new Date(),dn=Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5);
     if(MODE==='yest')dn-=1;
-    var w=0,pg=progInfo(dn),ld=cfg.load||0;
+    var w=0,pg=progInfo(dn),ld=cfg.load||0,pxt=0;
     if(pg.on){var PP=cfg.prog,spw=PP.spw||3,tot=Math.max(1,PP.weeks*spw),dn0=progDone(PP);w=Math.min(PP.weeks-1,Math.floor(dn0/spw));ld=Math.min(2,ld+Math.floor(dn0/tot*(3-ld)))}
-    var lv=ld,work=Math.min(50,[30,40,45][ld]+(pg.on?5*Math.min(2,Math.floor(w/3)):0));
+    var HA=(MODE==='today'&&!pg.on&&!cfg.sport&&!cfg.dl)?histAdj(dn):{d:0,r:[]};
+    if(MODE==='today'&&(PADJ||HA.d)){var rl=ld+HA.d+PADJ;ld=Math.max(0,Math.min(2,rl));pxt=rl-ld}
+    var lv=ld,work=Math.max(20,Math.min(55,[30,40,45][ld]+(pg.on?5*Math.min(2,Math.floor(w/3)):0)+5*pxt));
     var stk=[];for(var dd=dn-1;dd>=dn-4&&(cfg.log||{})[dd];dd--)stk.push(cfg.log[dd]);
     REC={};stk.forEach(function(l,k){['ex','w','c'].forEach(function(f){(l[f]||[]).forEach(function(x){if(REC[x]===undefined)REC[x]=k+1})})});
     STK=stk.length;var tired=STK>=3&&lv>0;if(tired)lv-=1;
+    HWHY=PFOC.length&&MODE==='today'?['Fokus: '+PFOC.slice().sort(function(a,b){return a-b}).map(function(g){return FOCN[g]}).join(', ')+'.']:[];HWHY=HWHY.concat(HA.r);if(tired)HWHY.push('Flera dagar i rad: lite lättare.');
     initCat();
     var yl=(cfg.log||{})[dn-1];yEx={};var yF=null;
-    if(yl&&yl.ex&&yl.ex.length){yl.ex.forEach(function(x){yEx[x]=1});if(yl.f&&yl.f.length)yF=yl.f.slice().sort(function(a,b){return a-b})}
+    if(yl&&yl.ex&&yl.ex.length){HWHY.push('Nya övningar jämfört med igår.');yl.ex.forEach(function(x){yEx[x]=1});if(yl.f&&yl.f.length)yF=yl.f.slice().sort(function(a,b){return a-b})}
     function pickA(o,k){var n=o.length,b=null,bs=-1;for(var j=0;j<n;j++){var c=o[(k+j)%n],sc=REC[c]===undefined?9:REC[c];if(sc>bs){bs=sc;b=c}}return b===null?o[k%n]:b}
     var ex;
     if(MODE==='custom')ex=(cfg.custom||[]).filter(function(x){return CATX[x]});
-    else if(cfg.sport&&SPORTL[cfg.sport]){var pk=[];ex=SPORTL[cfg.sport].map(function(sl,i){var o=sl[lv],c=pickA(o,dn+i);if(pk.indexOf(c)>=0){var d=o.filter(function(z){return pk.indexOf(z)<0&&!yEx[z]});if(!d.length)d=o.filter(function(z){return pk.indexOf(z)<0});if(d.length)c=d[0]}pk.push(c);return c})}
-    else if(pg.on&&pg.f!=='full')ex=progEx(pg.f,lv,dn);
-    else if(cfg.equip&&cfg.equip!=='body')ex=EQP[cfg.equip].map(function(o,i){return pickA(o,dn+i)});
-    else ex=POOL.map(function(p,i){return pickA(p[lv],dn+i)});
-    if(cfg.pref&&defMode()){Object.keys(cfg.pref).forEach(function(k){var q=cfg.pref[k];if(q&&dn-q.at<=21&&ex[+k]!==undefined&&ex.indexOf(q.to)<0){ensureVar(q.to);ex[+k]=q.to}})}
+    else if(MODE==='today'&&PFOC.length)ex=focusEx(lv,dn+PSEED);
+    else if(cfg.sport&&SPORTL[cfg.sport]){var pk=[];ex=SPORTL[cfg.sport].map(function(sl,i){var o=sl[lv],c=pickA(o,dn+PSEED+i);if(pk.indexOf(c)>=0){var d=o.filter(function(z){return pk.indexOf(z)<0&&!yEx[z]});if(!d.length)d=o.filter(function(z){return pk.indexOf(z)<0});if(d.length)c=d[0]}pk.push(c);return c})}
+    else if(pg.on&&pg.f!=='full')ex=progEx(pg.f,lv,dn+PSEED);
+    else if(cfg.equip&&cfg.equip!=='body')ex=EQP[cfg.equip].map(function(o,i){return pickA(o,dn+PSEED+i)});
+    else ex=POOL.map(function(p,i){return pickA(p[lv],dn+PSEED+i)});
+    if(cfg.pref&&defMode()&&!PFOC.length){Object.keys(cfg.pref).forEach(function(k){var q=cfg.pref[k];if(q&&dn-q.at<=21&&ex[+k]!==undefined&&ex.indexOf(q.to)<0){ensureVar(q.to);ex[+k]=q.to}})}
     var RNF=function(L){if(!cfg.rn)return L;Object.keys(cfg.rn).forEach(function(k){var q=cfg.rn[k];if(!q||dn-q.at>21)return;var j=L.indexOf(k);if(j>=0&&L.indexOf(q.to)<0){ensureVar(q.to);L[j]=q.to}});return L};
     RNF(ex);
     if(MODE==='quick'){var sk=[dn%6,(dn+3)%6];if(yF&&yF.length>=3){var a0=yF[dn%yF.length],a1=yF[(dn+Math.ceil(yF.length/2))%yF.length];if(a0!==a1)sk=[a0,a1]}ex=ex.filter(function(x,i){return sk.indexOf(i)<0});WARM=WARM.slice(0,2);COOL=COOL.slice(0,1);work=[40,45,50][ld]}
@@ -1241,9 +1291,9 @@ html.touring .bubble{z-index:2100}
     ex.forEach(function(x){var c=CATX[x];if(c&&cnt[c.s]!==undefined)cnt[c.s]++});
     [0,1,2,3,4,5].sort(function(a,b){return cnt[b]-cnt[a]||a-b}).forEach(function(g){if(cnt[g]>0)gi.push(g)});
     [0,2,1,3,4,5].forEach(function(g){if(gi.length<3&&gi.indexOf(g)<0)gi.push(g)});
-    WARM=[pickR(WPULSE,dn,[])];COOL=[];
-    gi.slice(0,2).forEach(function(g,k){var b=pickR(WG[g],dn+k,WARM);if(b)WARM.push(b)});
-    gi.slice(0,3).forEach(function(g,k){var b=pickR(CG[g],dn+k,COOL);if(b)COOL.push(b)});
+    WARM=[pickR(WPULSE,dn+PSEED,[])];COOL=[];
+    gi.slice(0,2).forEach(function(g,k){var b=pickR(WG[g],dn+PSEED+k,WARM);if(b)WARM.push(b)});
+    gi.slice(0,3).forEach(function(g,k){var b=pickR(CG[g],dn+PSEED+k,COOL);if(b)COOL.push(b)});
     if(MODE==='quick'){WARM=WARM.slice(0,2);COOL=COOL.slice(0,1)}
     RNF(WARM);RNF(COOL);ex.concat(WARM,COOL).forEach(ensureVar);
     yEx={};REC={};
@@ -2052,11 +2102,11 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   var VB={},MODS={d:{'-1':[['halv rörelse','Gå bara halvvägs och kom upp igen. Öka när det känns lätt.'],['med stöd','Håll i en stol, bänk eller vägg så får du balans och avlastning.'],['lugnt tempo','Gör rörelsen mjukt och lugnt, utan att jaga.'],['med extra vila','Gör 3–4 reps, vila en sekund och fortsätt.']],'1':[['med 2 s paus','Stanna två sekunder i det svåraste läget innan du fortsätter.'],['långsamt (3 s ner)','Sänk dig långsamt, tre sekunder ner, och kom upp med kontroll.'],['större rörelse','Gå så djupt eller långt du kan med bra kontroll.'],['snabb uppgång','Sänk lugnt och kom upp snabbt och kontrollerat.']]},
    s:{'-1':[['med stöd','Ta stöd av en stol, bänk eller vägg så blir det lättare.'],['med vila var 10:e sekund','Släpp kort och ta tag igen var tionde sekund.'],['lugnt tempo','Andas lugnt och spänn lagom mycket.'],['mindre utsträckning','Håll dig närmare utgångsläget så blir det lättare.']],'1':[['med extra spänning','Spänn mage, rumpa och lår så hårt du kan.'],['med lyft ben eller arm','Lyft ena benet eller armen en stund och byt sida.'],['med långsamma pulser','Små långsamma pulser upp och ner i läget.'],['med längre hållning','Håll de sista sekunderna extra stilla och spänd.']]},
    r:{'-1':[['skonsamt','Sträck bara tills det känns lätt, aldrig till smärta.'],['med stöd','Ta stöd mot vägg eller stol.'],['kortare sträck','Håll en kortare stund och släpp ut försiktigt.'],['försiktigt tempo','Rör dig långsamt och mjukt.']],'1':[['lite djupare','Gå ett litet steg djupare, men aldrig till smärta.'],['håll längre','Håll några sekunder längre och andas ut.'],['ett extra andetag','Ta ett andetag till i sträcket innan du släpper.'],['med djup andning','Andas djupt och låt kroppen sjunka lite för varje utandning.']]},
-   e:{'-1':[['lättare motstånd','Ta ett lättare band eller en lättare vikt.']],'1':[['tyngre motstånd','Ta ett kraftigare band eller en tyngre vikt.']]}},SUFS={},STATT={plank:1,sidep:1,bird:1,deadbug:1},STRT={cat:1,quad:1,child:1,hamst:1,calfst:1,chest:1,neck:1,tricep:1,reach:1,sidebend:1,armcircle:1,hipcircle:1,legswing:1,shroll:1},STRN=null,EQN=null;
+   e:{'-1':[['lättare motstånd','Ta ett lättare band eller en lättare vikt.']],'1':[['tyngre motstånd','Ta ett kraftigare band eller en tyngre vikt.']]}},SUFS={},STATT={plank:1,sidep:1,bird:1,deadbug:1},STRT={cat:1,quad:1,child:1,hamst:1,calfst:1,chest:1,neck:1,tricep:1,reach:1,sidebend:1,armcircle:1,hipcircle:1,legswing:1,shroll:1},STRN=null,EQH=null;
   Object.keys(MODS).forEach(function(k){['-1','1'].forEach(function(d){MODS[k][d].forEach(function(m){if(!SUFS[m[0]])SUFS[m[0]]=+d})})});
   function setOf(b){if(!STRN){STRN={};[WG,CG,CP,WP].forEach(function(L){L.forEach(function(a){a.forEach(function(n){STRN[n]=1})})})}
     var ty=MAP[b];if(ty){if(STRT[ty])return 'r';if(STATT[ty])return 's';return 'd'}return STRN[b]?'r':'d'}
-  function eqHas(b){if(!EQN){EQN={};Object.keys(EQP).forEach(function(k){EQP[k].forEach(function(a){a.forEach(function(n){EQN[n]=1})})})}return !!EQN[b]}
+  function eqHas(b){if(!EQH){EQH={};Object.keys(EQP).forEach(function(k){EQP[k].forEach(function(a){a.forEach(function(n){EQH[n]=1})})})}return !!EQH[b]}
   function baseOf(x){var i=x.lastIndexOf(' – ');if(i>0&&SUFS[x.slice(i+3)]!==undefined)return x.slice(0,i);return x}
   function ensureVar(n){var b=baseOf(n);if(b===n||VB[n])return;var suf=n.slice(b.length+3),sg=SUFS[suf],st=setOf(b),tip='';
     [st,'e'].forEach(function(k){['-1','1'].forEach(function(d){MODS[k][d].forEach(function(m){if(m[0]===suf&&!tip)tip=m[1]})})});
@@ -2273,7 +2323,7 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
     return '<svg class="pf'+(Math.random()<.5?' wl':'')+'" style="--wd:'+wd+'" viewBox="-4 -4 108 108">'+h+'</svg><i class="pw l" style="background:'+c+'"></i><i class="pw r" style="background:'+c+'"></i>'+(Math.random()<.45?'<b class="ht" style="--wd:'+wd+'">\u2665</b>':'')}
   var SGW=['Heja','Kämpa på','Bravo','Starkt','Kör hårt','Du fixar det','Heja heja','Grymt','Go on','Peppen är på','Härligt','Så ska det se ut'][Math.floor(Math.random()*12)];
   function signTxt(){var n=(cfg&&cfg.name||'').trim();return n?SGW+' '+n+'!':SGW+'!'}
-  function setPet(){var el=$('w-pet');if(!el)return;var ks=Object.keys(PETC);var pk=ks[Math.floor(Math.random()*ks.length)];el.innerHTML=petHTML(pk,'wp');var gp=$('w-go');if(gp&&gp.parentNode)gp.parentNode.insertBefore(el,gp.nextSibling);
+  function setPet(){var el=$('w-pet');if(!el)return;var ks=Object.keys(PETC);var pk=ks[Math.floor(Math.random()*ks.length)];WPK=pk;el.innerHTML=petHTML(pk,'wp');var gp=$('w-go');if(gp&&gp.parentNode)gp.parentNode.insertBefore(el,gp.nextSibling);
     var oldp=$('w-pawl');if(oldp)oldp.remove();var pl=el.querySelector('.pw.l');if(pl&&gp&&gp.parentNode){var pb=document.createElement('div');pb.id='w-pawl';pb.className='w-pet w-pawbox';pb.setAttribute('aria-hidden','true');pb.appendChild(pl);gp.parentNode.insertBefore(pb,gp.nextSibling);
       var fb=$('w-fing');if(fb)fb.remove();fb=document.createElement('div');fb.id='w-fing';fb.className='w-pet w-pawbox w-fing';fb.setAttribute('aria-hidden','true');var pc=PETC[pk]||'#ddd';var FT={katt:'cl',hund:'cl',rav:'cl',lejon:'cl',skold:'cl',elefant:'el',zebra:'hv1',giraff:'hv2',orm:'snk',apa:'cl',tiger:'cl',noshorning:'hv1',ko:'hv1',papegoja:'cl'}[pk]||'cl',fh='';
       if(FT==='cl'||FT==='el'){fh=[0,1,2].map(function(i){return '<i class="fg '+FT+'" style="left:'+(1+i*4.6)+'px;background:'+pc+';animation-delay:'+(1.1+i*.28)+'s"></i>'}).join('')}
@@ -2499,10 +2549,68 @@ var WHERO=[["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwL
   $('cc-auto').addEventListener('click',function(){coachClose('auto')});
   $('cc-self').addEventListener('click',function(){coachClose('self')});
   $('cc-skip').addEventListener('click',function(){coachClose('skip')});
+  var WPK;
+  function prFill(note){
+    var T=today(),b=$('pr-body'),h='';
+    function grp(t,L,df){if(!L||!L.length)return;h+='<div class="pr-g">'+t+'</div><div class="pr-grid">'+L.map(function(x){return '<div class="pr-it" data-n="'+x.replace(/"/g,'&quot;')+'" title="Se rörelsen"><i class="pr-tt">'+dur(x,df)+' s</i>'+thumb(x,1)+'<span>'+x.replace(/</g,'&lt;')+'</span><a class="pr-vl" target="_blank" rel="noopener" href="'+vidUrl(x)+'">▶ Video</a></div>'}).join('')+'</div>'}
+    grp('Uppvärmning',WARM,MODE==='quick'?20:30);grp('Träning · '+rounds()+' varv',T.ex,T.work);grp('Nedvarvning',COOL,20);
+    prStop();b.innerHTML=h;b.scrollTop=0;
+    var tm=(($('t-meta').textContent||'').match(/Totalt ([^·]+)/)||[])[1];$('pr-tm').textContent=tm?'⏱ '+tm.trim()+' · '+T.ex.length+' övningar':'';
+        var pe=$('pr-pet');if(!pe.firstChild){if(!WPK){var ks2=Object.keys(PETC);WPK=ks2[Math.floor(Math.random()*ks2.length)]}pe.innerHTML=petHTML(WPK,'pp')}
+    var hist=Object.keys(cfg.log||{}).some(function(k){return cfg.log[k]&&cfg.log[k].n>0});
+    var why=(HWHY||[]).map(function(x){return '<li>'+x+'</li>'}).join('');
+    $('pr-s').innerHTML=(note?'<span class="pr-s1 pr-sn">'+note+'</span>':'')+(PFOC.length?'':'<span class="pr-s1">'+(hist?'Jag har format passet efter dina senaste dagar.':'Utgår från din valda nivå.')+'</span>')+(why?'<ul class="pr-why">'+why+'</ul>':'');
+    if(!$('pr').classList.contains('hidden'))prFit();
+  }
+  function prChips(){
+    var f=$('pr-foc'),h='<button type="button" data-g="-1" class="'+(PFOC.length?'':'on')+'">Hela kroppen</button>';
+    FOCN.forEach(function(n,g){h+='<button type="button" data-g="'+g+'" class="'+(PFOC.indexOf(g)>=0?'on':'')+'">'+n+'</button>'});
+    f.innerHTML=h;
+  }
+  $('pr-foc').addEventListener('click',function(ev){
+    var b=ev.target.closest&&ev.target.closest('button');if(!b)return;var g=+b.dataset.g;
+    if(g<0)PFOC=[];else{var i=PFOC.indexOf(g);if(i>=0)PFOC.splice(i,1);else PFOC.push(g)}
+    prChips();var bd=$('pr-body');bd.classList.add('sw');
+    setTimeout(function(){try{renderToday()}catch(e){}prFill(PFOC.length?'Pass med ditt fokus.':'Pass för hela kroppen.');bd.classList.remove('sw')},300);
+  });
+  var PRT=null,PRE=null;
+  function prStop(){if(PRT){clearInterval(PRT);PRT=null}if(PRE){var x=PRE.getAttribute('data-n'),sv=PRE.querySelector('svg');if(sv)sv.outerHTML=thumb(x,1);PRE=null}}
+  function prPlay(el){
+    if(PRE===el)return;prStop();var x=el.getAttribute('data-n'),ty=MAP[x],fr=ty&&FR[ty];if(!fr||fr.length<2)return;
+    PRE=el;var n=fr.length,k=0,dir=1,lp=LOOP[ty],ms=Math.max(260,(DUR[ty]||520));
+    PRT=setInterval(function(){
+      if(lp){k=(k+1)%n}else{if(k+dir>=n||k+dir<0)dir=-dir;k+=dir}
+      var sv=el.querySelector('svg');if(sv)sv.outerHTML=thumb(x,k)},ms);
+  }
+  $('pr-body').addEventListener('pointerover',function(ev){if(ev.pointerType!=='mouse')return;var it=ev.target.closest&&ev.target.closest('.pr-it');if(it)prPlay(it)});
+  $('pr-body').addEventListener('pointerout',function(ev){if(ev.pointerType!=='mouse')return;var it=ev.target.closest&&ev.target.closest('.pr-it');if(it&&!it.contains(ev.relatedTarget))prStop()});
+  $('pr-body').addEventListener('click',function(ev){if(ev.pointerType==='mouse')return;if(ev.target.closest&&ev.target.closest('a'))return;var it=ev.target.closest&&ev.target.closest('.pr-it');if(!it)return;if(PRE===it)prStop();else prPlay(it)});
+  function fitEl(h,max){h.style.fontSize='';var w=h.clientWidth,t=0,fs=max,sw;if(w<=0)return;h.style.fontSize=fs+'px';sw=h.scrollWidth;while(sw>w&&fs>9&&t<50){fs-=.5;h.style.fontSize=fs+'px';sw=h.scrollWidth;t++}}
+  function prFit(){var h=document.querySelector('.pr-fh');if(h)fitEl(h,20);var ps=$('pr-s'),pb=document.createElement('span');pb.className='pr-s1';pb.style.cssText='position:absolute;visibility:hidden;white-space:nowrap;display:block';pb.textContent='Jag har format passet efter dina senaste dagar.';ps.appendChild(pb);
+    var fz=20,w0=ps.clientWidth;if(w0>0){pb.style.fontSize=fz+'px';while(pb.scrollWidth>w0&&fz>9){fz-=.5;pb.style.fontSize=fz+'px'}}pb.remove();
+    document.querySelectorAll('.pr-s1').forEach(function(e){e.style.fontSize=fz+'px'})}
+  window.addEventListener('resize',function(){if(!$('pr').classList.contains('hidden'))prFit()});
+  function prOpen(){
+    MODE='today';PADJ=0;PSEED=0;PFOC=[];prChips();
+    try{renderToday()}catch(e){}
+    prFill();var o=$('pr');clearTimeout(window.__prT);o.classList.remove('pet');o.classList.remove('hidden');void o.offsetWidth;prFit();o.classList.add('in');window.__prT=setTimeout(function(){o.classList.add('pet')},1600);
+  }
+  function prClose(){var o=$('pr');clearTimeout(window.__prT);o.classList.remove('in');setTimeout(function(){o.classList.add('hidden')},480)}
+  function prNew(d){
+    PADJ=Math.max(-3,Math.min(3,PADJ+d));PSEED+=3;
+    var b=$('pr-body');b.classList.add('sw');
+    setTimeout(function(){try{renderToday()}catch(e){}
+      prFill(d<0?'Lite lättare pass.':'Lite tyngre pass.');b.classList.remove('sw')},350);
+  }
+  $('pr-go').addEventListener('click',function(){prClose();setTimeout(function(){$('start-today').click()},200)});
+  $('pr-ez').addEventListener('click',function(){prNew(-1)});
+  $('pr-hd').addEventListener('click',function(){prNew(1)});
+  $('pr-x').addEventListener('click',function(){prClose()});
+  $('pr-own').addEventListener('click',function(){PADJ=0;PSEED=0;PFOC=[];prClose();try{renderToday()}catch(e){}$('pick-open').click();setTimeout(function(){try{if(coachDue())coachShow()}catch(e){}},900)});
   $('w-go').addEventListener('click',function(){
     $('welcome').classList.add('hidden');$('setup').classList.remove('hidden');
     var m=document.querySelector('main');if(m)m.scrollTop=0;
-    setTimeout(function(){try{if(coachDue())coachShow()}catch(e){}},900);
+    setTimeout(prOpen,250);
   });
   welcome();
   function rbk(d){cfg.rb=Math.min(180,Math.max(10,(cfg.rb||60)+d));saveCfg();renderToday()}
